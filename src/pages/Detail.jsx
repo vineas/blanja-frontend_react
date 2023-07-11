@@ -1,99 +1,59 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import Nav from '../pages/Nav'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
+const bajuCream = require('../img/product/baju-cream.png')
+const jasImg = require('../img/jas.png')
+const lima = require('../img/5.0.png')
+const star = require('../img/activated.png')
+const stars = require('../img/bintang.png')
+const black = require('../img/color/black.png')
+const blue = require('../img/color/blue.png')
+const red = require('../img/color/red.png')
+const green = require('../img/color/green.png')
 
 const Detail = () => {
+    let {id} = useParams()
+    let [product, setProduct]  = useState([])
+    useEffect(() => {
+        axios.get(`http://localhost:4000/products/${id}`)
+          .then((res) => {
+            setProduct(res.data.data[0]);
+            // console.log(res.data.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }, [])
+
+    let review = {
+        width:124, 
+        height: 60
+    }
+
+    let cardImg = {
+        width: 140,
+        height: 140
+    }
+
+    
     return (
         <>
-            <header>
-                <nav
-                    id="home-nav"
-                    className="navbar fixed-top navbar-expand-lg navbar-light bg-light"
-                >
-                    <div className="blanja-icon">
-                        <a className="logo-blanja mr-5" href="/index.html">
-                            <img
-                                src="../assets/img/blanja.png"
-                                height={50}
-                                className="d-inline-block align-top"
-                                alt=""
-                            />
-                        </a>
-                    </div>
-                    <button
-                        className="navbar-toggler"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#navbarTogglerDemo02"
-                        aria-controls="navbarTogglerDemo02"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
-                        <span className="navbar-toggler-icon" />
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
-                        <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-                            <li className="nav-item ml-2 form-inline row justify-content-center">
-                                <input
-                                    id="searchbox"
-                                    className="form-control mr-sm-2"
-                                    type="search"
-                                    placeholder="Search"
-                                    aria-label="Search"
-                                />
-                                <img
-                                    className="searchLogo"
-                                    src="../assets/img/search.png"
-                                    alt=""
-                                    style={{ position: "absolute", marginLeft: 400 }}
-                                />
-                                <img
-                                    id="homeFilter"
-                                    className="mr-4"
-                                    src="../assets/img/filter.png"
-                                    alt="filter"
-                                />
-                            </li>
-                        </ul>
-                        <form className="form-inline my-2 my-lg-0 row justify-content-center">
-                            <a href="./pages/orders.html">
-                                <img className="mr-4" src="/assets/img/cart.png" alt="cart" />
-                            </a>
-                            <div className="btn-login-index">
-                                <a href="./pages/login.html">
-                                    <button
-                                        className="btn btn-danger rounded-pill mr-2"
-                                        style={{ width: 100, height: 36 }}
-                                        type="button"
-                                    >
-                                        Login
-                                    </button>
-                                </a>
-                                <a href="./pages/signup.html">
-                                    <button
-                                        className="btn border rounded-pill"
-                                        style={{ width: 100, height: 36 }}
-                                        type="button"
-                                    >
-                                        Signup
-                                    </button>
-                                </a>
-                            </div>
-                        </form>
-                    </div>
-                </nav>
-            </header>
+        {/* <div>
+            Name: {product.name}
+            Price: {product.price}
+            Stock: {product.stock}
+        </div> */}
+        <Nav />
+
             <main>
-                <section className="product" style={{ marginTop: 90 }}>
+                <section className="container" style={{ marginTop: 90 }}>
                     <div className="keterangan-product">
                         <p>Home &gt; Product &gt; Category</p>
                     </div>
                     <div className="image-product">
                         <div className="card-detail">
-                            <img
-                                className="card-img-top"
-                                src="../assets/img/product/baju-cream.png"
-                                alt="Card image cap"
-                                style={{ borderRadius: 8 }}
-                            />
+                        <img src={product.image} crossOrigin="anonymous" style={{width: 500, padding: 10}}/>
                             <div
                                 className="pilihan-baju"
                                 style={{ display: "flex", marginTop: 17 }}
@@ -126,34 +86,34 @@ const Detail = () => {
                             </div>
                         </div>
                         <div className="judul-product">
-                            <h1>Baju muslim pria</h1>
-                            <p>Zalora Cloth</p>
+                            <h1>{product.name}</h1>
+                            <p>{product.nama_toko}</p>
                             <p>⭐⭐⭐⭐⭐(10)</p>
                             <p>Price</p>
-                            <h1>Rp 200.000</h1>
+                            <h1>{product.price}</h1>
                             <h5>Color</h5>
                             <div style={{ display: "flex" }}>
                                 <a href="">
                                     <img
-                                        src="../assets/img/color/black.png"
+                                        src={black}
                                         style={{ width: 32, height: 32 }}
                                     />
                                 </a>
                                 <a href="">
                                     <img
-                                        src="../assets/img/color/red.png"
+                                        src={red}
                                         style={{ width: 32, height: 32, marginLeft: 12 }}
                                     />
                                 </a>
                                 <a href="">
                                     <img
-                                        src="../assets/img/color/blue.png"
+                                        src={blue}
                                         style={{ width: 32, height: 32, marginLeft: 12 }}
                                     />
                                 </a>
                                 <a href="">
                                     <img
-                                        src="../assets/img/color/green.png"
+                                        src={green}
                                         style={{ width: 32, height: 32, marginLeft: 12 }}
                                     />
                                 </a>
@@ -282,30 +242,29 @@ const Detail = () => {
                     </div>
                     <div style={{ display: "flex" }}>
                         <div className="review" style={{ display: "flex", marginTop: 22 }}>
-                            <img src="../assets/img/5.0.png" alt="" />
+                            <img src={lima} alt=""style={{width: 140}} />
                             <h4 style={{ marginTop: "auto" }}>/5</h4>
-                            {/* <img src="../assets/img/10.png" style="width:30px; height: 20px;margin-top:40px;"> */}
                         </div>
                         <div className="ml-md-5 ml-auto" id="rate">
                             <div className="d-flex flex-column">
                                 <div className="d-flex justify-content-center">
-                                    <img src="../assets/img/activated.png" alt="stars" />
+                                    <img src={star} alt="stars" />
                                     <span>5</span>
                                 </div>
                                 <div className="d-flex justify-content-center">
-                                    <img src="../assets/img/activated.png" alt="stars" />
+                                    <img src={star} alt="stars" />
                                     <span>4</span>
                                 </div>
                                 <div className="d-flex justify-content-center">
-                                    <img src="../assets/img/activated.png" alt="stars" />
+                                    <img src={star} alt="stars" />
                                     <span>3</span>
                                 </div>
                                 <div className="d-flex justify-content-center">
-                                    <img src="../assets/img/activated.png" alt="stars" />
+                                    <img src={star} alt="stars" />
                                     <span>2</span>
                                 </div>
                                 <div className="d-flex justify-content-center">
-                                    <img src="../assets/img/activated.png" alt="stars" />
+                                    <img src={star} alt="stars" />
                                     <span>1</span>
                                 </div>
                             </div>
@@ -328,7 +287,7 @@ const Detail = () => {
                             <span>0</span>
                         </div>
                     </div>
-                    <img src="../assets/img/bintang.png" style={{ marginTop: 14 }} />
+                    <img src={stars} style={{ marginTop: 14 }} />
                     <hr />
                 </section>
                 <section className="mt-5">
@@ -338,97 +297,97 @@ const Detail = () => {
                         <div className="row">
                             <div className="col-md-3 col-sm-6 mb-5">
                                 <div>
-                                    <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                    <img className="w-100" src={jasImg} alt="cloth" />
                                     <div className="p-2">
                                         <h5 className="card-title">
                                             Men's formal suit - Black &amp; White
                                         </h5>
-                                        <h5 className="text-danger">$ 40.0</h5>
-                                        <img src="../assets/img/star.png" alt="stars" />
+                                        <h5 className="text-danger">Rp 500.000</h5>
+                                        <img src={stars} alt="stars" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-3 col-sm-6 mb-5">
                                 <div>
-                                    <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                    <img className="w-100" src={jasImg} alt="cloth" />
                                     <div className="p-2">
                                         <h5 className="card-title">
                                             Men's formal suit - Black &amp; White
                                         </h5>
-                                        <h5 className="text-danger">$ 40.0</h5>
-                                        <img src="../assets/img/star.png" alt="stars" />
+                                        <h5 className="text-danger">Rp 500.000</h5>
+                                        <img src={stars} alt="stars" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-3 col-sm-6 mb-5">
                                 <div>
-                                    <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                    <img className="w-100" src={jasImg} alt="cloth" />
                                     <div className="p-2">
                                         <h5 className="card-title">
                                             Men's formal suit - Black &amp; White
                                         </h5>
-                                        <h5 className="text-danger">$ 40.0</h5>
-                                        <img src="../assets/img/star.png" alt="stars" />
+                                        <h5 className="text-danger">Rp 500.000</h5>
+                                        <img src={stars} alt="stars" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-3 col-sm-6 mb-5">
                                 <div>
-                                    <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                    <img className="w-100" src={jasImg} alt="cloth" />
                                     <div className="p-2">
                                         <h5 className="card-title">
                                             Men's formal suit - Black &amp; White
                                         </h5>
-                                        <h5 className="text-danger">$ 40.0</h5>
-                                        <img src="../assets/img/star.png" alt="stars" />
+                                        <h5 className="text-danger">Rp 500.000</h5>
+                                        <img src={stars} alt="stars" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-3 col-sm-6 mb-5">
                                 <div>
-                                    <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                    <img className="w-100" src={jasImg} alt="cloth" />
                                     <div className="p-2">
                                         <h5 className="card-title">
                                             Men's formal suit - Black &amp; White
                                         </h5>
-                                        <h5 className="text-danger">$ 40.0</h5>
-                                        <img src="../assets/img/star.png" alt="stars" />
+                                        <h5 className="text-danger">Rp 500.000</h5>
+                                        <img src={stars} alt="stars" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-3 col-sm-6 mb-5">
                                 <div>
-                                    <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                    <img className="w-100" src={jasImg} alt="cloth" />
                                     <div className="p-2">
                                         <h5 className="card-title">
                                             Men's formal suit - Black &amp; White
                                         </h5>
-                                        <h5 className="text-danger">$ 40.0</h5>
-                                        <img src="../assets/img/star.png" alt="stars" />
+                                        <h5 className="text-danger">Rp 500.000</h5>
+                                        <img src={stars} alt="stars" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-3 col-sm-6 mb-5">
                                 <div>
-                                    <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                    <img className="w-100" src={jasImg} alt="cloth" />
                                     <div className="p-2">
                                         <h5 className="card-title">
                                             Men's formal suit - Black &amp; White
                                         </h5>
-                                        <h5 className="text-danger">$ 40.0</h5>
-                                        <img src="../assets/img/star.png" alt="stars" />
+                                        <h5 className="text-danger">Rp 500.000</h5>
+                                        <img src={stars} alt="stars" />
                                     </div>
                                 </div>
                             </div>
                             <div className="col-md-3 col-sm-6 mb-5">
                                 <div>
-                                    <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                    <img className="w-100" src={jasImg} alt="cloth" />
                                     <div className="p-2">
                                         <h5 className="card-title">
                                             Men's formal suit - Black &amp; White
                                         </h5>
-                                        <h5 className="text-danger">$ 40.0</h5>
-                                        <img src="../assets/img/star.png" alt="stars" />
+                                        <h5 className="text-danger">Rp 500.000</h5>
+                                        <img src={stars} alt="stars" />
                                     </div>
                                 </div>
                             </div>
@@ -436,11 +395,6 @@ const Detail = () => {
                     </div>
                 </section>
             </main>
-            <footer>
-                <div className="footer">
-                    <p>Copyright Blanja.com</p>
-                </div>
-            </footer>
         </>
 
     )

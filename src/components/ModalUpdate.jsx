@@ -3,16 +3,16 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-const ModalUpdate = () => {
+const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, children}) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [data, setData] = useState({
-        name: "",
-        price: "",
-        stock: "",
-        rating_product: "",
-        nama_toko: ""
+        name,
+        price,
+        stock,
+        rating_product,
+        nama_toko
     })
 
     const [image, setImage] = useState(null)
@@ -37,9 +37,9 @@ const ModalUpdate = () => {
         formData.append('image', image)
         formData.append('rating_product', data.rating_product)
         formData.append('nama_toko', data.nama_toko)
-        axios.post("http://localhost:4000/products", formData)
+        axios.put(`http://localhost:4000/products/${id}`, formData)
             .then(() => {
-                alert("Product created")
+                alert("Product Updated")
                 setShow(false)
                 window.location.reload()
             })
@@ -51,13 +51,13 @@ const ModalUpdate = () => {
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow}>
-                Update
+            <Button variant="warning" onClick={handleShow}>
+                {children}
             </Button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Create product</Modal.Title>
+                    <Modal.Title>{children} product</Modal.Title>
                 </Modal.Header>
                 <form onSubmit={handleSubmit}>
                     <Modal.Body>
@@ -113,7 +113,7 @@ const ModalUpdate = () => {
                         <Button variant="secondary" onClick={handleClose}>
                             Close
                         </Button>
-                        <button type="submit" className="btn btn-primary">Create</button>
+                        <button type="submit" className="btn btn-primary">{children}</button>
                     </Modal.Footer>
                 </form>
             </Modal>
