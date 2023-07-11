@@ -87,10 +87,10 @@ const Detail = () => {
                         </div>
                         <div className="judul-product">
                             <h1>{product.name}</h1>
-                            <p>{product.nama_toko}</p>
-                            <p>⭐⭐⭐⭐⭐(10)</p>
+                            <p>{product.nama_toko}</p> 
+                            <p>⭐⭐⭐⭐⭐(5)</p>
                             <p>Price</p>
-                            <h1>{product.price}</h1>
+                            <h1>Rp {product.price}</h1>
                             <h5>Color</h5>
                             <div style={{ display: "flex" }}>
                                 <a href="">
@@ -213,36 +213,15 @@ const Detail = () => {
                     </div>
                     <div className="description">
                         <h4>Description</h4>
-                        <p>
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident
-                            suscipit repudiandae nobis ducimus fuga, rerum labore minima repellat
-                            perferendis doloribus mollitia natus voluptatem deserunt quos
-                            similique. Cumque ut quod excepturi dignissimos quasi et error labore
-                            amet, velit ipsum eaque modi, veritatis rerum eum quos soluta hic
-                            obcaecati, ratione esse maiores! Quasi accusamus deleniti tenetur
-                            eaque vitae necessitatibus minus nobis, omnis error perferendis
-                            repudiandae neque recusandae similique amet alias. Quasi impedit
-                            corporis modi animi, quos placeat voluptas sed totam, a beatae dicta
-                            doloremque, adipisci vero aspernatur exercitationem magnam repellat
-                            neque molestiae similique non voluptatem laborum? Laboriosam quam
-                            assumenda laborum ipsum dicta.
-                        </p>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit dolores
-                            explicabo unde mollitia numquam suscipit repudiandae animi? Illo
-                            quisquam consequatur quaerat eaque, expedita consectetur fugiat,
-                            itaque tenetur assumenda deserunt cupiditate, similique fugit laborum
-                            modi culpa maxime adipisci aliquid ipsum fuga repellendus magni!
-                            Quisquam voluptatem laborum perspiciatis, consectetur nemo doloremque
-                            libero.
-                        </p>
+                        <p>{product.description_product}</p>
                     </div>
                     <div className="review">
                         <h3>Product review</h3>
                     </div>
                     <div style={{ display: "flex" }}>
                         <div className="review" style={{ display: "flex", marginTop: 22 }}>
-                            <img src={lima} alt=""style={{width: 140}} />
+                            <h1>5</h1>
+                            {/* <img src={lima} alt=""style={{width: 140}} /> */}
                             <h4 style={{ marginTop: "auto" }}>/5</h4>
                         </div>
                         <div className="ml-md-5 ml-auto" id="rate">

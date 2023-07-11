@@ -50,6 +50,8 @@ const Category = () => {
                     </div>
                 </div>
             </section>
+
+
         </>
     )
 }

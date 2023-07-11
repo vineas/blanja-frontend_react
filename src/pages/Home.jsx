@@ -3,6 +3,7 @@ import Category from './Category'
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import Nav from './Nav'
+import Foot from './Foot'
 import { Link } from 'react-router-dom'
 const jasImage = require('../img/jas.png')
 
@@ -41,7 +42,7 @@ const Home = () => {
                         {product.name}
                       </h5>
                       <h5 className="text-danger">Rp {product.price}</h5>
-                      <h6 className="text-warning">Rating: {product.rating_product}</h6>
+                      <h6 className="text-warning">Rating: ({product.rating_product})</h6>
                     </div>
                   </div>
               </Link>
@@ -155,6 +156,7 @@ const Home = () => {
           </div>
         </section>
       </main>
+      <Foot/>
     </>
   )
 }

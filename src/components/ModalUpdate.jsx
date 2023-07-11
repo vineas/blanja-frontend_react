@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, children}) => {
+const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, description_product, children}) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -12,7 +12,8 @@ const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, childre
         price,
         stock,
         rating_product,
-        nama_toko
+        nama_toko,
+        description_product
     })
 
     const [image, setImage] = useState(null)
@@ -37,6 +38,7 @@ const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, childre
         formData.append('image', image)
         formData.append('rating_product', data.rating_product)
         formData.append('nama_toko', data.nama_toko)
+        formData.append('description_product', data.description_product)
         axios.put(`http://localhost:4000/products/${id}`, formData)
             .then(() => {
                 alert("Product Updated")
@@ -64,7 +66,7 @@ const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, childre
                         <input
                             className="form-control mt-3"
                             type="text"
-                            placeholder="name"
+                            placeholder="Product Name"
                             name="name"
                             value={data.name}
                             onChange={handleChange}
@@ -72,7 +74,7 @@ const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, childre
                         <input
                             className="form-control mt-3"
                             type="text"
-                            placeholder="price"
+                            placeholder="Price"
                             name="price"
                             value={data.price}
                             onChange={handleChange}
@@ -80,7 +82,7 @@ const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, childre
                         <input
                             className="form-control mt-3"
                             type="text"
-                            placeholder="stock"
+                            placeholder="Stock"
                             name="stock"
                             value={data.stock}
                             onChange={handleChange}
@@ -88,14 +90,14 @@ const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, childre
                         <input
                             className="form-control mt-3"
                             type="file"
-                            placeholder="image"
+                            placeholder="Image"
                             name="image"
                             onChange={handleUpload}
                         />
                         <input
                             className="form-control mt-3"
                             type="text"
-                            placeholder="rating_product"
+                            placeholder="Ratinng (with number 1-5)"
                             name="rating_product"
                             value={data.rating_product}
                             onChange={handleChange}
@@ -103,11 +105,20 @@ const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, childre
                         <input
                             className="form-control mt-3"
                             type="text"
-                            placeholder="nama_toko"
+                            placeholder="Aparel"
                             name="nama_toko"
                             value={data.nama_toko}
                             onChange={handleChange}
                         />
+                                                <input
+                            className="form-control mt-3"
+                            type="text"
+                            placeholder="Description Product"
+                            name="description_product"
+                            value={data.description_product}
+                            onChange={handleChange}
+                        />
+
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
