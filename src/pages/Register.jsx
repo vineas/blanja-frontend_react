@@ -1,11 +1,55 @@
-import React from 'react'
+import axios from 'axios';
+import { useState } from 'react';
+// import Button from 'react-bootstrap/Button';
+// import Modal from 'react-bootstrap/Modal';
+import { Link } from 'react-router-dom'
+const blanjaIcon = require('../img/blanja.png')
 
 const Register = () => {
+  let [data, setData] = useState({
+    email: "",
+    password: "",
+    fullname: "",
+    role: ""
+  })
+  let onChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value
+    });
+  }
+  console.log(data);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios.post("http://localhost:4000/users/register", data)
+        .then((res) => {
+            alert("Register success")
+            localStorage.setItem('token', res.data.data.token)
+            console.log(res.data.data);
+        })
+        .catch((err) => {
+            alert(err);
+        })
+      }
+
+  // let onClick = (e) => {
+  //   axios.post("http://localhost:4000/users/register", data)
+  //     .then((res) => {
+  //       alert("Register success")
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     })
+  // }
+
+
+
   return (
     <>
       <div className="container">
         <div style={{ display: "flex", justifyContent: "center", marginTop: 28 }}>
-          <img src="../assets/img/blanja.png" alt="logo" className="img" />
+          <img src={blanjaIcon} alt="logo" className="img" />
         </div>
         <p className="text-center py-3">Please sign up with your account</p>
         <div className="">
@@ -15,24 +59,33 @@ const Register = () => {
             role="tablist"
             style={{ display: "flex", justifyContent: "center" }}
           >
-            <li className="nav-item" role="presentation">
-              <button
-                className="nav-link active"
-                id="pills-home-tab"
-                data-toggle="pill"
-                data-target="#pills-home"
-                type="button"
-                role="tab"
-                aria-controls="pills-home"
-                aria-selected="true"
-                style={{ width: 123, height: 48 }}
-              >
+            {/* <li className="nav-item" role="presentation">
+                {/* <button
+                  className="nav-link active btn-danger"
+                  id="pills-home-tab"
+                  data-toggle="pill"
+                  data-target="#pills-home"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-home"
+                  aria-selected="true"
+                  style={{ width: 123, height: 48 }}
+                >
+                  Customer
+                </button> */}
+                {/* </li> */}
+              <div className='btn-group btn-group-toggle' data-toggle='button' >
+                <label className='btn btn-secondary btn-danger'><input type="radio" name='role' id='option1' onChange={onChange} value={'customer'}/>
                 Customer
-              </button>
-            </li>
-            <li className="nav-item" role="presentation">
+                </label>
+                <label className='btn btn-secondary btn-danger'><input type="radio" name='role' id='option2' onChange={onChange} value={'seller'}/>
+                Seller
+                </label>
+              </div>
+
+            {/* <li className="nav-item" role="presentation">
               <button
-                className="nav-link"
+                className="nav-link btn-danger"
                 id="pills-profile-tab"
                 data-toggle="pill"
                 data-target="#pills-profile"
@@ -44,7 +97,7 @@ const Register = () => {
               >
                 Seller
               </button>
-            </li>
+            </li> */}
           </ul>
           <div className="tab-content" id="pills-tabContent">
             <div
@@ -53,28 +106,18 @@ const Register = () => {
               role="tabpanel"
               aria-labelledby="pills-home-tab"
             >
-              <form>
+                <form onSubmit={handleSubmit}>
                 <div
                   className="form-group"
                   style={{ display: "flex", justifyContent: "center" }}
                 >
                   <input
-                    type="name"
-                    className="form-control"
-                    id="input-name"
-                    placeholder="Name"
-                    style={{ width: 400, height: 48 }}
-                  />
-                </div>
-                <div
-                  className="form-group"
-                  style={{ display: "flex", justifyContent: "center" }}
-                >
-                  <input
+                    name='email'
                     type="email"
                     className="form-control"
-                    id="input-email"
+                    id="input-email-customer"
                     placeholder="Email"
+                    onChange={onChange}
                     style={{ width: 400, height: 48 }}
                   />
                 </div>
@@ -83,60 +126,59 @@ const Register = () => {
                   style={{ display: "flex", justifyContent: "center" }}
                 >
                   <input
+                    name='password'
                     type="password"
                     className="form-control"
-                    id="input-password"
+                    id="input-password-customer"
                     placeholder="Password"
+                    onChange={onChange}
+                    style={{ width: 400, height: 48 }}
+                  />
+                </div>
+                <div
+                  className="form-group"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <input
+                    name='fullname'
+                    type="name"
+                    className="form-control"
+                    id="input-name-customer"
+                    placeholder="Name"
+                    onChange={onChange}
                     style={{ width: 400, height: 48 }}
                   />
                 </div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <button
-                    type="primary"
-                    className="btn btn-primary"
-                    style={{
-                      width: 401,
-                      height: 48,
-                      borderRadius: 48,
-                      border: 1,
-                      backgroundColor: "#DB3022"
-                    }}
-                  >
-                    Primary
-                  </button>
+
+                <button type="submit" className="btn btn-primary" style={{width: 401,height: 48,borderRadius: 48,border: 1,backgroundColor: "#DB3022"
+                    }}>Primary</button>
+
+
                 </div>
               </form>
             </div>
             <div
-              className="tab-pane fade"
+              className="tab-pane fade show"
               id="pills-profile"
               role="tabpanel"
               aria-labelledby="pills-profile-tab"
             >
-              <form>
+              {/* <form>
+
                 <div
                   className="form-group"
                   style={{ display: "flex", justifyContent: "center" }}
                 >
                   <input
-                    type="name"
-                    className="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Name"
-                    style={{ width: 400, height: 48 }}
-                  />
-                </div>
-                <div
-                  className="form-group"
-                  style={{ display: "flex", justifyContent: "center" }}
-                >
-                  <input
+                    name='email'
                     type="email"
                     className="form-control"
-                    id="exampleInputPassword1"
+                    id="input-email-seller"
                     placeholder="Email"
                     style={{ width: 400, height: 48 }}
+                    onChange={onChange}
+
                   />
                 </div>
                 <div
@@ -144,35 +186,29 @@ const Register = () => {
                   style={{ display: "flex", justifyContent: "center" }}
                 >
                   <input
-                    type="phone"
-                    className="form-control"
-                    id="exampleInputPassword1"
-                    placeholder="Phone number"
-                    style={{ width: 400, height: 48 }}
-                  />
-                </div>
-                <div
-                  className="form-group"
-                  style={{ display: "flex", justifyContent: "center" }}
-                >
-                  <input
-                    type="name"
-                    className="form-control"
-                    id="exampleInputPassword1"
-                    placeholder="Store name"
-                    style={{ width: 400, height: 48 }}
-                  />
-                </div>
-                <div
-                  className="form-group"
-                  style={{ display: "flex", justifyContent: "center" }}
-                >
-                  <input
+                    name='password'
                     type="password"
                     className="form-control"
-                    id="exampleInputPassword1"
+                    id="input-password-seller"
                     placeholder="Password"
                     style={{ width: 400, height: 48 }}
+                    onChange={onChange}
+
+                  />
+                </div>
+                <div
+                  className="form-group"
+                  style={{ display: "flex", justifyContent: "center" }}
+                >
+                  <input
+                    name='fullname'
+                    type="name"
+                    className="form-control"
+                    id="input-name-seller"
+                    placeholder="Name"
+                    style={{ width: 400, height: 48 }}
+                    onChange={onChange}
+
                   />
                 </div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
@@ -186,18 +222,18 @@ const Register = () => {
                       border: 1,
                       backgroundColor: "#DB3022"
                     }}
+                    onClick={onClick}
                   >
                     Primary
                   </button>
                 </div>
-              </form>
+              </form> */}
             </div>
             <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
               <p>Already have a Tokopedia account?</p>{" "}
-              <a href="./login.html" style={{ color: "#DB3022" }}>
-                {" "}
-                Login
-              </a>
+              <Link to={'/login'}>
+                <p className='text-danger'>Login</p>
+              </Link>
             </div>
           </div>
         </div>

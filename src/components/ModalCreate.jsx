@@ -1,9 +1,11 @@
-import axios from 'axios';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useDispatch } from 'react-redux';
+import createProductAction from '../config/redux/actions/createProductsAction';
 
 const ModalCreate = () => {
+    const dispatch = useDispatch()
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -31,30 +33,13 @@ const ModalCreate = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('name', data.name)
-        formData.append('price', data.price)
-        formData.append('stock', data.stock)
-        formData.append('image', image)
-        formData.append('rating_product', data.rating_product)
-        formData.append('nama_toko', data.nama_toko)
-        formData.append('description_product', data.description_product)
-        axios.post("http://localhost:4000/products", formData)
-            .then(() => {
-                alert("Product created")
-                setShow(false)
-                window.location.reload()
-            })
-            .catch((err) => {
-                alert(err);
-                setShow(false)
-            })
+        dispatch(createProductAction(data, image, setShow))
     }
 
     return (
         <>
-            <Button variant="primary" onClick={handleShow} style={{marginTop:30}}>
-                Create
+            <Button variant="danger" onClick={handleShow} style={{ marginTop: 30, borderRadius: 30 }}>
+                Add new product
             </Button>
 
             <Modal show={show} onHide={handleClose}>
@@ -81,7 +66,7 @@ const ModalCreate = () => {
                         />
                         <input
                             className="form-control mt-3"
-                            type="text"
+                            type="number"
                             placeholder="Stock"
                             name="stock"
                             value={data.stock}
@@ -110,14 +95,26 @@ const ModalCreate = () => {
                             value={data.nama_toko}
                             onChange={handleChange}
                         />
-                                                <input
+
+                        <textarea
+                            class="form-control mt-3"
+                            id="exampleFormControlTextarea1"
+                            rows="3"
+                            type="text"
+                            placeholder="Description Product"
+                            name="description_product"
+                            value={data.description_product}
+                            onChange={handleChange}
+                        ></textarea>
+
+                        {/* <input
                             className="form-control mt-3"
                             type="text"
                             placeholder="Description Product"
                             name="description_product"
                             value={data.description_product}
                             onChange={handleChange}
-                        /> 
+                        />  */}
 
                     </Modal.Body>
                     <Modal.Footer>

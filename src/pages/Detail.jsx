@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Nav from '../pages/Nav'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import NavLogin from './NavLogin'
 const bajuCream = require('../img/product/baju-cream.png')
 const jasImg = require('../img/jas.png')
 const lima = require('../img/5.0.png')
@@ -44,7 +44,7 @@ const Detail = () => {
             Price: {product.price}
             Stock: {product.stock}
         </div> */}
-        <Nav />
+        <NavLogin/>
 
             <main>
                 <section className="container" style={{ marginTop: 90 }}>
@@ -88,7 +88,7 @@ const Detail = () => {
                         <div className="judul-product">
                             <h1>{product.name}</h1>
                             <p>{product.nama_toko}</p> 
-                            <p>⭐⭐⭐⭐⭐(5)</p>
+                            <p>⭐⭐⭐⭐⭐({product.rating_product})</p>
                             <p>Price</p>
                             <h1>Rp {product.price}</h1>
                             <h5>Color</h5>

@@ -2,8 +2,11 @@ import axios from 'axios';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useDispatch } from 'react-redux';
+import updateProductAction from '../config/redux/actions/updateProductAction';
 
 const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, description_product, children}) => {
+    const dispatch = useDispatch()
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -31,24 +34,25 @@ const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, descrip
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('name', data.name)
-        formData.append('price', data.price)
-        formData.append('stock', data.stock)
-        formData.append('image', image)
-        formData.append('rating_product', data.rating_product)
-        formData.append('nama_toko', data.nama_toko)
-        formData.append('description_product', data.description_product)
-        axios.put(`http://localhost:4000/products/${id}`, formData)
-            .then(() => {
-                alert("Product Updated")
-                setShow(false)
-                window.location.reload()
-            })
-            .catch((err) => {
-                alert(err);
-                setShow(false)
-            })
+        // const formData = new FormData();
+        // formData.append('name', data.name)
+        // formData.append('price', data.price)
+        // formData.append('stock', data.stock)
+        // formData.append('image', image)
+        // formData.append('rating_product', data.rating_product)
+        // formData.append('nama_toko', data.nama_toko)
+        // formData.append('description_product', data.description_product)
+        // axios.put(`http://localhost:4000/products/${id}`, formData)
+        //     .then(() => {
+        //         alert("Product Updated")
+        //         setShow(false)
+        //         window.location.reload()
+        //     })
+        //     .catch((err) => {
+        //         alert(err);
+        //         setShow(false)
+        //     })
+        dispatch(updateProductAction(data, id, image, setShow))
     }
 
     return (
@@ -81,7 +85,7 @@ const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, descrip
                         />
                         <input
                             className="form-control mt-3"
-                            type="text"
+                            type="number"
                             placeholder="Stock"
                             name="stock"
                             value={data.stock}
@@ -110,14 +114,17 @@ const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, descrip
                             value={data.nama_toko}
                             onChange={handleChange}
                         />
-                                                <input
-                            className="form-control mt-3"
+
+                        <textarea
+                            class="form-control mt-3"
+                            id="exampleFormControlTextarea1"
+                            rows="3"
                             type="text"
                             placeholder="Description Product"
                             name="description_product"
                             value={data.description_product}
                             onChange={handleChange}
-                        />
+                        ></textarea>
 
                     </Modal.Body>
                     <Modal.Footer>

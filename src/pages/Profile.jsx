@@ -8,6 +8,15 @@ import { Link } from 'react-router-dom'
 const profileImage = require('../img/profile.png')
 
 const Profile = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const recordsPerPage = 5;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = products.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(Data.length / recordsPerPage)
+  const numbers = [...Array(npage + 1).keys()].slice(1)
+
+
   let [products, setProduct] = useState([])
   useEffect(() => {
     axios.get('http://localhost:4000/products')
@@ -23,8 +32,8 @@ const Profile = () => {
     <>
       <Nav />
       <main id="profile-container" style={{ marginTop: 120, marginLeft: 100 }}>
-        <div className="row">
-          <div className="col-md-3">
+        <div className="row" style={{ backgroundColor: 'white' }}>
+          <div className="col-md-3" >
             <div style={{ display: "flex" }}>
               <img
                 src={profileImage}
@@ -52,16 +61,23 @@ const Profile = () => {
             </div>
           </div>
           <div
+            style={{
+              backgroundColor: "red"
+            }}>
+
+          </div>
+          <div
             id="card-summary"
             className="col-md-8 border"
             style={{
               boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff",
-              borderRadius: 8
+              borderRadius: 8,
+              backgroundColor: "grey"
             }}
           >
             {/* <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
     data-whatever="@mdo">Open modal for @mdo</button> */}
-            <div className="btn-payment">
+            <div className="btn-payment" >
               <ModalCreate />
               {/* <button
               className="btn-choose-address"
@@ -203,12 +219,13 @@ const Profile = () => {
                   <th scope="col">Stock</th>
                   <th scope="col">Image</th>
                   <th scope="col">Rating</th>
-                  <th scope="col">Aparel</th>
+                  <th scope="col">Nama Toko</th>
+                  <th scope="col">Deskripsi</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
               <tbody>
-                {products.map((product) => (
+                {records.map((product) => (
                   <tr>
                     <th>{product.id}</th>
                     <td>{product.name}</td>
@@ -217,6 +234,7 @@ const Profile = () => {
                     <img src={product.image} crossOrigin="anonymous" style={{ width: 100, padding: 10 }} />
                     <td>{product.rating_product}</td>
                     <td>{product.nama_toko}</td>
+                    <td>{product.description_product}</td>
                     <td>
                       <Link to={`/product/${product.id}`}>
                         <button className="btn btn-primary" style={{ margin: "10px" }}>Detail</button>
@@ -229,6 +247,27 @@ const Profile = () => {
                 ))}
               </tbody>
             </table>
+            <nav>
+              <ul className='pagination'>
+                <li className='page-item'>
+                  <a href="#" className='page-link'
+                    onClick={prePage}>Prev</a>
+                </li>
+                {
+                  numbers.map((n, i) => (
+                    <li className={`page-item${currentPage === n ? 'active' : ''}`} key={i}>
+                      <a href="#" className='page-item'
+                        onClick={changePage} >{n}</a>
+                    </li>
+                  ))
+                }
+                <li className='page-item'>
+                  <a href="#" className='page-link'
+                    onClick={nextPage}>Next</a>
+                </li>
+              </ul>
+            </nav>
+
           </div>
         </div>
       </main>

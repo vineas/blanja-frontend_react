@@ -5,7 +5,7 @@ const card2 = require ('../img/card2.png');
 const Carousel = () => {
     return (
         <>
-            <section className="container" style={{ marginTop: 110 }}>
+            <section className="container" style={{ marginTop: 110}}>
                 <div
                     id="carouselExampleInterval"
                     className="carousel slide"

@@ -1,11 +1,15 @@
 import React from 'react'
-import Login from './Login'
+// import Login from './Login'
 import { Link } from 'react-router-dom'
+import ModalFilter from '../components/ModalFilter'
 const blanjaIicon = require('../img/blanja.png')
-const filterIcon = require('../img/filter.png')
+const searchIcon = require('../img/search.png')
+// const filterIcon = require('../img/filter.png')
 const cart = require('../img/cart.png')
 
 const Nav = () => {
+
+  
   return (
     <>
       <header>
@@ -49,25 +53,25 @@ const Nav = () => {
                 />
                 <img
                   className="searchLogo"
-                  src=""
+                  src={searchIcon}
                   alt=""
-                  style={{ position: "absolute", marginLeft: 400 }}
+                  style={{ position: "absolute", marginLeft: 370 }}
                 />
-                <img
+                <ModalFilter/>
+                {/* <img
                   id="homeFilter"
                   className="mr-4"
                   src={filterIcon}
                   alt="filter"
-                />
+                /> */}
               </li>
             </ul>
             <form className="form-inline my-2 my-lg-0 row justify-content-center" style={{marginRight: 100}}>
-              <a href="./pages/orders.html">
+            <Link to={`/mybag`}>
                 <img className="mr-4" src={cart} alt="cart" />
-              </a>
+            </Link>
               <div className="btn-login-index">
                 <Link to="/login">
-                  <a onClick={Login}>
                     <button
                       className="btn btn-danger rounded-pill mr-2"
                       style={{ width: 100, height: 36 }}
@@ -75,10 +79,8 @@ const Nav = () => {
                     >
                       Login
                     </button>
-                  </a>
                 </Link>
                 <Link to="/register">
-                  <a href="./pages/signup.html">
                     <button
                       className="btn border rounded-pill"
                       style={{ width: 100, height: 36 }}
@@ -86,7 +88,6 @@ const Nav = () => {
                     >
                       Signup
                     </button>
-                  </a>
                 </Link>
               </div>
             </form>

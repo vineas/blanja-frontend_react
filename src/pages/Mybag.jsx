@@ -1,8 +1,10 @@
 import React from 'react'
+import NavLogin from './NavLogin'
 
 const Mybag = () => {
     return (
         <>
+        <NavLogin/>
             <main style={{ marginTop: 120 }}>
                 <div className="container">
                     <h1>My bag</h1>
@@ -95,38 +97,7 @@ const Mybag = () => {
                                         style={{ marginTop: 45 }}
                                     />
                                 </div>
-
-                            </div>
-                        </div>
-                        <div
-                            className="col-md-4 border"
-                            style={{
-                                boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff",
-                                borderRadius: 8
-                            }}
-                        >
-                            <h5 className="card-title" style={{ marginTop: 26 }}>
-                                Shopping summary
-                            </h5>
-                            <div style={{ display: "flex" }}>
-                                <p className="card-text">Total price</p>
-                                <h5 style={{ marginLeft: "auto", marginRight: 42 }}>Rp 400.000</h5>
-                            </div>
-                            <button
-                                className="btn-choose-address"
-                                style={{
-                                    color: "white",
-                                    width: 322,
-                                    height: 36,
-                                    borderRadius: 24,
-                                    border: 1,
-                                    backgroundColor: "#DB3022"
-                                }}
-                            >
-                                Buy
-                            </button>
-                        </div>
-                        <div className="card-body" style={{ display: "flex" }}>
+                                <div className="card-body" style={{ display: "flex" }}>
                                     <img src="../assets/img/jas-kotak.png" />
                                     <div style={{ marginLeft: 14 }}>
                                         <h5 className="card-title">Men's formal suit - Black</h5>
@@ -160,6 +131,36 @@ const Mybag = () => {
                                         <h6>Rp 200.000</h6>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div
+                            className="col-md-4 border"
+                            style={{
+                                boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff",
+                                borderRadius: 8
+                            }}
+                        >
+                            <h5 className="card-title" style={{ marginTop: 26 }}>
+                                Shopping summary
+                            </h5>
+                            <div style={{ display: "flex" }}>
+                                <p className="card-text">Total price</p>
+                                <h5 style={{ marginLeft: "auto", marginRight: 42 }}>Rp 400.000</h5>
+                            </div>
+                            <button
+                                className="btn-choose-address"
+                                style={{
+                                    color: "white",
+                                    width: 322,
+                                    height: 36,
+                                    borderRadius: 24,
+                                    border: 1,
+                                    backgroundColor: "#DB3022"
+                                }}
+                            >
+                                Buy
+                            </button>
+                        </div>
                     </div>
                 </div>
             </main>

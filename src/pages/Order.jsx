@@ -1,8 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+// import Nav from '../pages/Nav'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
+import ModalChooseAdd from '../components/ModalChooseAdd'
+// import ModalNewAdd from '../components/ModalNewAdd'
+import NavLogin from './NavLogin'
+import ModalPayment from '../components/ModalPayment'
 
 const Order = () => {
+    let { id } = useParams()
+    let [product, setProduct] = useState([])
+    useEffect(() => {
+        axios.get(`http://localhost:4000/products/${id}`)
+            .then((res) => {
+                setProduct(res.data.data[0]);
+                // console.log(res.data.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    })
     return (
         <>
+        <NavLogin/>
             <div className="container" style={{ marginTop: 110 }}>
                 <div>
                     <h1>Checkout</h1>
@@ -28,7 +48,8 @@ const Order = () => {
                                 Kab. Banyumas, 53181
                             </p>
                             <div style={{ paddingBottom: 30 }}>
-                                <button
+                                <ModalChooseAdd/>
+                                {/* <button
                                     className="btn-choose-address"
                                     style={{
                                         backgroundColor: "white",
@@ -38,42 +59,22 @@ const Order = () => {
                                     }}
                                 >
                                     Choose another address
-                                </button>
+                                </button> */}
                             </div>
                         </div>
                         <div
                             className="col-md-12 border mt-2"
-                            style={{
-                                boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff",
-                                borderRadius: 8
+                            style={{boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff", borderRadius: 8
                             }}
                         >
                             <div className="card-body" style={{ display: "flex" }}>
-                                <img src="../assets/img/jas-kotak.png" />
+                                <img src={product.image} crossOrigin="anonymous" style={{ width: "13%", borderRadius: 8 }} alt='prop'/>
                                 <div style={{ marginLeft: 14 }}>
-                                    <h5 className="card-title">Men's formal suit - Black</h5>
-                                    <p className="card-text">Zalora Cloth</p>
+                                    <h5 className="card-title">{product.name}</h5>
+                                    <p className="card-text">{product.nama_toko}</p>
                                 </div>
                                 <h5 style={{ marginLeft: "auto", marginTop: 25, marginRight: 42 }}>
-                                    Rp 200.000
-                                </h5>
-                            </div>
-                        </div>
-                        <div
-                            className="col-md-12 border mt-2"
-                            style={{
-                                boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff",
-                                borderRadius: 8
-                            }}
-                        >
-                            <div className="card-body" style={{ display: "flex" }}>
-                                <img src="../assets/img/jas-kotak.png" />
-                                <div style={{ marginLeft: 14 }}>
-                                    <h5 className="card-title">Men's formal suit - Black</h5>
-                                    <p className="card-text">Zalora Cloth</p>
-                                </div>
-                                <h5 style={{ marginLeft: "auto", marginTop: 25, marginRight: 42 }}>
-                                    Rp 200.000
+                                    {product.price}
                                 </h5>
                             </div>
                         </div>
@@ -91,21 +92,22 @@ const Order = () => {
                         </h5>
                         <div style={{ display: "flex" }}>
                             <p className="card-text">Order</p>
-                            <h6 style={{ marginLeft: "auto", marginRight: 42 }}>Rp 200.000</h6>
+                            <h6 style={{ marginLeft: "auto", marginRight: 42 }}>Rp {product.price}</h6>
                         </div>
                         <div style={{ display: "flex" }}>
                             <p className="card-text">Delivery</p>
-                            <h6 style={{ marginLeft: "auto", marginRight: 42 }}>Rp 200.000</h6>
+                            <h6 style={{ marginLeft: "auto", marginRight: 42 }}>Rp {product.price}</h6>
                         </div>
                         <hr />
                         <div style={{ display: "flex" }}>
                             <h6 className="card-title">Shoping summary</h6>
                             <h6 style={{ marginLeft: "auto", marginRight: 42, color: "#DB3022" }}>
-                                Rp 400.000
+                                Rp {product.price}
                             </h6>
                         </div>
                         <div className="btn-payment">
-                            <button
+                            <ModalPayment/>
+                            {/* <button
                                 className="btn-choose-address"
                                 style={{
                                     color: "white",
@@ -118,7 +120,7 @@ const Order = () => {
                                 }}
                             >
                                 Select payment
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 </div>
