@@ -20,7 +20,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:4000/users/login", data)
+    axios.post(`${process.env.REACT_APP_API_KEY}/users/login`, data)
         .then((res) => {
             alert("Login success")
             localStorage.setItem('token', res.data.data.token)
@@ -30,17 +30,7 @@ const Login = () => {
         })
       }
   
-  // let onClick = (e) =>{
-  //   axios.post("http://localhost:4000/users/login", data)
-  //   .then((res) => {
-  //       alert("Login success")
-  //       // localStorage.setItem('token', res.data.data.token)
-  //       console.log('res.data');
-  //   })
-  //   .catch((err) => {
-  //       console.log(err);
-  //   })
-  // }
+ 
   return (
     <>
       <div className="container">
@@ -89,9 +79,9 @@ const Login = () => {
                   />
                 </div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  {/* <a href=" ./resetpassword.html" style={{ color: "#DB3022" }}>
-                    Forgot password?
-                  </a> */}
+                <Link to={'/forgot'}>
+                    <p className='text-danger'>Forgot Password?</p>
+              </Link>
                 </div>
                 <div
                   style={{ display: "flex", justifyContent: "center", marginTop: 28 }}

@@ -6,15 +6,18 @@ import Nav from './Nav'
 import Foot from './Foot'
 import { Link } from 'react-router-dom'
 import NavLogin from './NavLogin'
+import { useDispatch } from 'react-redux'
+import getProductAction from '../config/redux/actions/getProductAction'
 const jasImage = require('../img/jas.png')
-
+const starss = require('../img/bintang.png')
 
 const Home = () => {
   let [products, setProduct] = useState([])
-  
+
+  const dispatch = useDispatch()  
 
   useEffect(() => {
-    axios.get('http://localhost:4000/products')
+    axios.get(`${process.env.REACT_APP_API_KEY}/products`)
       .then((res) => {
         setProduct(res.data.data);
         // console.log(res.data.data);
@@ -70,7 +73,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -82,7 +85,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -94,7 +97,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -106,7 +109,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -118,7 +121,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -130,7 +133,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -142,7 +145,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -154,7 +157,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -211,7 +214,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -223,7 +226,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -235,7 +238,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -247,7 +250,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -259,7 +262,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -271,7 +274,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -283,7 +286,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>
@@ -295,7 +298,7 @@ const Home = () => {
                         Men's formal suit - Black &amp; White
                       </h5>
                       <h5 className="text-danger">Rp 500.000</h5>
-                      <img src="assets\img\star.png" alt="stars" />
+                      <img src={starss} alt="stars" />
                     </div>
                   </div>
                 </div>

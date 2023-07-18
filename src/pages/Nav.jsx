@@ -66,7 +66,39 @@ const Nav = () => {
                 /> */}
               </li>
             </ul>
-            <form className="form-inline my-2 my-lg-0 row justify-content-center" style={{marginRight: 100}}>
+
+
+            <form className="form-inline my-2 my-lg-0 row justify-content-center">
+              <div className="btn-login-index">
+                {/* <Link to={`/mybag`}>
+                  <img className="mr-4" src={cart} alt="cart" />
+                </Link> */}
+                <div className="btn-login-index">
+                <Link to="/login">
+                    <button
+                      className="btn btn-danger rounded-pill mr-2"
+                      style={{ width: 100, height: 36 }}
+                      type="button"
+                    >
+                      Login
+                    </button>
+                </Link>
+                <Link to="/register">
+                    <button
+                      className="btn border rounded-pill"
+                      style={{ width: 100, height: 36 }}
+                      type="button"
+                    >
+                      Signup
+                    </button>
+                </Link>
+              </div>
+                
+              </div>
+            </form>
+
+
+            {/* <form className="form-inline my-2 my-lg-0 row justify-content-center" style={{marginRight: 100}}>
             <Link to={`/mybag`}>
                 <img className="mr-4" src={cart} alt="cart" />
             </Link>
@@ -90,7 +122,8 @@ const Nav = () => {
                     </button>
                 </Link>
               </div>
-            </form>
+            </form> */}
+
           </div>
         </nav>
       </header>

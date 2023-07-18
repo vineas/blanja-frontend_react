@@ -11,15 +11,17 @@ const Order = () => {
     let { id } = useParams()
     let [product, setProduct] = useState([])
     useEffect(() => {
-        axios.get(`http://localhost:4000/products/${id}`)
-            .then((res) => {
-                setProduct(res.data.data[0]);
-                // console.log(res.data.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    })
+        axios.get(`${process.env.REACT_APP_API_KEY}/products/${id}`)
+          .then((res) => {
+            setProduct(res.data.data[0]);
+            // console.log(res.data.data);
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+        // dispatch(detailProductAction(id))
+
+      }, [])
     return (
         <>
         <NavLogin/>

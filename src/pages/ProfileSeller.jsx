@@ -6,6 +6,15 @@ import { Form, Link } from 'react-router-dom'
 import NavLogin from './NavLogin'
 import { useDispatch, useSelector } from 'react-redux'
 import getProductAction from '../config/redux/actions/getProductAction'
+import Foot from './Foot'
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import "primereact/resources/themes/lara-light-indigo/theme.css"; // theme
+import "primereact/resources/primereact.css"; // core css
+import "primeicons/primeicons.css"; // icons
+import "primeflex/primeflex.css";
+import { InputText } from 'primereact/inputtext';
+
 // import { InputGroup } from 'react-bootstrap'
 const profileImage = require('../img/profileFoto.png')
 
@@ -24,9 +33,11 @@ const ProfileSeller = () => {
     console.log(search);
     const dispatch = useDispatch()
 
+
     useEffect(() => {
         dispatch(getProductAction())
-    },[])
+    }, [])
+
     return (
         <>
             <NavLogin />
@@ -225,7 +236,7 @@ const ProfileSeller = () => {
                                             style={{ justifyContent: "center", marginLeft: 50 }}
                                         >
                                             <img
-                                                src="../assets/img/profileFoto.png"
+                                                src={profileImage}
                                                 alt=""
                                                 style={{ marginLeft: 64 }}
                                             />
@@ -276,13 +287,13 @@ const ProfileSeller = () => {
                                             aria-label="Search"
                                             style={{ borderRadius: 94 }}
                                         />
-                                        <button
+                                        {/* <button
                                             className="btn btn-outline-success-danger my-2 my-sm-0"
                                             type="submit"
                                             style={{ borderRadius: 94 }}
                                         >
                                             Search
-                                        </button>
+                                        </button> */}
                                     </form>
                                     {/* <Form>
                                         <InputGroup className='my-3'>
@@ -332,6 +343,22 @@ const ProfileSeller = () => {
                                             ))}
                                         </tbody>
                                     </table>
+
+                                    {/* <div className="card"> */}
+                                    {/* <DataTable value={product} paginator rows={5} rowsPerPageOptions={[5, 10, 25, 50]} tableStyle={{ minWidth: '20rem' }}>
+                                        <Column field="id" header="No" sortable style={{ width: '15%' }}></Column>
+                                        <Column field="name" header="Name" sortable style={{ width: '15%' }}></Column>
+                                        <Column field="price" header="Price" sortable style={{ width: '15%' }}></Column>
+                                        <Column field="stock" header="Stock" sortable style={{ width: '15%' }}></Column>
+                                        <Column field="image" header="Image" style={{ width: '45%' }} src={product.image} crossOrigin="anonymous" ></Column>
+                                        <Column field="rating_product" header="Rating" sortable style={{ width: '15%' }}></Column>
+                                        <Column field="nama_toko" header="Store" sortable style={{ width: '15%' }}></Column>
+                                        <Column field="description_product" header="Description" style={{ width: '15%' }}></Column>
+                                        <Column field='bu' header="Action" style={{ width: '15%' }}>
+                                        </Column>
+                                    </DataTable> */}
+                                    {/* </div> */}
+
                                     <nav>
                                         <ul className='pagination'>
                                             <li className='page-item'>
@@ -342,7 +369,7 @@ const ProfileSeller = () => {
                                                 numbers.map((n, i) => (
                                                     <li className={`page-item${currentPage === n ? 'active' : ''}`} key={i}>
                                                         <a href="#" className='page-link'
-                                                            onClick={()=> changePage(n)} >{n}</a>
+                                                            onClick={() => changePage(n)} >{n}</a>
                                                     </li>
                                                 ))
                                             }
@@ -352,6 +379,7 @@ const ProfileSeller = () => {
                                             </li>
                                         </ul>
                                     </nav>
+
                                 </div>
                                 {/* Order  */}
                                 <div
@@ -488,11 +516,10 @@ const ProfileSeller = () => {
                     </div>
                 </div>
             </div>
-
         </>
     )
     function prePage() {
-        if(currentPage !== 1){
+        if (currentPage !== 1) {
             setCurrentPage(currentPage - 1)
         }
     }
@@ -503,11 +530,11 @@ const ProfileSeller = () => {
 
 
     function nextPage() {
-        if(currentPage!==npage){
-            setCurrentPage(currentPage+1)
+        if (currentPage !== npage) {
+            setCurrentPage(currentPage + 1)
         }
 
     }
 }
 
-export default ProfileSeller
+export default ProfileSeller;

@@ -10,6 +10,9 @@ import Order from '../../pages/Order'
 import ProfileSeller from '../../pages/ProfileSeller'
 import DetailProduct from '../../pages/DetailProduct'
 import Auth from '../../components/Auth'
+import ForgotPassword from '../../pages/ForgotPassword'
+import ProfileCustomer from '../../pages/ProfileCustomer'
+import CategoryPage from '../../pages/CategoryPage'
 
 const index = () => {
     return (
@@ -20,10 +23,13 @@ const index = () => {
                 {/* <Route path='/home' element={<Home />} /> */}
                 <Route path="/home" element={<Auth><Home/></Auth>} />
                 <Route path='/profile' element={<ProfileSeller/>}/>
+                <Route path='/catepage' element={<CategoryPage/>}/>
+                <Route path='/profilecust' element={<ProfileCustomer/>}/>
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/product/:id' element={<DetailProduct />}/>
                 <Route path='/mybag' element={<Mybag />} />
+                <Route path='/forgot' element={<ForgotPassword />} />
                 <Route path='/order/:id' element={<Order/>} />
                 {/* <Route path='/*' element={<Page404 />} /> */}
             </Routes>

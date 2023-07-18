@@ -10,6 +10,11 @@ const searchIcon = require('../img/search.png')
 
 
 const NavLogin = () => {
+  function Logout() {
+    localStorage.clear();
+    window.location.reload();
+  }
+
   return (
     <>
       <header>
@@ -56,19 +61,6 @@ const NavLogin = () => {
                   style={{ position: "absolute", marginLeft: 380 }}
                 />
                 <ModalFilter/>
-                {/* <a
-                  type="button"
-                  className="btn"
-                  data-toggle="modal"
-                  data-target="#exampleModal"
-                >
-                  <img
-                    id="homeFilter"
-                    className="mr-4"
-                    src="/assets/img/filter.png"
-                    alt="filter"
-                  />
-                </a> */}
               </li>
             </ul>
             <form className="form-inline my-2 my-lg-0 row justify-content-center">
@@ -85,6 +77,9 @@ const NavLogin = () => {
                 <Link to={'/profile'}>
                   <img className="mr-4" src={profileImg} alt="cart" />
                 </Link>
+                <button className='btn-danger' onClick={Logout}>
+                  Logout
+                </button>
               </div>
             </form>
           </div>

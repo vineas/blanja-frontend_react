@@ -34,24 +34,7 @@ const ModalUpdate = ({id, name, price, stock, rating_product, nama_toko, descrip
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // const formData = new FormData();
-        // formData.append('name', data.name)
-        // formData.append('price', data.price)
-        // formData.append('stock', data.stock)
-        // formData.append('image', image)
-        // formData.append('rating_product', data.rating_product)
-        // formData.append('nama_toko', data.nama_toko)
-        // formData.append('description_product', data.description_product)
-        // axios.put(`http://localhost:4000/products/${id}`, formData)
-        //     .then(() => {
-        //         alert("Product Updated")
-        //         setShow(false)
-        //         window.location.reload()
-        //     })
-        //     .catch((err) => {
-        //         alert(err);
-        //         setShow(false)
-        //     })
+
         dispatch(updateProductAction(data, id, image, setShow))
     }
 

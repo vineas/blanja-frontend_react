@@ -11,7 +11,7 @@ const updateProductAction = (data, id, image, setShow) => async (dispatch) => {
         formData.append('rating_product', data.rating_product)
         formData.append('nama_toko', data.nama_toko)
         formData.append('description_product', data.description_product)
-        const products = await axios.put(`http://localhost:4000/products/${id}`, formData, {
+        const products = await axios.put(`${process.env.REACT_APP_API_KEY}/products/${id}`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },

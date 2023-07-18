@@ -2,7 +2,7 @@ import axios from "axios";
 
 const deleteProductsAction = (id, setShow) => async (dispatch) => {
     try {
-        const products = await axios.delete(`http://localhost:4000/products/${id}`)
+        const products = await axios.delete(`${process.env.REACT_APP_API_KEY}/products/${id}`)
         alert("Product Deleted")
         setShow(false)
         window.location.reload()

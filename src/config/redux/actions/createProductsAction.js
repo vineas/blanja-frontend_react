@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const createProductAction = (data, image, setShow) => async (dispatch) => {
     try {
         const formData = new FormData();
@@ -11,7 +10,7 @@ const createProductAction = (data, image, setShow) => async (dispatch) => {
         formData.append('rating_product', data.rating_product)
         formData.append('nama_toko', data.nama_toko)
         formData.append('description_product', data.description_product)
-        const products = await axios.post('http://localhost:4000/products', formData, {
+        const products = await axios.post(`${process.env.REACT_APP_API_KEY}/products`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },

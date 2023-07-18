@@ -22,7 +22,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post("http://localhost:4000/users/register", data)
+    axios.post(`${process.env.REACT_APP_API_KEY}/users/register`, data)
         .then((res) => {
             alert("Register success")
             localStorage.setItem('token', res.data.data.token)
@@ -32,18 +32,6 @@ const Register = () => {
             alert(err);
         })
       }
-
-  // let onClick = (e) => {
-  //   axios.post("http://localhost:4000/users/register", data)
-  //     .then((res) => {
-  //       alert("Register success")
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     })
-  // }
-
-
 
   return (
     <>

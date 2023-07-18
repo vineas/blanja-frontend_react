@@ -5,12 +5,22 @@ import { Link } from 'react-router-dom'
 import Rating from '../components/Rating'
 import Foot from './Foot'
 import NavLogin from './NavLogin'
+// import { useDispatch } from 'react-redux'
+// import detailProductAction from '../config/redux/actions/detailProductsAction'
+const jas = require('../img/jas.png')
+const stars = require('../img/activated.png')
+const starss = require('../img/bintang.png')
+const color1 = require('../img/color/black.png')
+const color2 = require('../img/color/blue.png')
+const color3 = require('../img/color/green.png')
+const color4 = require('../img/color/red.png')
 
 const DetailProduct = () => {
+    // const dispatch = useDispatch()
     let {id} = useParams()
     let [product, setProduct]  = useState([])
     useEffect(() => {
-        axios.get(`http://localhost:4000/products/${id}`)
+        axios.get(`${process.env.REACT_APP_API_KEY}/products/${id}`)
           .then((res) => {
             setProduct(res.data.data[0]);
             // console.log(res.data.data);
@@ -18,6 +28,8 @@ const DetailProduct = () => {
           .catch((err) => {
             console.log(err);
           })
+        // dispatch(detailProductAction(id))
+
       }, [])
     return (
         <>
@@ -67,25 +79,25 @@ const DetailProduct = () => {
                             <div style={{ display: "flex" }}>
                                 <a href="">
                                     <img
-                                        src="../assets/img/color/black.png"
+                                        src={color1}
                                         style={{ width: 32, height: 32 }}
                                     />
                                 </a>
                                 <a href="">
                                     <img
-                                        src="../assets/img/color/red.png"
+                                        src={color2}
                                         style={{ width: 32, height: 32, marginLeft: 12 }}
                                     />
                                 </a>
                                 <a href="">
                                     <img
-                                        src="../assets/img/color/blue.png"
+                                        src={color3}
                                         style={{ width: 32, height: 32, marginLeft: 12 }}
                                     />
                                 </a>
                                 <a href="">
                                     <img
-                                        src="../assets/img/color/green.png"
+                                        src={color4}
                                         style={{ width: 32, height: 32, marginLeft: 12 }}
                                     />
                                 </a>
@@ -209,23 +221,23 @@ const DetailProduct = () => {
                             <div className="ml-md-5 ml-auto" id="rate">
                                 <div className="d-flex flex-column">
                                     <div className="d-flex justify-content-center">
-                                        <img src="../assets/img/activated.png" alt="stars" />
+                                        <img src={stars} alt="stars" />
                                         <span>5</span>
                                     </div>
                                     <div className="d-flex justify-content-center">
-                                        <img src="../assets/img/activated.png" alt="stars" />
+                                        <img src={stars} alt="stars" />
                                         <span>4</span>
                                     </div>
                                     <div className="d-flex justify-content-center">
-                                        <img src="../assets/img/activated.png" alt="stars" />
+                                        <img src={stars} alt="stars" />
                                         <span>3</span>
                                     </div>
                                     <div className="d-flex justify-content-center">
-                                        <img src="../assets/img/activated.png" alt="stars" />
+                                        <img src={stars} alt="stars" />
                                         <span>2</span>
                                     </div>
                                     <div className="d-flex justify-content-center">
-                                        <img src="../assets/img/activated.png" alt="stars" />
+                                        <img src={stars} alt="stars" />
                                         <span>1</span>
                                     </div>
                                 </div>
@@ -248,7 +260,7 @@ const DetailProduct = () => {
                                 <span>0</span>
                             </div>
                         </div>
-                        <img src="../assets/img/bintang.png" style={{ marginTop: 14 }} />
+                        <img src={starss} style={{ marginTop: 14 }} />
                     </div>
                     <hr />
                     <section className="mt-5">
@@ -258,97 +270,97 @@ const DetailProduct = () => {
                             <div className="row">
                                 <div className="col-md-3 col-sm-6 mb-5">
                                     <div>
-                                        <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                        <img className="w-100" src={jas} alt="cloth" />
                                         <div className="p-2">
                                             <h5 className="card-title">
                                                 Men's formal suit - Black &amp; White
                                             </h5>
                                             <h5 className="text-danger">$ 40.0</h5>
-                                            <img src="../assets/img/star.png" alt="stars" />
+                                            <img src={starss} alt="stars" />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-3 col-sm-6 mb-5">
                                     <div>
-                                        <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                        <img className="w-100" src={jas} alt="cloth" />
                                         <div className="p-2">
                                             <h5 className="card-title">
                                                 Men's formal suit - Black &amp; White
                                             </h5>
                                             <h5 className="text-danger">$ 40.0</h5>
-                                            <img src="../assets/img/star.png" alt="stars" />
+                                            <img src={starss} alt="stars" />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-3 col-sm-6 mb-5">
                                     <div>
-                                        <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                        <img className="w-100" src={jas} alt="cloth" />
                                         <div className="p-2">
                                             <h5 className="card-title">
                                                 Men's formal suit - Black &amp; White
                                             </h5>
                                             <h5 className="text-danger">$ 40.0</h5>
-                                            <img src="../assets/img/star.png" alt="stars" />
+                                            <img src={starss} alt="stars" />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-3 col-sm-6 mb-5">
                                     <div>
-                                        <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                        <img className="w-100" src={jas} alt="cloth" />
                                         <div className="p-2">
                                             <h5 className="card-title">
                                                 Men's formal suit - Black &amp; White
                                             </h5>
                                             <h5 className="text-danger">$ 40.0</h5>
-                                            <img src="../assets/img/star.png" alt="stars" />
+                                            <img src={starss} alt="stars" />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-3 col-sm-6 mb-5">
                                     <div>
-                                        <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                        <img className="w-100" src={jas} alt="cloth" />
                                         <div className="p-2">
                                             <h5 className="card-title">
                                                 Men's formal suit - Black &amp; White
                                             </h5>
                                             <h5 className="text-danger">$ 40.0</h5>
-                                            <img src="../assets/img/star.png" alt="stars" />
+                                            <img src={starss} alt="stars" />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-3 col-sm-6 mb-5">
                                     <div>
-                                        <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                        <img className="w-100" src={jas} alt="cloth" />
                                         <div className="p-2">
                                             <h5 className="card-title">
                                                 Men's formal suit - Black &amp; White
                                             </h5>
                                             <h5 className="text-danger">$ 40.0</h5>
-                                            <img src="../assets/img/star.png" alt="stars" />
+                                            <img src={starss} alt="stars" />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-3 col-sm-6 mb-5">
                                     <div>
-                                        <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                        <img className="w-100" src={jas} alt="cloth" />
                                         <div className="p-2">
                                             <h5 className="card-title">
                                                 Men's formal suit - Black &amp; White
                                             </h5>
                                             <h5 className="text-danger">$ 40.0</h5>
-                                            <img src="../assets/img/star.png" alt="stars" />
+                                            <img src={starss} alt="stars" />
                                         </div>
                                     </div>
                                 </div>
                                 <div className="col-md-3 col-sm-6 mb-5">
                                     <div>
-                                        <img className="w-100" src="../assets/img/jas.png" alt="cloth" />
+                                        <img className="w-100" src={jas} alt="cloth" />
                                         <div className="p-2">
                                             <h5 className="card-title">
                                                 Men's formal suit - Black &amp; White
                                             </h5>
                                             <h5 className="text-danger">$ 40.0</h5>
-                                            <img src="../assets/img/star.png" alt="stars" />
+                                            <img src={starss} alt="stars" />
                                         </div>
                                     </div>
                                 </div>
