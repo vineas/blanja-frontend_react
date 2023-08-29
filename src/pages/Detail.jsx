@@ -16,7 +16,7 @@ const Detail = () => {
     let {id} = useParams()
     let [product, setProduct]  = useState([])
     useEffect(() => {
-        axios.get(`http://localhost:4000/products/${id}`)
+        axios.get(`http://backend-expressjs-blanja-project.vercel.app/products/${id}`)
           .then((res) => {
             setProduct(res.data.data[0]);
             // console.log(res.data.data);

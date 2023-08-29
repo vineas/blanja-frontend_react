@@ -6,7 +6,7 @@ const Rating = () => {
     let [products, setProduct] = useState([])
     let {id} = useParams()
   useEffect(() => {
-    axios.get(`http://localhost:4000/products/${id}`)
+    axios.get(`http://backend-expressjs-blanja-project.vercel.app/products/${id}`)
       .then((res) => {
         setProduct(res.data.data);
         // console.log(res.data.data);

@@ -15,7 +15,7 @@ const ModalDelete = ({id, children}) => {
         e.preventDefault();
         dispatch(deleteProductsAction(id, setShow))
         // const formData = new FormData();
-        // axios.delete(`http://localhost:4000/products/${id}`)
+        // axios.delete(`http://backend-expressjs-blanja-project.vercel.app/products/${id}`)
         //     .then(() => {
         //         alert("Product Deleted")
         //         setShow(false)

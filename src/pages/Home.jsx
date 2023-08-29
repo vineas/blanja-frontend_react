@@ -13,11 +13,11 @@ const starss = require('../img/bintang.png')
 
 const Home = () => {
   let [products, setProduct] = useState([])
-
-  const dispatch = useDispatch()  
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_KEY}/products`)
+    // dispatch()
+    axios.get('https://backend-expressjs-blanja-project.vercel.app/products')
       .then((res) => {
         setProduct(res.data.data);
         // console.log(res.data.data);
@@ -28,14 +28,14 @@ const Home = () => {
   }, [])
 
   const loginTrue = localStorage.getItem("token");
-  if(!loginTrue){
+  if (!loginTrue) {
     return (
       <>
         <Nav></Nav>
         <main className='mt-90'>
           <Carousel />
           <Category />
-  
+
           <section className="container" style={{ marginTop: 50 }}>
             <h2 className="ml-3">New</h2>
             <p className="ml-3">You've never seen before!</p>
@@ -44,17 +44,17 @@ const Home = () => {
                 {products.map((product) => (
                   <div className="col-md-3 col-sm-6 mb-5">
                     <Link to={`/product/${product.id}`}>
-                    <div className="border rounded product">
-                      <img src={product.image} crossOrigin="anonymous" style={{ width: 240, padding: 10 }} />
-                      <div className="p-2">
-                        <h5 className="card-title">
-                          {product.name}
-                        </h5>
-                        <h5 className="text-danger">Rp {product.price}</h5>
-                        <h6 className="text-warning">Rating:({product.rating_product})</h6>
+                      <div className="border rounded product">
+                        <img src={product.image} crossOrigin="anonymous" style={{ width: 240, padding: 10 }} />
+                        <div className="p-2">
+                          <h5 className="card-title">
+                            {product.name}
+                          </h5>
+                          <h5 className="text-danger">Rp {product.price}</h5>
+                          <h6 className="text-warning">Rating:({product.rating_product})</h6>
+                        </div>
                       </div>
-                    </div>
-                </Link>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -165,18 +165,18 @@ const Home = () => {
             </div>
           </section>
         </main>
-        <Foot/>
+        <Foot />
       </>
     )
   }
-  else{
+  else {
     return (
       <>
         <NavLogin></NavLogin>
         <main className='mt-90'>
           <Carousel />
           <Category />
-  
+
           <section className="container" style={{ marginTop: 50 }}>
             <h2 className="ml-3">New</h2>
             <p className="ml-3">You've never seen before!</p>
@@ -185,17 +185,17 @@ const Home = () => {
                 {products.map((product) => (
                   <div className="col-md-3 col-sm-6 mb-5">
                     <Link to={`/product/${product.id}`}>
-                    <div className="border rounded product">
-                      <img src={product.image} crossOrigin="anonymous" style={{ width: 240, padding: 10 }} />
-                      <div className="p-2">
-                        <h5 className="card-title">
-                          {product.name}
-                        </h5>
-                        <h5 className="text-danger">Rp {product.price}</h5>
-                        <h6 className="text-warning">Rating:({product.rating_product})</h6>
+                      <div className="border rounded product">
+                        <img src={product.image} crossOrigin="anonymous" style={{ width: 240, padding: 10 }} />
+                        <div className="p-2">
+                          <h5 className="card-title">
+                            {product.name}
+                          </h5>
+                          <h5 className="text-danger">Rp {product.price}</h5>
+                          <h6 className="text-warning">Rating:({product.rating_product})</h6>
+                        </div>
                       </div>
-                    </div>
-                </Link>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -306,7 +306,7 @@ const Home = () => {
             </div>
           </section>
         </main>
-        <Foot/>
+        <Foot />
       </>
     )
   }

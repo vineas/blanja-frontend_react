@@ -19,7 +19,7 @@ const Profile = () => {
 
   let [products, setProduct] = useState([])
   useEffect(() => {
-    axios.get('http://localhost:4000/products')
+    axios.get('http://backend-expressjs-blanja-project.vercel.app/products')
       .then((res) => {
         setProduct(res.data.data);
         // console.log(res.data.data);
