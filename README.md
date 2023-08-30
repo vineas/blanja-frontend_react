@@ -1,70 +1,143 @@
-# Getting Started with Create React App
+<br />
+<p align="center">
+  <div align="center">
+    <img height="150" src="https://cdn.discordapp.com/attachments/1118733891738554480/1146038619325349898/logo-removebg-preview.png" alt="blanja" border="0"/>
+  </div>
+  <h3 align="center">Blanja</h3>
+  <p align="center">
+    <a href="https://github.com/vineas/backend-expressjs-blanja_project"><strong>Explore the docs »</strong></a>
+    <br />
+    <a href="https://blanja-react-beginner.vercel.app">View Demo</a>
+    ·
+    <a href="https://backend-expressjs-blanja-project.vercel.app/">Api Demo</a>
+  </p>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Table of Contents](#table-of-contents)
+- [About The Project](#about-the-project)
+  - [Built With](#built-with)
+- [Installation](#installation)
+  - [Documentation](#documentation)
+  - [Related Project](#related-project)
+- [Contributors](#contributors)
+  - [Meet The Team Members](#meet-the-team-members)
 
-### `npm start`
+  # About The Project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Blanja is an E-commerce website project that aims to provide an easy and convenient online shopping experience for users in Indonesia. The site offers a wide range of products, including fashion, beauty, electronics, and food and beverages.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To use Blanja's services, users only need to create an account and enter their payment details. After that, users can browse products, add them to their shopping cart, and choose their preferred payment method.
 
-### `npm test`
+With all the features and security provided, Blanja is expected to provide a safe, easy, and convenient online shopping experience for users across Indonesia.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Built With
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+These are the libraries and service used for building this backend API
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [ReactJS](https://react.dev/)
+- [Bootstrap](https://getbootstrap.com/)
+- [React-icons](https://react-icons.github.io/react-icons/)
+- [Axios](https://axios-http.com)
+- [Sweetalert2](https://sweetalert2.github.io)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Getting Started
 
-### `npm run eject`
+## Prerequisites
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+You'll need these programs installed before proceeding to installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [Git](https://git-scm.com/downloads)
+- [Node.js](https://nodejs.org/en/download)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+This project requires [hirejob-backend](https://github.com/vineas/backend-expressjs-blanja_project/) to function properly, follow the steps provided in the readme to install and run the backend API
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+## Installation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Follow this steps to run the server locally
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Clone this repository
 
-### Code Splitting
+```sh
+git clone https://github.com/vineas/blanja-react_beginner
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. Change directory to blanja-react_beginner
 
-### Analyzing the Bundle Size
+```sh
+cd blanja-react_beginner
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+3. Install all of the required modules
 
-### Making a Progressive Web App
+```sh
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+4. Create and configure `.env.local` file in the root directory, example env are provided in [.env.local.example](./.env.local.example)
 
-### Advanced Configuration
+```env
+NEXT_PUBLIC_API_URL=[ Backend URL ]
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+5. Run this command to run the server in development environment
 
-### Deployment
+```sh
+npm run start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Run this command to build this website into production ready
 
-### `npm run build` fails to minify
+```sh
+npm run build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Screenshots
+
+<table>
+ <tr>
+    <td><img width="350px" src="./docs/readme/login.png" border="0" alt="Login" /></td>
+    <td> <img width="350px" src="./docs/readme/register.png" border="0"  alt="Register" /></td>
+  </tr>
+  <tr>
+    <td>Login</td>
+    <td>Register</td>
+  </tr>
+  <tr>
+    <td><img width="350px" src="./docs/readme/home.png" border="0" alt="Home Page" /></td>
+    <td><img width="350px" src="./docs/readme/Checkout.png" border="0" alt="Checkout" /> </td>
+  </tr>
+   <tr>
+    <td>Home Page</td>
+    <td>Checkout List</td>
+  </tr>
+  <tr>
+    <td><img width="350px" src="./docs/readme/detail.png" border="0" alt="Detail Product" /></td>
+    <td><img width="350px" src="./docs/readme/profile.png" border="0" alt="Profile" /> </td>
+  </tr>
+   <tr>
+    <td>Detail Product</td>
+    <td>Profile</td>
+  </tr>
+    <!-- <tr>
+    <td><img width="350px" src="./docs/readme/hire.png" border="0" alt="Hire Worker" /></td>
+    <td><img width="350px" src="./docs/readme/notification.png" border="0" alt="Notification" /> </td>
+  </tr>
+   <tr>
+    <td>Worker Profile - Hire Worker</td>
+    <td>Notification</td>
+  </tr> -->
+</table>
+
+## Related Project
+
+:rocket: [`Backend Blanja`](https://github.com/vineas/backend-expressjs-blanja_project)
+
+:rocket: [`Frontend Blanja`](https://github.com/vineas/blanja-react_beginner)
+
+:rocket: [`Demo Blanja`](https://blanja-react-beginner.vercel.app)
