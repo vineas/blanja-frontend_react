@@ -14,29 +14,42 @@ import "primereact/resources/primereact.css"; // core css
 import "primeicons/primeicons.css"; // icons
 import "primeflex/primeflex.css";
 import { InputText } from 'primereact/inputtext';
+import axios from 'axios'
 
 // import { InputGroup } from 'react-bootstrap'
 const profileImage = require('../img/profileFoto.png')
 
 const ProfileSeller = () => {
-    const { product } = useSelector((state) => state.product)
+    // const { product } = useSelector((state) => state.product)
+    const [product, setProduct] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const recordsPerPage = 3;
+    const recordsPerPage = 10;
     const lastIndex = currentPage * recordsPerPage;
     const firstIndex = lastIndex - recordsPerPage;
     const records = product.slice(firstIndex, lastIndex);
     const npage = Math.ceil(product.length / recordsPerPage)
     const numbers = [...Array(npage + 1).keys()].slice(1)
 
-
     const [search, setSearch] = useState('')
     console.log(search);
     const dispatch = useDispatch()
 
 
+    // useEffect(() => {
+    //     dispatch(getProductAction())
+    // }, [])
+
+
+    const user_seller = localStorage.getItem("seller_id");
     useEffect(() => {
-        dispatch(getProductAction())
-    }, [])
+      axios.get(`${process.env.REACT_APP_API_KEY}/products/profile/${user_seller}`)
+          .then((response) => {
+            setProduct(response.data.data);
+          })
+          .catch((error) => {
+              console.error('Error fetching categories:', error);
+          });
+  }, []);
 
     return (
         <>
@@ -307,37 +320,33 @@ const ProfileSeller = () => {
                                     <table className="table">
                                         <thead>
                                             <tr>
-                                                <th scope="col">#</th>
+                                                {/* <th scope="col">#</th> */}
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Price</th>
                                                 <th scope="col">Stock</th>
+                                                <th scope="col">Category</th>
                                                 <th scope="col">Image</th>
-                                                <th scope="col">Rating</th>
-                                                <th scope="col">Aparel</th>
-                                                <th scope="col">Deskripsi</th>
                                                 <th scope="col">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {records.filter((product) => {
-                                                return search.toLowerCase() === '' ? product : product.name.toLowerCase().includes(search)
+                                                return search.toLowerCase() === '' ? product : product.product_name.toLowerCase().includes(search)
                                             }).map((product, index) => (
                                                 <tr key={index}>
-                                                    <th>{product.id}</th>
-                                                    <td>{product.name}</td>
-                                                    <td>{product.price}</td>
-                                                    <td>{product.stock}</td>
-                                                    <td><img src={product.image} crossOrigin="anonymous" style={{ width: 100, padding: 10 }} /></td>
-                                                    <td>{product.rating_product}</td>
-                                                    <td>{product.nama_toko}</td>
-                                                    <td>{product.description_product}</td>
+                                                    {/* <th>{product.product_id}</th> */}
+                                                    <td>{product.product_name}</td>
+                                                    <td>IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</td>
+                                                    <td>{product.product_stock}</td>
+                                                    <td>{product.category_name}</td>
+                                                    <td><img src={product.product_image} crossOrigin="anonymous" style={{ width: 100, padding: 10 }} /></td>
                                                     <td>
                                                         <Link to={`/product/${product.id}`}>
-                                                            <button className="btn btn-primary" style={{ margin: "10px" }}>Detail</button>
+                                                            <button className="btn btn-primary" style={{ margin: "5px" }}>Detail</button>
                                                         </Link>
-                                                        <ModalUpdate id={product.id} name={product.name} price={product.price} stock={product.stock}
-                                                            rating_product={product.rating_product} nama_toko={product.nama_toko}>Update</ModalUpdate>
-                                                        <ModalDelete id={product.id} style={{ margin: "10px" }}>Delete</ModalDelete>
+                                                        <ModalUpdate product_id={product.product_id} product_name={product.product_name} product_price={product.product_price} product_stock={product.product_stock}
+                                                            description_product={product.description_product} category_id={product.category_id}>Update</ModalUpdate>
+                                                        <ModalDelete product_id={product.product_id} style={{ margin: "10px" }}>Delete</ModalDelete>
                                                     </td>
                                                 </tr>
                                             ))}

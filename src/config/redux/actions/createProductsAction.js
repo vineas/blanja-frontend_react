@@ -1,15 +1,15 @@
 import axios from "axios";
 
-const createProductAction = (data, image, setShow) => async (dispatch) => {
+const createProductAction = (data, product_image, setShow) => async (dispatch) => {
     try {
         const formData = new FormData();
-        formData.append('name', data.name)
-        formData.append('price', data.price)
-        formData.append('stock', data.stock)
-        formData.append('image', image)
-        formData.append('rating_product', data.rating_product)
-        formData.append('nama_toko', data.nama_toko)
+        formData.append('product_name', data.product_name)
+        formData.append('product_price', data.product_price)
+        formData.append('product_stock', data.product_stock)
+        formData.append('product_image', product_image)
         formData.append('description_product', data.description_product)
+        formData.append('category_id', data.category_id)
+        formData.append('seller_id', data.seller_id)
         const products = await axios.post(`${process.env.REACT_APP_API_KEY}/products`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",

@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const deleteProductsAction = (id, setShow) => async (dispatch) => {
+const deleteProductsAction = (product_id, setShow) => async (dispatch) => {
     try {
-        const products = await axios.delete(`${process.env.REACT_APP_API_KEY}/products/${id}`)
+        const products = await axios.delete(`${process.env.REACT_APP_API_KEY}/products/${product_id}`)
         alert("Product Deleted")
         setShow(false)
         window.location.reload()

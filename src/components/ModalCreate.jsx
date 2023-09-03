@@ -1,24 +1,29 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch } from 'react-redux';
 import createProductAction from '../config/redux/actions/createProductsAction';
+import axios from 'axios';
 
 const ModalCreate = () => {
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('');
+
+    const user_seller = localStorage.getItem("seller_id");
     const [data, setData] = useState({
-        name: "",
-        price: "",
-        stock: "",
-        rating_product: "",
-        nama_toko: "",
-        description_product: ""
+        product_name: "",
+        product_price: "",
+        product_stock: "",
+        description_product: "",
+        category_id: "",
+        seller_id: user_seller
     })
 
-    const [image, setImage] = useState(null)
+    const [product_image, setImage] = useState(null)
 
     const handleChange = (e) => {
         setData({
@@ -33,8 +38,24 @@ const ModalCreate = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(createProductAction(data, image, setShow))
+        dispatch(createProductAction(data, product_image, setShow))
     }
+
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_KEY}/category`)
+            .then((response) => {
+                setCategories(response.data.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching categories:', error);
+            });
+    }, []);
+
+    const handleCategoryChange = (event) => {
+        const selectedCategoryId = event.target.value;
+        setData({ ...data, category_id: selectedCategoryId });
+    };
 
     return (
         <>
@@ -52,24 +73,24 @@ const ModalCreate = () => {
                             className="form-control mt-3"
                             type="text"
                             placeholder="Product Name"
-                            name="name"
-                            value={data.name}
+                            name="product_name"
+                            value={data.product_name}
                             onChange={handleChange}
                         />
                         <input
                             className="form-control mt-3"
                             type="text"
                             placeholder="Price"
-                            name="price"
-                            value={data.price}
+                            name="product_price"
+                            value={data.product_price}
                             onChange={handleChange}
                         />
                         <input
                             className="form-control mt-3"
                             type="number"
                             placeholder="Stock"
-                            name="stock"
-                            value={data.stock}
+                            name="product_stock"
+                            value={data.product_stock}
                             onChange={handleChange}
                         />
                         <input
@@ -79,22 +100,7 @@ const ModalCreate = () => {
                             name="image"
                             onChange={handleUpload}
                         />
-                        <input
-                            className="form-control mt-3"
-                            type="text"
-                            placeholder="Rating (with number 1-5)"
-                            name="rating_product"
-                            value={data.rating_product}
-                            onChange={handleChange}
-                        />
-                        <input
-                            className="form-control mt-3"
-                            type="text"
-                            placeholder="Aparel"
-                            name="nama_toko"
-                            value={data.nama_toko}
-                            onChange={handleChange}
-                        />
+
 
                         <textarea
                             class="form-control mt-3"
@@ -106,6 +112,23 @@ const ModalCreate = () => {
                             value={data.description_product}
                             onChange={handleChange}
                         ></textarea>
+
+                        <div style={{ marginTop: 20 }}>
+                            <select
+                                id="category"
+                                name="category_id"
+                                value={data.category_id}
+                                onChange={handleCategoryChange}
+                            >
+                                <option value="">-- Pilih Kategori --</option>
+                                {categories.map((category) => (
+                                    <option key={category.category_id} value={category.category_id}>
+                                        {category.category_name}
+                                    </option>
+                                ))}
+                            </select>
+                            {/* <p>Kategori yang dipilih: {selectedCategory}</p> */}
+                        </div>
 
                         {/* <input
                             className="form-control mt-3"

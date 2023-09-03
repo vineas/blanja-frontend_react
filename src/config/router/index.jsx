@@ -13,6 +13,7 @@ import Auth from '../../components/Auth'
 import ForgotPassword from '../../pages/ForgotPassword'
 import ProfileCustomer from '../../pages/ProfileCustomer'
 import CategoryPage from '../../pages/CategoryPage'
+import Profile from '../../pages/Profile'
 
 const index = () => {
     return (
@@ -22,13 +23,13 @@ const index = () => {
                 <Route path='/' element={<Navigate to='/home' replace='true' />} />
                 {/* <Route path='/home' element={<Home />} /> */}
                 <Route path="/home" element={<Auth><Home/></Auth>} />
-                <Route path='/profile' element={<ProfileSeller/>}/>
+                <Route path='/profile' element={<Profile/>}/>
                 <Route path='/catepage' element={<CategoryPage/>}/>
                 <Route path='/profilecust' element={<ProfileCustomer/>}/>
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/product/:id' element={<DetailProduct />}/>
-                <Route path='/mybag' element={<Mybag />} />
+                <Route path='/mybag/:id' element={<Mybag />} />
                 <Route path='/forgot' element={<ForgotPassword />} />
                 <Route path='/order/:id' element={<Order/>} />
                 {/* <Route path='/*' element={<Page404 />} /> */}

@@ -1,33 +1,57 @@
 import React, { useEffect, useState } from 'react'
 import NavLogin from './NavLogin'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 const jas = require('../img/jas.png')
 
 const Mybag = () => {
     let { id } = useParams()
     let [product, setProduct] = useState([])
-    
+    const [selectAllChecked, setSelectAllChecked] = useState(false);
+    const [individualChecked, setIndividualChecked] = useState(false);
+    const [quantity, setQuantity] = useState(1);
+
+
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_KEY}/products/${id}`)
-          .then((res) => {
-            setProduct(res.data.data[0]);
-            // console.log(res.data.data);
-          })
-          .catch((err) => {
-            console.log(err);
-          })
+            .then((res) => {
+                setProduct(res.data.data[0]);
+                // console.log(res.data.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
         // dispatch(detailProductAction(id))
 
-      }, [])
+    }, [])
+
+    const handleIncrement = () => {
+        setQuantity(quantity + 1);
+    };
+
+    const handleDecrement = () => {
+        if (quantity > 1) {
+            setQuantity(quantity - 1);
+        }
+    };
+
+  
+    const handleSelectAllChange = () => {
+      setSelectAllChecked(!selectAllChecked);
+      setIndividualChecked(!selectAllChecked);
+    };
+  
+    const handleIndividualChange = () => {
+      setIndividualChecked(!individualChecked);
+    };
     return (
         <>
-        <NavLogin/>
+            <NavLogin />
             <main style={{ marginTop: 120 }}>
                 <div className="container">
                     <h1>My bag</h1>
                     <div className="row" style={{ marginTop: 20 }}>
-                        <div className="col-md-8 ">
+                        <div className="col-md-8">
                             <div
                                 className="col-md-12 border"
                                 style={{
@@ -40,8 +64,10 @@ const Mybag = () => {
                                     <input
                                         className="form-check-input"
                                         type="checkbox"
-                                        defaultValue=""
+                                        value=""
                                         id="flexCheckDefault"
+                                        checked={selectAllChecked}
+                                        onChange={handleSelectAllChange}
                                     />
                                 </div>
                                 <h6 className="card-title" style={{ marginLeft: 20 }}>
@@ -59,43 +85,29 @@ const Mybag = () => {
                                     <input
                                         className="form-check-input"
                                         type="checkbox"
-                                        defaultValue=""
+                                        value=""
                                         id="flexCheckDefault"
                                         style={{ marginTop: 45 }}
+                                        checked={individualChecked}
+                                        onChange={handleIndividualChange}
                                     />
                                 </div>
                                 <div className="card-body" style={{ display: "flex" }}>
-                                <img src={product.image} crossOrigin="anonymous" style={{ width: "13%", borderRadius: 8 }} alt='prop'/>
+                                    <img src={product.product_image} crossOrigin="anonymous" style={{ width: "13%", borderRadius: 8 }} alt='prop' />
                                     <div style={{ marginLeft: 14 }}>
-                                        <h5 className="card-title">{product.name}</h5>
-                                        <p className="card-text">{product.nama_toko}</p>
+                                        <h5 className="card-title">{product.product_name}</h5>
                                     </div>
-                                    <div className="jumlah">
-                                        <button
-                                            style={{
-                                                borderRadius: "50%",
-                                                height: 26,
-                                                width: 26,
-                                                border: 1
-                                            }}
-                                        >
+                                    <div className="jumlah" style={{ display: 'flex', alignItems: 'center', marginLeft: 50 }}>
+                                        <button className="quantity-button" style={{ borderRadius: "50%", height: 26, width: 26, border: "1px solid #000", marginRight: 10, display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={handleDecrement}>
                                             -
                                         </button>
-                                        <h6 style={{ marginLeft: 21 }}>1</h6>
-                                        <button
-                                            style={{
-                                                marginLeft: 21,
-                                                borderRadius: "50%",
-                                                height: 26,
-                                                width: 26,
-                                                border: 1
-                                            }}
-                                        >
+                                        <h6 className="quantity-label" style={{ marginLeft: 2, marginRight: 10 }}>{quantity}</h6>
+                                        <button className="quantity-button" style={{ borderRadius: "50%", height: 26, width: 26, border: "1px solid #000", marginRight: 10, display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={handleIncrement}>
                                             +
                                         </button>
                                     </div>
-                                    <div className="harga">
-                                        <h6>{product.price}</h6>
+                                    <div className="harga" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
+                                        <h4>IDR {product && product.product_price ? (product.product_price * quantity).toLocaleString() : 'N/A'}</h4>
                                     </div>
                                 </div>
                             </div>
@@ -112,21 +124,24 @@ const Mybag = () => {
                             </h5>
                             <div style={{ display: "flex" }}>
                                 <p className="card-text">Total price</p>
-                                <h5 style={{ marginLeft: "auto", marginRight: 42 }}>Rp 400.000</h5>
+                                <h5 style={{ marginLeft: "auto", marginRight: 42 }}>IDR {product && product.product_price ? (product.product_price * quantity).toLocaleString() : 'N/A'}</h5>
                             </div>
-                            <button
-                                className="btn-choose-address"
-                                style={{
-                                    color: "white",
-                                    width: 322,
-                                    height: 36,
-                                    borderRadius: 24,
-                                    border: 1,
-                                    backgroundColor: "#DB3022"
-                                }}
-                            >
-                                Buy
-                            </button>
+
+                            <Link to={`/order/${product.product_id}`}>
+                                <button
+                                    className="btn-choose-address"
+                                    style={{
+                                        color: "white",
+                                        width: 322,
+                                        height: 36,
+                                        borderRadius: 24,
+                                        border: 1,
+                                        backgroundColor: "#DB3022"
+                                    }}
+                                >
+                                    Buy
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import ModalFilter from '../components/ModalFilter'
 const profileImg = require('../img/profile.png')
 const blanjaIcon = require('../img/blanja.png')
@@ -8,15 +8,64 @@ const notifIcon = require('../img/notif.png')
 const dmIcon = require('../img/dm.png')
 const searchIcon = require('../img/search.png')
 
-
 const NavLogin = () => {
+  let navigate = useNavigate();
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+
+  };
   function Logout() {
     localStorage.clear();
+    navigate("/home");
     window.location.reload();
   }
 
   return (
     <>
+    <style>
+        {`
+          .dropdown {
+            position: relative;
+            display: inline-block;
+          }
+
+          .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          }
+
+          .dropdown-content.show {
+            display: block;
+          }
+
+          .dropdown-content a {
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            color: #333;
+          }
+
+          .dropdown-content a:hover {
+            background-color: #ddd;
+          }
+
+          .dropdown-content .btn-danger {
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+            margin: 4px 2px;
+            cursor: pointer;
+          }
+        `}
+      </style>
       <header>
         <nav
           id="home-nav"
@@ -60,7 +109,7 @@ const NavLogin = () => {
                   alt=""
                   style={{ position: "absolute", marginLeft: 380 }}
                 />
-                <ModalFilter/>
+                <ModalFilter />
               </li>
             </ul>
             <form className="form-inline my-2 my-lg-0 row justify-content-center">
@@ -74,12 +123,20 @@ const NavLogin = () => {
                 <a href="#">
                   <img className="mr-4" src={dmIcon} alt="cart" />
                 </a>
-                <Link to={'/profile'}>
-                  <img className="mr-4" src={profileImg} alt="cart" />
-                </Link>
-                <button className='btn-danger' onClick={Logout}>
-                  Logout
-                </button>
+                <div className="dropdown">
+                  <img
+                    className="mr-4 profile-img"
+                    src={profileImg}
+                    alt="cart"
+                    onClick={toggleDropdown}
+                  />
+                  <div className={`dropdown-content ${dropdownVisible ? 'show' : ''}`}>
+                    <Link to="/profile">Profile</Link>
+                    <button className="btn-danger" onClick={Logout}>
+                      Logout
+                    </button>
+                  </div>
+                </div>
               </div>
             </form>
           </div>

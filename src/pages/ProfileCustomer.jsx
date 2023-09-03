@@ -1,11 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NavLogin from './NavLogin'
 import Foot from './Foot'
+import ModalNewAdd from '../components/ModalNewAdd'
+import axios from 'axios'
+const profileImage = require('../img/profileFoto.png')
 
 const ProfileCustomer = () => {
+
+  const [address, setAddress] = useState([]);
+
+  const user_customer = localStorage.getItem("customer_id");
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_KEY}/address/profile/${user_customer}`)
+        .then((response) => {
+          setAddress(response.data.data);
+        })
+        .catch((error) => {
+            console.error('Error fetching categories:', error);
+        });
+}, []);
+
+
   return (
     <>
-    <NavLogin/>
+      <NavLogin />
       <div style={{ marginTop: 60 }}>
         <div className="row">
           <div className="col-md-1"></div>
@@ -17,8 +35,9 @@ const ProfileCustomer = () => {
               <div className="col-md-10">
                 <div className="col-md-12" style={{ display: "flex" }}>
                   <img
-                    src="../assets/img/profileFoto.png"
+                    src={profileImage}
                     style={{ width: 80, height: 80 }}
+                    alt="description of image"
                   />
                   <div className="col-md-12">
                     <h5 className="card-title">Johanes Mikael</h5>
@@ -28,21 +47,6 @@ const ProfileCustomer = () => {
                   </div>
                 </div>
                 <div style={{ marginTop: 78 }}>
-                  {/* <div style="display: flex;">
-                  <div style="width: 32px; height: 32px; background-color: #456BF3; border-radius: 50px;">
-                  </div>
-                  <a href="" style="display: flex; align-items: center; margin-left: 10px;">My Account</a>
-                </div>
-                <div style="display: flex; margin-top: 20px;">
-                  <div style="width: 32px; height: 32px; background-color: #F36F45; border-radius: 50px;">
-                  </div>
-                  <a href="" style="display: flex; align-items: center; margin-left: 10px;">Shipping Address</a>
-                </div>
-                <div style="display: flex; margin-top: 20px;">
-                  <div style="width: 32px; height: 32px; background-color: #F3456F; border-radius: 50px;">
-                  </div>
-                  <a href="" style="display: flex; align-items: center; margin-left: 10px;">My Order</a>
-                </div> */}
                   <div
                     className="nav flex-column"
                     id="v-pills-tab"
@@ -267,188 +271,8 @@ const ProfileCustomer = () => {
                   <div className="row">
                     <div className="col-md-11">
                       <div className="col-md-12">
-                        {/* Button trigger modal */}
-                        {/* <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="width: 100%; height: 86px; border: 1px dashed black; background-color: white; color: black;">
-                  Add New Adress
-                </button> */}
-                        <button
-                          type="button"
-                          className="btn btn-primary"
-                          data-toggle="modal"
-                          data-target=".bd-example-modal-lg"
-                          style={{
-                            width: "100%",
-                            height: 86,
-                            border: "1px dashed black",
-                            backgroundColor: "white",
-                            color: "black"
-                          }}
-                        >
-                          Add New Adress
-                        </button>
-                        <div
-                          className="modal fade bd-example-modal-lg"
-                          tabIndex={-1}
-                          role="dialog"
-                          aria-labelledby="myLargeModalLabel"
-                          aria-hidden="true"
-                        >
-                          <div className="modal-dialog modal-lg">
-                            <div className="modal-content" style={{ padding: 30 }}>
-                              <h3
-                                style={{ display: "flex", justifyContent: "center" }}
-                              >
-                                Add new address
-                              </h3>
-                              <div className="row">
-                                <div className="col-md-12">
-                                  <label
-                                    htmlFor="inputName"
-                                    className="col-sm-7 col-form-label"
-                                  >
-                                    Save address as (ex : home address, office
-                                    address)
-                                  </label>
-                                  <div className="col-sm-12">
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      id=""
-                                      placeholder="Rumah"
-                                    />
-                                  </div>
-                                </div>
-                                <div className="col-md-6">
-                                  <label
-                                    htmlFor="inputName"
-                                    className="col-sm-7 col-form-label"
-                                  >
-                                    Recipient’s name
-                                  </label>
-                                  <div className="col-sm-12">
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      id=""
-                                    />
-                                  </div>
-                                </div>
-                                <div className="col-md-6">
-                                  <label
-                                    htmlFor="inputName"
-                                    className="col-sm-9 col-form-label"
-                                  >
-                                    Recipient’s telephone number
-                                  </label>
-                                  <div className="col-sm-12">
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      id=""
-                                    />
-                                  </div>
-                                </div>
-                                <div className="col-md-6">
-                                  <label
-                                    htmlFor="inputName"
-                                    className="col-sm-8 col-form-label"
-                                  >
-                                    Address
-                                  </label>
-                                  <div className="col-sm-12">
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      id=""
-                                    />
-                                  </div>
-                                </div>
-                                <div className="col-md-6">
-                                  <label
-                                    htmlFor="inputName"
-                                    className="col-sm-8 col-form-label"
-                                  >
-                                    Postal code
-                                  </label>
-                                  <div className="col-sm-12">
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      id=""
-                                    />
-                                  </div>
-                                </div>
-                                <div className="col-md-6">
-                                  <label
-                                    htmlFor="inputName"
-                                    className="col-sm-8 col-form-label"
-                                  >
-                                    City or Subdistrict
-                                  </label>
-                                  <div className="col-sm-12">
-                                    <input
-                                      type="text"
-                                      className="form-control"
-                                      id=""
-                                    />
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="row">
-                                <div className="col-md-6">
-                                  <div
-                                    className="form-check"
-                                    style={{ marginLeft: 20, marginTop: 20 }}
-                                  >
-                                    <input
-                                      className="form-check-input"
-                                      type="checkbox"
-                                      defaultValue=""
-                                      id="defaultCheck1"
-                                    />
-                                    <label
-                                      className="form-check-label"
-                                      htmlFor="defaultCheck1"
-                                    >
-                                      Make it the primary address
-                                    </label>
-                                  </div>
-                                </div>
-                                <div
-                                  className="col-md-6"
-                                  style={{
-                                    display: "flex",
-                                    justifyContent: "flex-end"
-                                  }}
-                                >
-                                  <button
-                                    type="button"
-                                    className="btn"
-                                    style={{
-                                      marginTop: 20,
-                                      borderRadius: 25,
-                                      marginRight: 15,
-                                      width: 100
-                                    }}
-                                  >
-                                    Cancel
-                                  </button>
-                                  <button
-                                    type="button"
-                                    className="btn btn-danger"
-                                    style={{
-                                      marginTop: 20,
-                                      borderRadius: 25,
-                                      width: 100
-                                    }}
-                                  >
-                                    Save
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        <ModalNewAdd/>
+                        {address.map((add) => ( 
                         <div
                           className="border"
                           style={{
@@ -458,14 +282,15 @@ const ProfileCustomer = () => {
                             padding: 25
                           }}
                         >
-                          <h6>Andreas Jane</h6>
+                          <h5 style={{fontWeight:'bold'}}>{add.recipient_name}</h5>
+                          <h6>{add.address_as}, {add.recipient_phone}</h6>
                           <p>
-                            Perumahan Sapphire Mediterania, Wiradadi, Kec. Sokaraja,
-                            Kabupaten Banyumas, Jawa Tengah, 53181 [Tokopedia Note:
-                            blok c 16] Sokaraja, Kab. Banyumas, 53181
+                            {add.address_line},
+                            {add.city_or_subdistrict}, {add.postal_code}
                           </p>
                           <a href="#">Change address</a>
                         </div>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -586,7 +411,7 @@ const ProfileCustomer = () => {
                         role="tabpanel"
                         aria-labelledby="nav-home-tab"
                       >
-                        
+
                       </div>
                       <div
                         className="tab-pane fade"
@@ -612,7 +437,7 @@ const ProfileCustomer = () => {
           </div>
         </div>
       </div>
-      <Foot/>
+      {/* <Foot /> */}
 
     </>
   )

@@ -11,4 +11,5 @@ const getProductAction = () => async (dispatch) => {
     }
 }
 
+
 export default getProductAction;

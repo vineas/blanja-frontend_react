@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useDispatch } from 'react-redux';
 import deleteProductsAction from '../config/redux/actions/deleteProductsAction';
 
-const ModalDelete = ({id, children}) => {
+const ModalDelete = ({product_id, children}) => {
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -13,7 +13,7 @@ const ModalDelete = ({id, children}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(deleteProductsAction(id, setShow))
+        dispatch(deleteProductsAction(product_id, setShow))
         // const formData = new FormData();
         // axios.delete(`http://backend-expressjs-blanja-project.vercel.app/products/${id}`)
         //     .then(() => {

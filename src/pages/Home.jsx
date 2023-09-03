@@ -17,10 +17,10 @@ const Home = () => {
 
   useEffect(() => {
     // dispatch()
-    axios.get('https://backend-expressjs-blanja-project.vercel.app/products')
+    axios.get(`http://localhost:4000/products`)
       .then((res) => {
         setProduct(res.data.data);
-        // console.log(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -40,18 +40,18 @@ const Home = () => {
             <h2 className="ml-3">New</h2>
             <p className="ml-3">You've never seen before!</p>
             <div className="container mt-5">
-              <div className="row">
+            <div className="row">
                 {products.map((product) => (
                   <div className="col-md-3 col-sm-6 mb-5">
-                    <Link to={`/product/${product.id}`}>
+                    <Link to={`/product/${product.product_id}`}style={{color: 'black', textDecoration: 'none'}}>
                       <div className="border rounded product">
-                        <img src={product.image} crossOrigin="anonymous" style={{ width: 240, padding: 10 }} />
+                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: 240, padding: 10 }} />
                         <div className="p-2">
-                          <h5 className="card-title">
-                            {product.name}
+                          <h5 className="card-title" style={{fontWeight:'bold'}}>
+                            {product.product_name}
                           </h5>
-                          <h5 className="text-danger">Rp {product.price}</h5>
-                          <h6 className="text-warning">Rating:({product.rating_product})</h6>
+                          <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
+                          <h6 className="text-warning">⭐⭐⭐⭐⭐</h6>
                         </div>
                       </div>
                     </Link>
@@ -64,103 +64,23 @@ const Home = () => {
             <h2 className="ml-3">Popular</h2>
             <p className="ml-3">Find clothes that are trending recently</p>
             <div className="container mt-5">
-              <div className="row">
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
+            <div className="row">
+                {products.map((product) => (
+                  <div className="col-md-3 col-sm-6 mb-5">
+                    <Link to={`/product/${product.product_id}`}style={{color: 'black', textDecoration: 'none'}}>
+                      <div className="border rounded product">
+                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: 240, padding: 10 }} />
+                        <div className="p-2">
+                          <h5 className="card-title" style={{fontWeight:'bold'}}>
+                            {product.product_name}
+                          </h5>
+                          <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
+                          <h6 className="text-warning">⭐⭐⭐⭐⭐</h6>
+                        </div>
+                      </div>
+                    </Link>
                   </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </section>
@@ -184,15 +104,15 @@ const Home = () => {
               <div className="row">
                 {products.map((product) => (
                   <div className="col-md-3 col-sm-6 mb-5">
-                    <Link to={`/product/${product.id}`}>
+                    <Link to={`/product/${product.product_id}`}style={{color: 'black', textDecoration: 'none'}}>
                       <div className="border rounded product">
-                        <img src={product.image} crossOrigin="anonymous" style={{ width: 240, padding: 10 }} />
+                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: 240, padding: 10 }} />
                         <div className="p-2">
-                          <h5 className="card-title">
-                            {product.name}
+                          <h5 className="card-title" style={{fontWeight:'bold'}}>
+                            {product.product_name}
                           </h5>
-                          <h5 className="text-danger">Rp {product.price}</h5>
-                          <h6 className="text-warning">Rating:({product.rating_product})</h6>
+                          <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
+                          <h6 className="text-warning">⭐⭐⭐⭐⭐</h6>
                         </div>
                       </div>
                     </Link>
@@ -205,103 +125,23 @@ const Home = () => {
             <h2 className="ml-3">Popular</h2>
             <p className="ml-3">Find clothes that are trending recently</p>
             <div className="container mt-5">
-              <div className="row">
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
+            <div className="row">
+                {products.map((product) => (
+                  <div className="col-md-3 col-sm-6 mb-5">
+                    <Link to={`/product/${product.product_id}`}style={{color: 'black', textDecoration: 'none'}}>
+                      <div className="border rounded product">
+                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: 240, padding: 10 }} />
+                        <div className="p-2">
+                          <h5 className="card-title" style={{fontWeight:'bold'}}>
+                            {product.product_name}
+                          </h5>
+                          <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
+                          <h6 className="text-warning">⭐⭐⭐⭐⭐</h6>
+                        </div>
+                      </div>
+                    </Link>
                   </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-3 col-sm-6 mb-5">
-                  <div className="border rounded product">
-                    <img className="w-100" src={jasImage} alt="cloth" />
-                    <div className="p-2">
-                      <h5 className="card-title">
-                        Men's formal suit - Black &amp; White
-                      </h5>
-                      <h5 className="text-danger">Rp 500.000</h5>
-                      <img src={starss} alt="stars" />
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </section>

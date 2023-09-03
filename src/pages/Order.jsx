@@ -70,13 +70,13 @@ const Order = () => {
                             }}
                         >
                             <div className="card-body" style={{ display: "flex" }}>
-                                <img src={product.image} crossOrigin="anonymous" style={{ width: "13%", borderRadius: 8 }} alt='prop'/>
+                                <img src={product.product_image} crossOrigin="anonymous" style={{ width: "13%", borderRadius: 8 }} alt='prop'/>
                                 <div style={{ marginLeft: 14 }}>
-                                    <h5 className="card-title">{product.name}</h5>
-                                    <p className="card-text">{product.nama_toko}</p>
+                                    <h5 className="card-title">{product.product_name}</h5>
+                                    {/* <p className="card-text">{product.nama_toko}</p> */}
                                 </div>
                                 <h5 style={{ marginLeft: "auto", marginTop: 25, marginRight: 42 }}>
-                                    {product.price}
+                                IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}
                                 </h5>
                             </div>
                         </div>
@@ -94,11 +94,11 @@ const Order = () => {
                         </h5>
                         <div style={{ display: "flex" }}>
                             <p className="card-text">Order</p>
-                            <h6 style={{ marginLeft: "auto", marginRight: 42 }}>Rp {product.price}</h6>
+                            <h6 style={{ marginLeft: "auto", marginRight: 42 }}>IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h6>
                         </div>
                         <div style={{ display: "flex" }}>
                             <p className="card-text">Delivery</p>
-                            <h6 style={{ marginLeft: "auto", marginRight: 42 }}>Rp {product.price}</h6>
+                            <h6 style={{ marginLeft: "auto", marginRight: 42 }}>IDR 20,000</h6>
                         </div>
                         <hr />
                         <div style={{ display: "flex" }}>

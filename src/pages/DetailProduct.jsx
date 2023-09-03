@@ -41,26 +41,26 @@ const DetailProduct = () => {
                 <div className="row">
                     <div className="col-md-5">
                         <div>
-                        <img src={product.image} crossOrigin="anonymous" style={{ width: "93%", borderRadius: 8 }}/>
+                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: "93%", borderRadius: 8 }}/>
 
                             <div style={{ marginTop: 20,}}>
                                 <img
-                                    src={product.image} crossOrigin="anonymous"
+                                    src={product.product_image} crossOrigin="anonymous"
                                     alt=""
                                     style={{ width: "20%", borderRadius: 8,  marginRight: 20  }}
                                 />
                                 <img
-                                    src={product.image} crossOrigin="anonymous"
+                                    src={product.product_image} crossOrigin="anonymous"
                                     alt=""
                                     style={{ width: "20%", borderRadius: 8, marginRight: 20 }}
                                 />
                                 <img
-                                    src={product.image} crossOrigin="anonymous"
+                                    src={product.product_image} crossOrigin="anonymous"
                                     alt=""
                                     style={{ width: "20%", borderRadius: 8,  marginRight: 20  }}
                                 />
                                 <img
-                                    src={product.image} crossOrigin="anonymous"
+                                    src={product.product_image} crossOrigin="anonymous"
                                     alt=""
                                     style={{ width: "20%", borderRadius: 8 }}
                                 />
@@ -69,12 +69,12 @@ const DetailProduct = () => {
                     </div>
                     <div className="col-md-7">
                         <div className="judul-product">
-                            <h1>{product.name}</h1>
-                            <p>{product.nama_toko}</p>
+                            <h1>{product.product_name}</h1>
+                            {/* <p>{product.product_nama_toko}</p> */}
                             <h5>Rating: </h5>
-                            <p> <Rating/> ({product.rating_product})</p>
+                            {/* <p> <Rating/> ({product.rating_product})</p> */}
                             <p>Price</p>
-                            <h1>Rp {product.price}</h1>
+                            <h1>IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h1>
                             <h5>Color</h5>
                             <div style={{ display: "flex" }}>
                                 <a href="">
@@ -178,7 +178,7 @@ const DetailProduct = () => {
                                     Add bag
                                 </button>
 
-                                <Link to={`/order/${product.id}`}>
+                                <Link to={`/mybag/${product.product_id}`}>
                                 <button
                                     type="button"
                                     className="btn-light-buy"
