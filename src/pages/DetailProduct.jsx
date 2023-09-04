@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import Rating from '../components/Rating'
 import Foot from './Foot'
 import NavLogin from './NavLogin'
+import Swal from 'sweetalert2'
 // import { useDispatch } from 'react-redux'
 // import detailProductAction from '../config/redux/actions/detailProductsAction'
 const jas = require('../img/jas.png')
@@ -17,37 +18,95 @@ const color4 = require('../img/color/red.png')
 
 const DetailProduct = () => {
     // const dispatch = useDispatch()
-    let {id} = useParams()
-    let [product, setProduct]  = useState([])
+    let { id } = useParams()
+    let [product, setProduct] = useState([])
+    const [totalPrice, setTotalPrice] = useState(product.product_price);
+    const customerId = localStorage.getItem("customer_id");
+    const navigate = useNavigate();
+    const [quantity, setQuantity] = useState(1);
+    const [data, setData] = useState({
+        order_quantity: quantity,
+        // total_price: totalPrice,
+        product_id: id,
+        customer_id: customerId,
+    });
     useEffect(() => {
         axios.get(`${process.env.REACT_APP_API_KEY}/products/${id}`)
-          .then((res) => {
-            setProduct(res.data.data[0]);
-            // console.log(res.data.data);
-          })
-          .catch((err) => {
-            console.log(err);
-          })
+            .then((res) => {
+                setProduct(res.data.data[0]);
+                // console.log(res.data.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
         // dispatch(detailProductAction(id))
 
-      }, [])
+    }, [])
+
+    const handleIncrement = () => {
+        const newQuantity = quantity + 1;
+        if (newQuantity <= product.product_stock) {
+          setQuantity(newQuantity);
+          setData({
+            ...data,
+            order_quantity: newQuantity,
+          });
+          setTotalPrice(newQuantity * product.product_price);
+        } else {
+          console.log("Stok melebihi batas.");
+        }
+      };
+
+      const handleDecrement = () => {
+        if (quantity > 1) {
+          const newQuantity = quantity - 1;
+          setQuantity(newQuantity);
+          setData({
+            ...data,
+            order_quantity: newQuantity,
+          });
+          setTotalPrice(newQuantity * product.product_price);
+        }
+      };
+
+    const handleChange = (e) => {
+        setData({
+            ...data,
+            [e.target.name]: e.target.value,
+        });
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        axios
+            .post(`${process.env.REACT_APP_API_KEY}/orders`, data)
+            .then((res) => {
+                Swal.fire("Success", "Good choice", "success");
+                navigate("/mybag");
+            })
+            .catch((err) => {
+                console.log(err);
+                alert(err);
+            });
+    };
+
     return (
         <>
-        <NavLogin/>
-            <div className="container" style={{marginTop:90}}>
+            <NavLogin />
+            <div className="container" style={{ marginTop: 90 }}>
                 <div className="keterangan-product">
                     <p>Home &gt; Product &gt; Category</p>
                 </div>
                 <div className="row">
                     <div className="col-md-5">
                         <div>
-                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: "93%", borderRadius: 8 }}/>
+                            <img src={product.product_image} crossOrigin="anonymous" style={{ width: "93%", borderRadius: 8 }} />
 
-                            <div style={{ marginTop: 20,}}>
+                            <div style={{ marginTop: 20, }}>
                                 <img
                                     src={product.product_image} crossOrigin="anonymous"
                                     alt=""
-                                    style={{ width: "20%", borderRadius: 8,  marginRight: 20  }}
+                                    style={{ width: "20%", borderRadius: 8, marginRight: 20 }}
                                 />
                                 <img
                                     src={product.product_image} crossOrigin="anonymous"
@@ -57,7 +116,7 @@ const DetailProduct = () => {
                                 <img
                                     src={product.product_image} crossOrigin="anonymous"
                                     alt=""
-                                    style={{ width: "20%", borderRadius: 8,  marginRight: 20  }}
+                                    style={{ width: "20%", borderRadius: 8, marginRight: 20 }}
                                 />
                                 <img
                                     src={product.product_image} crossOrigin="anonymous"
@@ -70,11 +129,11 @@ const DetailProduct = () => {
                     <div className="col-md-7">
                         <div className="judul-product">
                             <h1>{product.product_name}</h1>
-                            {/* <p>{product.product_nama_toko}</p> */}
+                            <p>Stock: {product.product_stock}</p>
                             <h5>Rating: </h5>
                             {/* <p> <Rating/> ({product.rating_product})</p> */}
                             <p>Price</p>
-                            <h1>IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h1>
+                            <h1 name="total_price" value={data.total_price} onChange={handleChange}>IDR {product && product.product_price ? (product.product_price * quantity).toLocaleString() : 'N/A'}</h1>
                             <h5>Color</h5>
                             <div style={{ display: "flex" }}>
                                 <a href="">
@@ -103,36 +162,7 @@ const DetailProduct = () => {
                                 </a>
                             </div>
                             <div className="row">
-                                <div className="col-md-6">
-                                    <div className="size">
-                                        <h5>Size</h5>
-                                        <div style={{ display: "flex" }}>
-                                            <button
-                                                style={{
-                                                    borderRadius: "50%",
-                                                    height: 36,
-                                                    width: 36,
-                                                    border: 1
-                                                }}
-                                            >
-                                                -
-                                            </button>
-                                            <h6 style={{ marginLeft: 21 }}>28</h6>
-                                            <button
-                                                style={{
-                                                    marginLeft: 21,
-                                                    borderRadius: "50%",
-                                                    height: 36,
-                                                    width: 36,
-                                                    border: 1
-                                                }}
-                                            >
-                                                +
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
+                                <div className="col-md-6" style={{ marginTop: 20 }}>
                                     <div className="size">
                                         <h5>Jumlah</h5>
                                         <div style={{ display: "flex" }}>
@@ -143,10 +173,24 @@ const DetailProduct = () => {
                                                     width: 36,
                                                     border: 1
                                                 }}
+                                                onClick={handleDecrement}
                                             >
                                                 -
                                             </button>
-                                            <h6 style={{ marginLeft: 21 }}>1</h6>
+                                            <input
+                                                type="number"
+                                                style={{
+                                                    marginLeft: 21,
+                                                    marginTop: 7,
+                                                    width: 50, 
+                                                    textAlign: "center"
+                                                }}
+                                            //    value={quantity}
+                                                name="order_quantity"
+                                                value={data.order_quantity}
+                                                // onChange={handleChange}
+                                                min="0" 
+                                            />
                                             <button
                                                 style={{
                                                     marginLeft: 21,
@@ -155,6 +199,8 @@ const DetailProduct = () => {
                                                     width: 36,
                                                     border: 1
                                                 }}
+                                                onClick={handleIncrement}
+
                                             >
                                                 +
                                             </button>
@@ -178,24 +224,24 @@ const DetailProduct = () => {
                                     Add bag
                                 </button>
 
-                                <Link to={`/mybag/${product.product_id}`}>
-                                <button
-                                    type="button"
-                                    className="btn-light-buy"
-                                    style={{
-                                        border: 1,
-                                        borderRadius: 25,
-                                        width: 213,
-                                        height: 48,
-                                        backgroundColor: "#DB3022",
-                                        color: "#ffffff"
-                                    }}
-                                >
-                                    Buy now
-                                </button>                                    
-                                </Link>
-
-
+                                {/* <Link to={`/mybag/${product.product_id}`}> */}
+                                <form onSubmit={handleSubmit}>
+                                    <button
+                                        type="submit"
+                                        className="btn-light-buy"
+                                        style={{
+                                            border: 1,
+                                            borderRadius: 25,
+                                            width: 213,
+                                            height: 48,
+                                            backgroundColor: "#DB3022",
+                                            color: "#ffffff"
+                                        }}
+                                    >
+                                        Buy now
+                                    </button>
+                                </form>
+                                {/* </Link> */}
                             </div>
                         </div>
                     </div>
@@ -369,7 +415,7 @@ const DetailProduct = () => {
                     </section>
                 </div>
             </div>
-            <Foot/>
+            <Foot />
         </>
     )
 }

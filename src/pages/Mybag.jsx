@@ -5,25 +5,21 @@ import axios from 'axios'
 const jas = require('../img/jas.png')
 
 const Mybag = () => {
-    let { id } = useParams()
-    let [product, setProduct] = useState([])
+    // let { id } = useParams()
     const [selectAllChecked, setSelectAllChecked] = useState(false);
     const [individualChecked, setIndividualChecked] = useState(false);
     const [quantity, setQuantity] = useState(1);
-
-
+    const [order, setOrder] = useState([]);
+    const user_customer = localStorage.getItem("customer_id");
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_KEY}/products/${id}`)
-            .then((res) => {
-                setProduct(res.data.data[0]);
-                // console.log(res.data.data);
+        axios.get(`${process.env.REACT_APP_API_KEY}/orders/customer/${user_customer}`)
+            .then((response) => {
+                setOrder(response.data.data);
             })
-            .catch((err) => {
-                console.log(err);
-            })
-        // dispatch(detailProductAction(id))
-
-    }, [])
+            .catch((error) => {
+                console.error('Error fetching categories:', error);
+            });
+    }, []);
 
     const handleIncrement = () => {
         setQuantity(quantity + 1);
@@ -35,15 +31,28 @@ const Mybag = () => {
         }
     };
 
-  
-    const handleSelectAllChange = () => {
-      setSelectAllChecked(!selectAllChecked);
-      setIndividualChecked(!selectAllChecked);
+
+    const handleSelectAllChange = (e) => {
+        const isChecked = e.target.checked;
+        setSelectAllChecked(!selectAllChecked, isChecked);
+        setIndividualChecked(!selectAllChecked, isChecked);
     };
-  
+
     const handleIndividualChange = () => {
-      setIndividualChecked(!individualChecked);
+        setIndividualChecked(!individualChecked);
     };
+
+    const calculateTotalPrice = (order) => {
+        let totalPrice = 0;
+        for (const orderItem of order) {
+            if (orderItem.product_price) {
+                totalPrice += orderItem.product_price;
+            }
+        }
+        return totalPrice;
+    };
+
+
     return (
         <>
             <NavLogin />
@@ -74,43 +83,52 @@ const Mybag = () => {
                                     Select all items
                                 </h6>
                             </div>
-                            <div
-                                className="col-md-12 border mt-2"
-                                style={{
-                                    boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff",
-                                    borderRadius: 8
-                                }}
-                            >
-                                <div className="form-check">
-                                    <input
-                                        className="form-check-input"
-                                        type="checkbox"
-                                        value=""
-                                        id="flexCheckDefault"
-                                        style={{ marginTop: 45 }}
-                                        checked={individualChecked}
-                                        onChange={handleIndividualChange}
-                                    />
+                            {order.map((orderItem) => (
+                                <div
+                                    key={orderItem.order_id}
+                                    className="col-md-12 border mt-2"
+                                    style={{
+                                        boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff",
+                                        borderRadius: 8
+                                    }}
+                                >
+                                    <div className="form-check">
+                                        <input
+                                            className="form-check-input"
+                                            type="checkbox"
+                                            value=""
+                                            id="flexCheckDefault"
+                                            style={{ marginTop: 45 }}
+                                            checked={individualChecked}
+                                            onChange={handleIndividualChange}
+                                        />
+                                    </div>
+                                    <div className="card-body" style={{ display: "flex" }}>
+                                        <img
+                                            src={orderItem.product_image}
+                                            crossOrigin="anonymous"
+                                            style={{ width: "13%", borderRadius: 8 }}
+                                            alt="product"
+                                        />
+                                        <div style={{ marginLeft: 14 }}>
+                                            <h5 className="card-title">{orderItem.product_name}</h5>
+                                        </div>
+                                        <div className="jumlah" style={{ display: 'flex', alignItems: 'center', marginLeft: 50 }}>
+                                            <button className="quantity-button" style={{ borderRadius: "50%", height: 26, width: 26, border: "1px solid #000", marginRight: 10, display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={handleDecrement}>
+                                                -
+                                            </button>
+                                            <h6 className="quantity-label" style={{ marginLeft: 2, marginRight: 10 }}>{orderItem.order_quantity}</h6>
+                                            <button className="quantity-button" style={{ borderRadius: "50%", height: 26, width: 26, border: "1px solid #000", marginRight: 10, display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={handleIncrement}>
+                                                +
+                                            </button>
+                                        </div>
+                                        <div className="harga" style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
+                                            <h4>IDR {orderItem && orderItem.product_price ? orderItem.product_price.toLocaleString() : 'N/A'}</h4>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="card-body" style={{ display: "flex" }}>
-                                    <img src={product.product_image} crossOrigin="anonymous" style={{ width: "13%", borderRadius: 8 }} alt='prop' />
-                                    <div style={{ marginLeft: 14 }}>
-                                        <h5 className="card-title">{product.product_name}</h5>
-                                    </div>
-                                    <div className="jumlah" style={{ display: 'flex', alignItems: 'center', marginLeft: 50 }}>
-                                        <button className="quantity-button" style={{ borderRadius: "50%", height: 26, width: 26, border: "1px solid #000", marginRight: 10, display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={handleDecrement}>
-                                            -
-                                        </button>
-                                        <h6 className="quantity-label" style={{ marginLeft: 2, marginRight: 10 }}>{quantity}</h6>
-                                        <button className="quantity-button" style={{ borderRadius: "50%", height: 26, width: 26, border: "1px solid #000", marginRight: 10, display: "flex", justifyContent: "center", alignItems: "center", cursor: "pointer" }} onClick={handleIncrement}>
-                                            +
-                                        </button>
-                                    </div>
-                                    <div className="harga" style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }}>
-                                        <h4>IDR {product && product.product_price ? (product.product_price * quantity).toLocaleString() : 'N/A'}</h4>
-                                    </div>
-                                </div>
-                            </div>
+                            ))}
+
                         </div>
                         <div
                             className="col-md-4 border"
@@ -124,10 +142,12 @@ const Mybag = () => {
                             </h5>
                             <div style={{ display: "flex" }}>
                                 <p className="card-text">Total price</p>
-                                <h5 style={{ marginLeft: "auto", marginRight: 42 }}>IDR {product && product.product_price ? (product.product_price * quantity).toLocaleString() : 'N/A'}</h5>
+                                <h5 style={{ marginLeft: "auto", marginRight: 42 }}>
+                                    IDR {calculateTotalPrice(order).toLocaleString()}
+                                </h5>
                             </div>
 
-                            <Link to={`/order/${product.product_id}`}>
+                            <Link to={`/order`}>
                                 <button
                                     className="btn-choose-address"
                                     style={{
@@ -138,6 +158,7 @@ const Mybag = () => {
                                         border: 1,
                                         backgroundColor: "#DB3022"
                                     }}
+                                    disabled={!selectAllChecked && !individualChecked}
                                 >
                                     Buy
                                 </button>

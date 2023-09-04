@@ -107,6 +107,7 @@ const ProfileSeller = () => {
                                             role="tab"
                                             aria-controls="v-pills-home"
                                             aria-selected="true"
+                                            style={{color:'grey'}}
                                         >
                                             Store
                                         </Link>
@@ -119,6 +120,7 @@ const ProfileSeller = () => {
                                             role="tab"
                                             aria-controls="v-pills-profile"
                                             aria-selected="false"
+                                            style={{color:'grey'}}
                                         >
                                             Product
                                         </Link>
@@ -131,6 +133,7 @@ const ProfileSeller = () => {
                                             role="tab"
                                             aria-controls="v-pills-messages"
                                             aria-selected="false"
+                                            style={{color:'grey'}}
                                         >
                                             My Order
                                         </Link>
@@ -324,7 +327,7 @@ const ProfileSeller = () => {
                                                 <th scope="col">Name</th>
                                                 <th scope="col">Price</th>
                                                 <th scope="col">Stock</th>
-                                                <th scope="col">Category</th>
+                                                {/* <th scope="col">Category</th> */}
                                                 <th scope="col">Image</th>
                                                 <th scope="col">Action</th>
                                             </tr>
@@ -338,10 +341,10 @@ const ProfileSeller = () => {
                                                     <td>{product.product_name}</td>
                                                     <td>IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</td>
                                                     <td>{product.product_stock}</td>
-                                                    <td>{product.category_name}</td>
+                                                    {/* <td>{product.category_name}</td> */}
                                                     <td><img src={product.product_image} crossOrigin="anonymous" style={{ width: 100, padding: 10 }} /></td>
                                                     <td>
-                                                        <Link to={`/product/${product.id}`}>
+                                                        <Link to={`/product/${product.product_id}`}>
                                                             <button className="btn btn-primary" style={{ margin: "5px" }}>Detail</button>
                                                         </Link>
                                                         <ModalUpdate product_id={product.product_id} product_name={product.product_name} product_price={product.product_price} product_stock={product.product_stock}
@@ -482,7 +485,7 @@ const ProfileSeller = () => {
                                                 role="tabpanel"
                                                 aria-labelledby="nav-home-tab"
                                             >
-                                                Wadidaw
+                                                Not result
                                             </div>
                                             <div
                                                 className="tab-pane fade"
@@ -490,7 +493,7 @@ const ProfileSeller = () => {
                                                 role="tabpanel"
                                                 aria-labelledby="nav-profile-tab"
                                             >
-                                                Waduh
+                                                Not result
                                             </div>
                                             <div
                                                 className="tab-pane fade"
@@ -498,7 +501,7 @@ const ProfileSeller = () => {
                                                 role="tabpanel"
                                                 aria-labelledby="nav-contact-tab"
                                             >
-                                                Jiwa
+                                                Not result
                                             </div>
 
                                             <div
@@ -507,7 +510,7 @@ const ProfileSeller = () => {
                                                 role="tabpanel"
                                                 aria-labelledby="nav-profile-tab"
                                             >
-                                                Waduh
+                                                Not result
                                             </div>
                                             <div
                                                 className="tab-pane fade"
@@ -515,7 +518,7 @@ const ProfileSeller = () => {
                                                 role="tabpanel"
                                                 aria-labelledby="nav-contact-tab"
                                             >
-                                                Waduh
+                                                Not result
                                             </div>
                                         </div>
                                     </div>

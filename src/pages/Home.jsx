@@ -17,7 +17,7 @@ const Home = () => {
 
   useEffect(() => {
     // dispatch()
-    axios.get(`http://localhost:4000/products`)
+    axios.get(`${process.env.REACT_APP_API_KEY}/products`)
       .then((res) => {
         setProduct(res.data.data);
         console.log(res.data.data);
@@ -45,7 +45,7 @@ const Home = () => {
                   <div className="col-md-3 col-sm-6 mb-5">
                     <Link to={`/product/${product.product_id}`}style={{color: 'black', textDecoration: 'none'}}>
                       <div className="border rounded product">
-                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: 240, padding: 10 }} />
+                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} />
                         <div className="p-2">
                           <h5 className="card-title" style={{fontWeight:'bold'}}>
                             {product.product_name}
@@ -69,7 +69,7 @@ const Home = () => {
                   <div className="col-md-3 col-sm-6 mb-5">
                     <Link to={`/product/${product.product_id}`}style={{color: 'black', textDecoration: 'none'}}>
                       <div className="border rounded product">
-                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: 240, padding: 10 }} />
+                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} />
                         <div className="p-2">
                           <h5 className="card-title" style={{fontWeight:'bold'}}>
                             {product.product_name}
@@ -106,7 +106,7 @@ const Home = () => {
                   <div className="col-md-3 col-sm-6 mb-5">
                     <Link to={`/product/${product.product_id}`}style={{color: 'black', textDecoration: 'none'}}>
                       <div className="border rounded product">
-                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: 240, padding: 10 }} />
+                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} />
                         <div className="p-2">
                           <h5 className="card-title" style={{fontWeight:'bold'}}>
                             {product.product_name}
@@ -130,7 +130,7 @@ const Home = () => {
                   <div className="col-md-3 col-sm-6 mb-5">
                     <Link to={`/product/${product.product_id}`}style={{color: 'black', textDecoration: 'none'}}>
                       <div className="border rounded product">
-                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: 240, padding: 10 }} />
+                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} />
                         <div className="p-2">
                           <h5 className="card-title" style={{fontWeight:'bold'}}>
                             {product.product_name}

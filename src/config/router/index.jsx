@@ -24,14 +24,14 @@ const index = () => {
                 {/* <Route path='/home' element={<Home />} /> */}
                 <Route path="/home" element={<Auth><Home/></Auth>} />
                 <Route path='/profile' element={<Profile/>}/>
-                <Route path='/catepage' element={<CategoryPage/>}/>
+                <Route path='/catepage/:id' element={<CategoryPage/>}/>
                 <Route path='/profilecust' element={<ProfileCustomer/>}/>
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/product/:id' element={<DetailProduct />}/>
-                <Route path='/mybag/:id' element={<Mybag />} />
+                <Route path='/mybag/' element={<Mybag />} />
                 <Route path='/forgot' element={<ForgotPassword />} />
-                <Route path='/order/:id' element={<Order/>} />
+                <Route path='/order/' element={<Order/>} />
                 {/* <Route path='/*' element={<Page404 />} /> */}
             </Routes>
         </BrowserRouter>

@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import NavLogin from './NavLogin'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 const jas = require('../img/jas.png')
 const CategoryPage = () => {
+    let { id } = useParams()
+    let [category, setCategory] = useState([])
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_KEY}/category/${id}`)
+            .then((res) => {
+                setCategory(res.data.data[0]);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+    }, [])
+
     return (
         <>
         <NavLogin/>
@@ -15,61 +30,13 @@ const CategoryPage = () => {
                     <div className="row">
                         <div className="col-md-3 col-sm-6 mb-5">
                             <div className="border rounded product">
-                                <img className="w-100" src={jas} alt="cloth" />
+                                <img className="w-100" src={category.product_image} alt="cloth" />
                                 <div className="p-2">
                                     <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
+                                        {category.product_name}
                                     </h5>
-                                    <h5 className="text-danger">$ 40.0</h5>
+                                    <h5 className="text-danger">IDR {category && category.product_price ? category.product_price.toLocaleString() : 'N/A'}</h5>
                                     <img src={"assets\img\star.png"} alt="stars" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img className="w-100" src={jas} alt="cloth" />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">$ 40.0</h5>
-                                    <img src="assets\img\star.png" alt="stars" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img className="w-100" src={jas} alt="cloth" />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">$ 40.0</h5>
-                                    <img src="assets\img\star.png" alt="stars" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img className="w-100" src={jas} alt="cloth" />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">$ 40.0</h5>
-                                    <img src="assets\img\star.png" alt="stars" />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-3 col-sm-6 mb-5">
-                            <div className="border rounded product">
-                                <img className="w-100" src={jas} alt="cloth" />
-                                <div className="p-2">
-                                    <h5 className="card-title">
-                                        Men's formal suit - Black &amp; White
-                                    </h5>
-                                    <h5 className="text-danger">$ 40.0</h5>
-                                    <img src="assets\img\star.png" alt="stars" />
                                 </div>
                             </div>
                         </div>

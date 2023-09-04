@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 const gopay = require('../img/payment/gopay.png')
 const pos = require('../img/payment/pos.png')
 const master = require('../img/payment/mastercard.png')
 
 const ModalPayment = () => {
+    const [selectedOption, setSelectedOption] = useState(null);
+
+    const handleOptionChange = (option) => {
+      setSelectedOption(option);
+    };
     return (
         <>
             <div className="btn-payment">
@@ -63,9 +68,11 @@ const ModalPayment = () => {
                                             <div className="form-check">
                                                 <input
                                                     className="form-check-input"
-                                                    type="checkbox"
-                                                    defaultValue=""
-                                                    id="flexCheckDefault"
+                                                    type="radio"
+                                                    name="paymentOption"
+                                                    id="gopayOption"
+                                                    checked={selectedOption === "gopay"}
+                                                    onChange={() => handleOptionChange("gopay")}
                                                 />
                                             </div>
                                         </div>
@@ -81,9 +88,11 @@ const ModalPayment = () => {
                                             <div className="form-check">
                                                 <input
                                                     className="form-check-input"
-                                                    type="checkbox"
-                                                    defaultValue=""
-                                                    id="flexCheckDefault"
+                                                    type="radio"
+                                                    name="paymentOption"
+                                                    id="posOption"
+                                                    checked={selectedOption === "pos"}
+                                                    onChange={() => handleOptionChange("pos")}
                                                 />
                                             </div>
                                         </div>
@@ -99,9 +108,11 @@ const ModalPayment = () => {
                                             <div className="form-check">
                                                 <input
                                                     className="form-check-input"
-                                                    type="checkbox"
-                                                    defaultValue=""
-                                                    id="flexCheckDefault"
+                                                    type="radio"
+                                                    name="paymentOption"
+                                                    id="mastercardOption"
+                                                    checked={selectedOption === "mastercard"}
+                                                    onChange={() => handleOptionChange("mastercard")}
                                                 />
                                             </div>
                                         </div>
@@ -135,7 +146,7 @@ const ModalPayment = () => {
                                 >
                                     Discard
                                 </button>
-                                <button type="button" className="btn btn-danger">
+                                <button type="button" className="btn btn-danger" style={{marginLeft:14}}>
                                     Apply
                                 </button>
                             </div>

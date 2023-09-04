@@ -8,17 +8,29 @@ const profileImage = require('../img/profileFoto.png')
 const ProfileCustomer = () => {
 
   const [address, setAddress] = useState([]);
+  const [order, setOrder] = useState([]);
+
 
   const user_customer = localStorage.getItem("customer_id");
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_KEY}/address/profile/${user_customer}`)
-        .then((response) => {
-          setAddress(response.data.data);
-        })
-        .catch((error) => {
-            console.error('Error fetching categories:', error);
-        });
-}, []);
+      .then((response) => {
+        setAddress(response.data.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching categories:', error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_KEY}/orders/customer/${user_customer}`)
+      .then((response) => {
+        setOrder(response.data.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching categories:', error);
+      });
+  }, []);
 
 
   return (
@@ -42,7 +54,7 @@ const ProfileCustomer = () => {
                   <div className="col-md-12">
                     <h5 className="card-title">Johanes Mikael</h5>
                     <a href="#">
-                      <p>Ubah Profil</p>
+                      <p style={{color:'grey'}}>Ubah Profil</p>
                     </a>
                   </div>
                 </div>
@@ -54,6 +66,7 @@ const ProfileCustomer = () => {
                     aria-orientation="vertical"
                   >
                     <a
+                      style={{color:'grey'}}
                       className="nav-link active"
                       id="v-pills-home-tab"
                       data-toggle="pill"
@@ -66,6 +79,7 @@ const ProfileCustomer = () => {
                       My Account
                     </a>
                     <a
+                    style={{color:'grey'}}
                       className="nav-link"
                       id="v-pills-profile-tab"
                       data-toggle="pill"
@@ -78,6 +92,7 @@ const ProfileCustomer = () => {
                       Shipping Address
                     </a>
                     <a
+                    style={{color:'grey'}}
                       className="nav-link"
                       id="v-pills-messages-tab"
                       data-toggle="pill"
@@ -271,25 +286,25 @@ const ProfileCustomer = () => {
                   <div className="row">
                     <div className="col-md-11">
                       <div className="col-md-12">
-                        <ModalNewAdd/>
-                        {address.map((add) => ( 
-                        <div
-                          className="border"
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            marginTop: 35,
-                            padding: 25
-                          }}
-                        >
-                          <h5 style={{fontWeight:'bold'}}>{add.recipient_name}</h5>
-                          <h6>{add.address_as}, {add.recipient_phone}</h6>
-                          <p>
-                            {add.address_line},
-                            {add.city_or_subdistrict}, {add.postal_code}
-                          </p>
-                          <a href="#">Change address</a>
-                        </div>
+                        <ModalNewAdd />
+                        {address.map((add) => (
+                          <div
+                            className="border"
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              marginTop: 35,
+                              padding: 25
+                            }}
+                          >
+                            <h5 style={{ fontWeight: 'bold' }}>{add.recipient_name}</h5>
+                            <h6>{add.address_as}, {add.recipient_phone}</h6>
+                            <p>
+                              {add.address_line},
+                              {add.city_or_subdistrict}, {add.postal_code}
+                            </p>
+                            <a href="#">Change address</a>
+                          </div>
                         ))}
                       </div>
                     </div>
@@ -387,7 +402,57 @@ const ProfileCustomer = () => {
                         role="tabpanel"
                         aria-labelledby="nav-home-tab"
                       >
-                        Wadidaw
+
+                        {order.map((orderItem) => (
+                          <div
+                            key={orderItem.order_id}
+                            className="col-md-12 border mt-2"
+                            style={{
+                              boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff",
+                              borderRadius: 8
+                            }}
+                          >
+                            <div className="card-body" style={{ display: "flex" }}>
+                              <img src={orderItem.product_image} style={{width:'13%'}}/>
+                              <div style={{ marginLeft: 14 }}>
+                                <h5 className="card-title" style={{ fontWeight: "bold" }}>
+                                {orderItem.product_name}
+                                </h5>
+                                {/* <p className="card-text">Zalora Cloth</p> */}
+                              </div>
+                              <div style={{ marginLeft: "auto", marginRight: 22 }}>
+                                <h5 className="card-title" style={{ fontWeight: "bold" }}>
+                                  Quantity
+                                </h5>
+                                <p
+                                  className="card-text"
+                                  style={{ display: "flex", justifyContent: "center" }}
+                                >
+                                  {orderItem.order_quantity}
+                                </p>
+                              </div>
+                              <div style={{ marginLeft: "auto", marginRight: 22 }}>
+                                <h5 className="card-title" style={{ fontWeight: "bold" }}>
+                                  Total
+                                </h5>
+                                <p className="card-text">IDR {orderItem && orderItem.product_price ? orderItem.product_price.toLocaleString() : 'N/A'}</p>
+                              </div>
+                              <div style={{ marginLeft: "auto", marginRight: 42 }}>
+                                <h5 className="card-title" style={{ fontWeight: "bold" }}>
+                                  Payment
+                                </h5>
+                                <p
+                                  className="card-text"
+                                  style={{ display: "flex", justifyContent: "center" }}
+                                >
+                                  Gopay
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+
+
                       </div>
                       <div
                         className="tab-pane fade"
