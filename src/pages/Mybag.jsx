@@ -45,8 +45,8 @@ const Mybag = () => {
     const calculateTotalPrice = (order) => {
         let totalPrice = 0;
         for (const orderItem of order) {
-            if (orderItem.product_price) {
-                totalPrice += orderItem.product_price;
+            if (orderItem.total_price) {
+                totalPrice += orderItem.total_price;
             }
         }
         return totalPrice;
@@ -123,7 +123,7 @@ const Mybag = () => {
                                             </button>
                                         </div>
                                         <div className="harga" style={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
-                                            <h4>IDR {orderItem && orderItem.product_price ? orderItem.product_price.toLocaleString() : 'N/A'}</h4>
+                                            <h4>IDR {orderItem && orderItem.total_price ? orderItem.total_price.toLocaleString() : 'N/A'}</h4>
                                         </div>
                                     </div>
                                 </div>

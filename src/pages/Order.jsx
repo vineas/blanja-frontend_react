@@ -25,8 +25,8 @@ const Order = () => {
     const calculateTotalPrice = (order) => {
         let totalPrice = 0;
         for (const orderItem of order) {
-            if (orderItem.product_price) {
-                totalPrice += orderItem.product_price;
+            if (orderItem.total_price) {
+                totalPrice += orderItem.total_price;
             }
         }
         return totalPrice;
@@ -98,7 +98,7 @@ const Order = () => {
                                         {/* <p className="card-text">{product.nama_toko}</p> */}
                                     </div>
                                     <h5 style={{ marginLeft: "auto", marginTop: 25, marginRight: 42 }}>
-                                        IDR {orderItem && orderItem.product_price ? orderItem.product_price.toLocaleString() : 'N/A'}
+                                        IDR {orderItem && orderItem.total_price ? orderItem.total_price.toLocaleString() : 'N/A'}
                                     </h5>
                                 </div>
                             </div>
@@ -122,13 +122,13 @@ const Order = () => {
                         </div>
                         <div style={{ display: "flex" }}>
                             <p className="card-text">Delivery</p>
-                            <h6 style={{ marginLeft: "auto", marginRight: 42 }}>IDR 20,000</h6>
+                            <h6 style={{ marginLeft: "auto", marginRight: 42 }}></h6>
                         </div>
                         <hr />
                         <div style={{ display: "flex" }}>
                             <h6 className="card-title">Shoping summary</h6>
                             <h6 style={{ marginLeft: "auto", marginRight: 42, color: "#DB3022" }}>
-                                {/* Rp {product.price} */}
+                                {/* Rp {product.price} */} IDR {calculateTotalPrice(order).toLocaleString()}
                             </h6>
                         </div>
                         <div className="btn-payment">

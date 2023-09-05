@@ -435,7 +435,7 @@ const ProfileCustomer = () => {
                                 <h5 className="card-title" style={{ fontWeight: "bold" }}>
                                   Total
                                 </h5>
-                                <p className="card-text">IDR {orderItem && orderItem.product_price ? orderItem.product_price.toLocaleString() : 'N/A'}</p>
+                                <p className="card-text">IDR {orderItem && orderItem.total_price ? orderItem.total_price.toLocaleString() : 'N/A'}</p>
                               </div>
                               <div style={{ marginLeft: "auto", marginRight: 42 }}>
                                 <h5 className="card-title" style={{ fontWeight: "bold" }}>
@@ -460,7 +460,7 @@ const ProfileCustomer = () => {
                         role="tabpanel"
                         aria-labelledby="nav-profile-tab"
                       >
-                        waduh
+                        Not result
                       </div>
                       <div
                         className="tab-pane fade"
@@ -468,7 +468,7 @@ const ProfileCustomer = () => {
                         role="tabpanel"
                         aria-labelledby="nav-contact-tab"
                       >
-                        Waduh
+                        not result
                       </div>
                       <div
                         className="tab-pane fade show active"
@@ -484,7 +484,7 @@ const ProfileCustomer = () => {
                         role="tabpanel"
                         aria-labelledby="nav-profile-tab"
                       >
-                        Waduh
+                        Not result
                       </div>
                       <div
                         className="tab-pane fade"
@@ -492,7 +492,7 @@ const ProfileCustomer = () => {
                         role="tabpanel"
                         aria-labelledby="nav-contact-tab"
                       >
-                        Waduh
+                        Not result
                       </div>
                     </div>
                   </div>
