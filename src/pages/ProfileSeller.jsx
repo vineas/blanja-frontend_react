@@ -19,9 +19,10 @@ import axios from 'axios'
 // import { InputGroup } from 'react-bootstrap'
 const profileImage = require('../img/profileFoto.png')
 
-const ProfileSeller = () => {
+const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone, seller_description, seller_image }) => {
     // const { product } = useSelector((state) => state.product)
     const [product, setProduct] = useState([]);
+    const [seller, setSeller] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 10;
     const lastIndex = currentPage * recordsPerPage;
@@ -29,10 +30,58 @@ const ProfileSeller = () => {
     const records = product.slice(firstIndex, lastIndex);
     const npage = Math.ceil(product.length / recordsPerPage)
     const numbers = [...Array(npage + 1).keys()].slice(1)
-
     const [search, setSearch] = useState('')
-    console.log(search);
+    // console.log(search);
     const dispatch = useDispatch()
+    const [data, setData] = useState({
+        seller_storename:"",
+        seller_email:"",
+        seller_phone:"",
+        seller_description:"",
+        seller_image
+    });
+
+    const [image, setImage] = useState(null);
+    const handleChange = (e) => {
+        setData({
+            ...data,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleUpload = (e) => {
+        setImage(e.target.files[0]);
+    };
+
+    const user_seller = localStorage.getItem("seller_id");
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // ${process.env.REACT_APP_API_KEY}
+        const formData = new FormData();
+        formData.append("seller_storename", data.seller_storename);
+        formData.append("seller_email", data.seller_email);
+        formData.append("seller_phone", data.seller_phone);
+        formData.append("seller_description", data.seller_description);
+        formData.append("seller_image", image);
+        axios
+            .put(
+                `http://localhost:4000/seller/profile/${user_seller}`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            )
+            .then(() => {
+                alert("Profile Updated");
+                window.location.reload();
+            })
+            .catch((err) => {
+                alert(err);
+            });
+    };
+
 
 
     // useEffect(() => {
@@ -40,16 +89,25 @@ const ProfileSeller = () => {
     // }, [])
 
 
-    const user_seller = localStorage.getItem("seller_id");
     useEffect(() => {
-      axios.get(`${process.env.REACT_APP_API_KEY}/products/profile/${user_seller}`)
-          .then((response) => {
-            setProduct(response.data.data);
-          })
-          .catch((error) => {
-              console.error('Error fetching categories:', error);
-          });
-  }, []);
+        axios.get(`${process.env.REACT_APP_API_KEY}/products/profile/${user_seller}`)
+            .then((response) => {
+                setProduct(response.data.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching categories:', error);
+            });
+    }, []);
+
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_KEY}/seller/profile/${user_seller}`)
+            .then((response) => {
+                setSeller(response.data.data);
+            })
+            .catch((error) => {
+                console.error('Error fetching categories:', error);
+            });
+    }, [])
 
     return (
         <>
@@ -59,23 +117,24 @@ const ProfileSeller = () => {
                     <div className="col-md-1"></div>
                     <div
                         className="col-md-3"
-                        style={{ width: "100vw", backgroundColor: "white", marginTop: 30 }}
-                    >
+                        style={{ width: "100vw", backgroundColor: "white", marginTop: 30 }}>
                         <div className="col-md-12">
                             <div className="col-md-10">
-                                <div className="col-md-12" style={{ display: "flex" }}>
-                                    <img
-                                        src={profileImage}
-                                        style={{ width: 80, height: 80 }}
-                                        alt="description of image"
-                                    />
-                                    <div className="col-md-12">
-                                        <h5 className="card-title">Johanes Mikael</h5>
-                                        <Link href="#">
-                                            <p>Ubah Profil</p>
-                                        </Link>
+                                {seller.map((sellerItem) => (
+                                    <div className="col-md-12" style={{ display: "flex" }}>
+                                        <img
+                                            src={profileImage}
+                                            style={{ width: 80, height: 80 }}
+                                            alt="description of image"
+                                        />
+                                        <div className="col-md-12">
+                                            <h5 className="card-title">{sellerItem.seller_name}</h5>
+                                            {/* <Link href="#"> */}
+                                            <p>{sellerItem.seller_storename}</p>
+                                            {/* </Link> */}
+                                        </div>
                                     </div>
-                                </div>
+                                ))}
                                 <div style={{ marginTop: 78 }}>
                                     {/* <div style="display: flex;">
                             <div style="width: 32px; height: 32px; background-color: #456BF3; border-radius: 50px;">
@@ -107,7 +166,7 @@ const ProfileSeller = () => {
                                             role="tab"
                                             aria-controls="v-pills-home"
                                             aria-selected="true"
-                                            style={{color:'grey'}}
+                                            style={{ color: 'grey' }}
                                         >
                                             Store
                                         </Link>
@@ -120,7 +179,7 @@ const ProfileSeller = () => {
                                             role="tab"
                                             aria-controls="v-pills-profile"
                                             aria-selected="false"
-                                            style={{color:'grey'}}
+                                            style={{ color: 'grey' }}
                                         >
                                             Product
                                         </Link>
@@ -133,7 +192,7 @@ const ProfileSeller = () => {
                                             role="tab"
                                             aria-controls="v-pills-messages"
                                             aria-selected="false"
-                                            style={{color:'grey'}}
+                                            style={{ color: 'grey' }}
                                         >
                                             My Order
                                         </Link>
@@ -164,7 +223,7 @@ const ProfileSeller = () => {
                                     <hr />
                                     <div className="row">
                                         <div className="col-md-7">
-                                            <form>
+                                            <form onSubmit={handleSubmit}>
                                                 <div className="form-group row">
                                                     <label
                                                         htmlFor="inputName"
@@ -179,6 +238,9 @@ const ProfileSeller = () => {
                                                             id="storeName"
                                                             placeholder="Store name"
                                                             style={{ marginLeft: 50 }}
+                                                            name="seller_storename"
+                                                            value={data.seller_storename}
+                                                            onChange={handleChange}
                                                         />
                                                     </div>
                                                 </div>
@@ -196,6 +258,9 @@ const ProfileSeller = () => {
                                                             id="inputPassword"
                                                             placeholder="Email"
                                                             style={{ marginLeft: 50 }}
+                                                            name="seller_email"
+                                                            value={data.seller_email}
+                                                            onChange={handleChange}
                                                         />
                                                     </div>
                                                 </div>
@@ -210,9 +275,12 @@ const ProfileSeller = () => {
                                                         <input
                                                             type="text"
                                                             className="form-control"
-                                                            id="inputPassword"
+                                                            // id="inputPassword"
                                                             placeholder="Phone number"
                                                             style={{ marginLeft: 50 }}
+                                                            name="seller_phone"
+                                                            value={data.seller_phone}
+                                                            onChange={handleChange}
                                                         />
                                                     </div>
                                                 </div>
@@ -229,12 +297,15 @@ const ProfileSeller = () => {
                                                             id="exampleFormControlTextarea1"
                                                             style={{ marginLeft: 50 }}
                                                             rows={3}
-                                                            defaultValue={""}
+                                                            name="seller_description"
+                                                            value={data.seller_description}
+                                                            onChange={handleChange}
+
                                                         ></textarea>
                                                     </div>
                                                 </div>
                                                 <button
-                                                    type="button"
+                                                    type="submit"
                                                     className="btn btn-danger"
                                                     style={{
                                                         marginTop: 20,
@@ -263,6 +334,13 @@ const ProfileSeller = () => {
                                             >
                                                 Select image
                                             </button>
+                                            <input
+                                                type="file"
+                                                name="seller_image"
+                                                value={data.seller_image}
+                                                onChange={handleUpload}
+
+                                            />
                                         </div>
                                     </div>
                                 </div>

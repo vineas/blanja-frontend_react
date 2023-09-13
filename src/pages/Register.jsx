@@ -84,7 +84,7 @@ const Register = () => {
           >
             <li className="nav-item" role="presentation">
               <button
-                className="nav-link active"
+                className="nav-link active btn btn-danger"
                 id="pills-home-tab"
                 data-toggle="pill"
                 data-target="#pills-home"
@@ -99,7 +99,7 @@ const Register = () => {
             </li>
             <li className="nav-item" role="presentation">
               <button
-                className="nav-link"
+                className="nav-link btn btn-danger"
                 id="pills-profile-tab"
                 data-toggle="pill"
                 data-target="#pills-profile"
