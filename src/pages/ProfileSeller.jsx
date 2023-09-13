@@ -65,7 +65,7 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
         formData.append("seller_image", image);
         axios
             .put(
-                `http://localhost:4000/seller/profile/${user_seller}`,
+                `${process.env.REACT_APP_API_KEY}/seller/profile/${user_seller}`,
                 formData,
                 {
                     headers: {
