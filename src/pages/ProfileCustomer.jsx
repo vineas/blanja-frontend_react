@@ -53,9 +53,9 @@ const ProfileCustomer = () => {
                   />
                   <div className="col-md-12">
                     <h5 className="card-title">Johanes Mikael</h5>
-                    <a href="#">
+                    {/* <a href="#">
                       <p style={{color:'grey'}}>Ubah Profil</p>
-                    </a>
+                    </a> */}
                   </div>
                 </div>
                 <div style={{ marginTop: 78 }}>

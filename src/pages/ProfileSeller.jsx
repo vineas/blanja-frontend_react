@@ -334,13 +334,13 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
                                             >
                                                 Select image
                                             </button>
-                                            <input
+                                            {/* <input
                                                 type="file"
                                                 name="seller_image"
                                                 value={data.seller_image}
                                                 onChange={handleUpload}
 
-                                            />
+                                            /> */}
                                         </div>
                                     </div>
                                 </div>
