@@ -101,37 +101,62 @@ npm run build
 
 <table>
  <tr>
-    <td><img width="350px" src="./docs/readme/login.png" border="0" alt="Login" /></td>
-    <td> <img width="350px" src="./docs/readme/register.png" border="0"  alt="Register" /></td>
+    <td><img width="350px" src="./docs/readme/loginCustomer.png" border="0" alt="Login" /></td>
+    <td> <img width="350px" src="./docs/readme/registerCustomer.png" border="0"  alt="Register" /></td>
   </tr>
   <tr>
-    <td>Login</td>
-    <td>Register</td>
+    <td>Login Customer</td>
+    <td>Register Customer</td>
+  </tr>
+ <tr>
+    <td><img width="350px" src="./docs/readme/loginSeller.png" border="0" alt="Login" /></td>
+    <td> <img width="350px" src="./docs/readme/registerSeller.png" border="0"  alt="Register" /></td>
   </tr>
   <tr>
-    <td><img width="350px" src="./docs/readme/home.png" border="0" alt="Home Page" /></td>
-    <td><img width="350px" src="./docs/readme/Checkout.png" border="0" alt="Checkout" /> </td>
-  </tr>
-   <tr>
-    <td>Home Page</td>
-    <td>Checkout List</td>
+    <td>Login Seller</td>
+    <td>Register Seller</td>
   </tr>
   <tr>
+    <td><img width="350px" src="./docs/readme/home.png" border="0" alt="Profile" /> </td>
     <td><img width="350px" src="./docs/readme/detail.png" border="0" alt="Detail Product" /></td>
-    <td><img width="350px" src="./docs/readme/profile.png" border="0" alt="Profile" /> </td>
   </tr>
    <tr>
+    <td>Home</td>
     <td>Detail Product</td>
-    <td>Profile</td>
   </tr>
-    <!-- <tr>
-    <td><img width="350px" src="./docs/readme/hire.png" border="0" alt="Hire Worker" /></td>
-    <td><img width="350px" src="./docs/readme/notification.png" border="0" alt="Notification" /> </td>
+    <tr>
+    <td><img width="350px" src="./docs/readme/Mybag.png" border="0" alt="Detail Product" /></td>
+    <td><img width="350px" src="./docs/readme/Checkout.png" border="0" alt="Profile" /> </td>
   </tr>
    <tr>
-    <td>Worker Profile - Hire Worker</td>
-    <td>Notification</td>
-  </tr> -->
+    <td>Mybag</td>
+    <td>Checkout</td>
+  </tr>
+    <tr>
+    <td><img width="350px" src="./docs/readme/profilecustomer.png" border="0" alt="Detail Product" /></td>
+    <td><img width="350px" src="./docs/readme/profilecustomerAddress.png" border="0" alt="Profile" /> </td>
+  </tr>
+   <tr>
+    <td>Profile Customer</td>
+    <td>Customer Address</td>
+  </tr>
+    <tr>
+    <td><img width="350px" src="./docs/readme/profilecustomerOrder.png" border="0" alt="Detail Product" /></td>
+    <td><img width="350px" src="./docs/readme/profileseller.png" border="0" alt="Profile" /> </td>
+  </tr>
+   <tr>
+    <td>Customer Order</td>
+    <td>Profile Seller</td>
+  </tr>
+    <tr>
+    <td><img width="350px" src="./docs/readme/profilesellerProduct.png" border="0" alt="Detail Product" /></td>
+    <td><img width="350px" src="./docs/readme/profilesellerOrder.png" border="0" alt="Profile" /> </td>
+  </tr>
+   <tr>
+    <td>Seller Product</td>
+    <td>Seller Order</td>
+  </tr>
+
 </table>
 
 ## Related Project
