@@ -18,6 +18,11 @@ code {
   border-radius: 24px;
 }
 
+.list-search{
+  width: 507px;
+  height: 40px;
+}
+
 #carouselExampleInterval{
     width: 456px;
     height: 180px;  

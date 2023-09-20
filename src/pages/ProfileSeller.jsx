@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ModalCreate from '../components/ModalCreate'
 import ModalUpdate from '../components/ModalUpdate'
 import ModalDelete from '../components/ModalDelete'
@@ -17,9 +17,9 @@ import { InputText } from 'primereact/inputtext';
 import axios from 'axios'
 
 // import { InputGroup } from 'react-bootstrap'
-const profileImage = require('../img/profileFoto.png')
+const defaultProfile = require('../img/defaultProfile.jpg')
 
-const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone, seller_description, seller_image }) => {
+const ProfileSeller = () => {
     // const { product } = useSelector((state) => state.product)
     const [product, setProduct] = useState([]);
     const [seller, setSeller] = useState([]);
@@ -34,34 +34,51 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
     // console.log(search);
     const dispatch = useDispatch()
     const [data, setData] = useState({
-        seller_storename:"",
-        seller_email:"",
-        seller_phone:"",
-        seller_description:"",
-        seller_image
+        seller_storename: "",
+        seller_email: "",
+        seller_phone: "",
+        seller_description: "",
+        // seller_image
     });
 
     const [image, setImage] = useState(null);
+
     const handleChange = (e) => {
-        setData({
-            ...data,
+        setSeller({
+            ...seller,
             [e.target.name]: e.target.value,
         });
     };
 
-    const handleUpload = (e) => {
+    const fileInputRef = useRef(null);
+    const handleFileInputChange = () => {
+        fileInputRef.current.click();
+    };
+
+    const handleFileUpload = (e) => {
         setImage(e.target.files[0]);
     };
 
     const user_seller = localStorage.getItem("seller_id");
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_KEY}/seller/profile/${user_seller}`)
+            .then((response) => {
+                setSeller(response.data.data[0]);
+                console.log(response.data.data[0]);
+            })
+            .catch((error) => {
+                console.error('Error fetching categories:', error);
+            });
+    }, [])
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // ${process.env.REACT_APP_API_KEY}
         const formData = new FormData();
-        formData.append("seller_storename", data.seller_storename);
-        formData.append("seller_email", data.seller_email);
-        formData.append("seller_phone", data.seller_phone);
-        formData.append("seller_description", data.seller_description);
+        formData.append("seller_storename", seller.seller_storename);
+        formData.append("seller_email", seller.seller_email);
+        formData.append("seller_phone", seller.seller_phone);
+        formData.append("seller_description", seller.seller_description);
         formData.append("seller_image", image);
         axios
             .put(
@@ -99,15 +116,7 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
             });
     }, []);
 
-    useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_KEY}/seller/profile/${user_seller}`)
-            .then((response) => {
-                setSeller(response.data.data);
-            })
-            .catch((error) => {
-                console.error('Error fetching categories:', error);
-            });
-    }, [])
+
 
     return (
         <>
@@ -115,26 +124,27 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
             <div style={{ marginTop: 60 }}>
                 <div className="row">
                     <div className="col-md-1"></div>
+
                     <div
                         className="col-md-3"
                         style={{ width: "100vw", backgroundColor: "white", marginTop: 30 }}>
                         <div className="col-md-12">
                             <div className="col-md-10">
-                                {seller.map((sellerItem) => (
-                                    <div className="col-md-12" style={{ display: "flex" }}>
-                                        <img
-                                            src={profileImage}
-                                            style={{ width: 80, height: 80 }}
-                                            alt="description of image"
-                                        />
-                                        <div className="col-md-12">
-                                            <h5 className="card-title">{sellerItem.seller_name}</h5>
-                                            {/* <Link href="#"> */}
-                                            <p>{sellerItem.seller_storename}</p>
-                                            {/* </Link> */}
-                                        </div>
+                                {/* {seller.map((sellerItem) => ( */}
+                                <div className="col-md-12" style={{ display: "flex" }}>
+                                    <img
+                                        src={seller.seller_image || defaultProfile}
+                                        style={{ width: 80, height: 80, borderRadius: '50%' }}
+                                        alt="description of image"
+                                    />
+                                    <div className="col-md-12">
+                                        <h5 className="card-title">{seller.seller_name}</h5>
+                                        {/* <Link href="#"> */}
+                                        <p>{seller.seller_storename}</p>
+                                        {/* </Link> */}
                                     </div>
-                                ))}
+                                </div>
+                                {/* ))} */}
                                 <div style={{ marginTop: 78 }}>
                                     {/* <div style="display: flex;">
                             <div style="width: 32px; height: 32px; background-color: #456BF3; border-radius: 50px;">
@@ -201,6 +211,7 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
                             </div>
                         </div>
                     </div>
+
                     <div
                         className="col-md-8"
                         style={{ height: "100vh", backgroundColor: "#F5F5F5" }}
@@ -216,8 +227,7 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
                                     id="v-pills-home"
                                     role="tabpanel"
                                     aria-labelledby="v-pills-home-tab"
-                                    style={{ paddingBottom: 30, paddingTop: 30, paddingLeft: 30 }}
-                                >
+                                    style={{ paddingBottom: 30, paddingTop: 30, paddingLeft: 30 }}>
                                     <h5>My profile store</h5>
                                     <p>Manage your profile inoformation</p>
                                     <hr />
@@ -239,7 +249,7 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
                                                             placeholder="Store name"
                                                             style={{ marginLeft: 50 }}
                                                             name="seller_storename"
-                                                            value={data.seller_storename}
+                                                            value={seller.seller_storename}
                                                             onChange={handleChange}
                                                         />
                                                     </div>
@@ -259,7 +269,7 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
                                                             placeholder="Email"
                                                             style={{ marginLeft: 50 }}
                                                             name="seller_email"
-                                                            value={data.seller_email}
+                                                            value={seller.seller_email}
                                                             onChange={handleChange}
                                                         />
                                                     </div>
@@ -279,7 +289,7 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
                                                             placeholder="Phone number"
                                                             style={{ marginLeft: 50 }}
                                                             name="seller_phone"
-                                                            value={data.seller_phone}
+                                                            value={seller.seller_phone}
                                                             onChange={handleChange}
                                                         />
                                                     </div>
@@ -298,7 +308,7 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
                                                             style={{ marginLeft: 50 }}
                                                             rows={3}
                                                             name="seller_description"
-                                                            value={data.seller_description}
+                                                            value={seller.seller_description}
                                                             onChange={handleChange}
 
                                                         ></textarea>
@@ -318,32 +328,34 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
                                                 </button>
                                             </form>
                                         </div>
-                                        <div
-                                            className="col-md-3"
-                                            style={{ justifyContent: "center", marginLeft: 50 }}
-                                        >
+                                        <div className='col-md-2' ></div>
+
+                                        <div className="col-md-3">
                                             <img
-                                                src={profileImage}
+                                                src={seller.seller_image || defaultProfile}
                                                 alt=""
-                                                style={{ marginLeft: 64 }}
+                                                style={{ width: '60%', borderRadius: '110%', marginLeft: 13 }}
                                             />
                                             <button
                                                 type="button"
                                                 className="btn btn-danger"
-                                                style={{ marginTop: 20, borderRadius: 25, marginLeft: 64 }}
+                                                style={{ marginTop: 20, borderRadius: 25 }}
+                                                onClick={handleFileInputChange}
                                             >
-                                                Select image
+                                                Change Image
                                             </button>
-                                            {/* <input
+                                            <input
                                                 type="file"
                                                 name="seller_image"
-                                                value={data.seller_image}
-                                                onChange={handleUpload}
-
-                                            /> */}
+                                                style={{ display: 'none' }}
+                                                ref={fileInputRef}
+                                                onChange={handleFileUpload}
+                                            />
                                         </div>
                                     </div>
                                 </div>
+
+
                                 {/* product */}
                                 <div
                                     className="tab-pane fade"
@@ -563,7 +575,7 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
                                                 role="tabpanel"
                                                 aria-labelledby="nav-home-tab"
                                             >
-                                                Not result
+                                                No result
                                             </div>
                                             <div
                                                 className="tab-pane fade"
@@ -571,7 +583,7 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
                                                 role="tabpanel"
                                                 aria-labelledby="nav-profile-tab"
                                             >
-                                                Not result
+                                                No result
                                             </div>
                                             <div
                                                 className="tab-pane fade"
@@ -579,7 +591,7 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
                                                 role="tabpanel"
                                                 aria-labelledby="nav-contact-tab"
                                             >
-                                                Not result
+                                                No result
                                             </div>
 
                                             <div
@@ -588,7 +600,7 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
                                                 role="tabpanel"
                                                 aria-labelledby="nav-profile-tab"
                                             >
-                                                Not result
+                                                No result
                                             </div>
                                             <div
                                                 className="tab-pane fade"
@@ -596,7 +608,7 @@ const ProfileSeller = ({ seller_id, seller_storename, seller_email, seller_phone
                                                 role="tabpanel"
                                                 aria-labelledby="nav-contact-tab"
                                             >
-                                                Not result
+                                                No result
                                             </div>
                                         </div>
                                     </div>

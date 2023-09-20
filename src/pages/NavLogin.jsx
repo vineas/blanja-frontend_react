@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import ModalFilter from '../components/ModalFilter'
+import axios from 'axios'
 const profileImg = require('../img/profile.png')
 const blanjaIcon = require('../img/blanja.png')
 const cartIcon = require('../img/cart.png')
@@ -22,9 +23,22 @@ const NavLogin = () => {
     window.location.reload();
   }
 
+  let [products, setProduct] = useState([])
+  useEffect(() => {
+    // dispatch()
+    axios.get(`${process.env.REACT_APP_API_KEY}/products`)
+      .then((res) => {
+        setProduct(res.data.data);
+        console.log(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, [])
+
   return (
     <>
-    <style>
+      <style>
         {`
           .dropdown {
             position: relative;
@@ -96,13 +110,23 @@ const NavLogin = () => {
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
               <li className="nav-item ml-2 form-inline row justify-content-center">
-                <input
-                  id="searchbox"
-                  className="form-control mr-sm-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
+                <div className='main'>
+                  <input
+                    id="searchbox"
+                    className="form-control mr-sm-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                    list='data'
+                  />
+                  <datalist id='data' style={{width: '507px',height: '40px'}}>
+                    {/* <option>One</option>
+                    <option>Two</option>
+                    <option>Three</option>
+                    <option>Four</option> */}
+                    {products.map((item)=><Link to={`/product/${item.product_id}`}><option style={{width: '507px',height: '40px'}}>{item.product_name}</option></Link>)}
+                  </datalist>
+                </div>
                 <img
                   className="searchLogo"
                   src={searchIcon}

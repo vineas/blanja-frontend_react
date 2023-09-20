@@ -156,6 +156,14 @@ npm run build
     <td>Seller Product</td>
     <td>Seller Order</td>
   </tr>
+      <tr>
+    <td><img width="350px" src="./docs/readme/Category.png" border="0" alt="Detail Product" /></td>
+    <td><img width="350px" src="./docs/readme/moreProducts.png" border="0" alt="Profile" /> </td>
+  </tr>
+   <tr>
+    <td>Category</td>
+    <td>All Products</td>
+  </tr>
 
 </table>
 

@@ -6,6 +6,7 @@ import Rating from '../components/Rating'
 import Foot from './Foot'
 import NavLogin from './NavLogin'
 import Swal from 'sweetalert2'
+import Nav from './Nav'
 // import { useDispatch } from 'react-redux'
 // import detailProductAction from '../config/redux/actions/detailProductsAction'
 const jas = require('../img/jas.png')
@@ -90,9 +91,11 @@ const DetailProduct = () => {
             });
     };
 
+    const loginTrue = localStorage.getItem("token");
+
     return (
         <>
-            <NavLogin />
+                        {!loginTrue ? <Nav/> : <NavLogin />}
             <div className="container" style={{ marginTop: 90 }}>
                 <div className="keterangan-product">
                     <p>Home &gt; Product &gt; Category</p>

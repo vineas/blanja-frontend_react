@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import NavLogin from './NavLogin'
+import Nav from './Nav'
 const bajuCream = require('../img/product/baju-cream.png')
 const jasImg = require('../img/jas.png')
 const lima = require('../img/5.0.png')
@@ -36,15 +37,10 @@ const Detail = () => {
         height: 140
     }
 
-    
+    const loginTrue = localStorage.getItem("token");
     return (
         <>
-        {/* <div>
-            Name: {product.name}
-            Price: {product.price}
-            Stock: {product.stock}
-        </div> */}
-        <NavLogin/>
+            {!loginTrue ? <Nav/> : <NavLogin />}
 
             <main>
                 <section className="container" style={{ marginTop: 90 }}>

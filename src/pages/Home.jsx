@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import NavLogin from './NavLogin'
 import { useDispatch } from 'react-redux'
 import getProductAction from '../config/redux/actions/getProductAction'
+import { Button } from 'react-bootstrap'
 const jasImage = require('../img/jas.png')
 const starss = require('../img/bintang.png')
 
@@ -28,128 +29,81 @@ const Home = () => {
   }, [])
 
   const loginTrue = localStorage.getItem("token");
-  if (!loginTrue) {
-    return (
-      <>
-        <Nav></Nav>
-        <main className='mt-90'>
-          <Carousel />
-          <Category />
+  return (
+    <>
+      {!loginTrue ? <Nav /> : <NavLogin />}
+      <main className='mt-90'>
+        <Carousel />
+        <Category />
 
-          <section className="container" style={{ marginTop: 50 }}>
-            <h2 className="ml-3">New</h2>
-            <p className="ml-3">You've never seen before!</p>
-            <div className="container mt-5">
+        {/* <section className="container" style={{ marginTop: 50 }}>
+          <h2 className="ml-3">New</h2>
+          <p className="ml-3">You've never seen before!</p>
+          <div className="container mt-5">
             <div className="row">
-                {products.map((product) => (
-                  <div className="col-md-3 col-sm-6 mb-5">
-                    <Link to={`/product/${product.product_id}`}style={{color: 'black', textDecoration: 'none'}}>
-                      <div className="border rounded product">
-                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} />
-                        <div className="p-2">
-                          <h5 className="card-title" style={{fontWeight:'bold'}}>
-                            {product.product_name}
-                          </h5>
-                          <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
-                          <h6 className="text-warning">⭐⭐⭐⭐⭐</h6>
-                        </div>
+              {products.slice(0, 4).map((product) => ( // Menambahkan slice(0, 4) untuk membatasi hanya 4 produk
+                <div className="col-md-3 col-sm-6 mb-5" key={product.product_id}>
+                  <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }}>
+                    <div className="border rounded product">
+                      <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} alt={product.product_name} />
+                      <div className="p-2">
+                        <h5 className="card-title" style={{ fontWeight: 'bold' }}>
+                          {product.product_name}
+                        </h5>
+                        <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
+                        <h6 className="text-warning">⭐⭐⭐⭐⭐</h6>
                       </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
             </div>
-          </section>
-          <section className="container" style={{ marginTop: 50 }}>
-            <h2 className="ml-3">Popular</h2>
-            <p className="ml-3">Find clothes that are trending recently</p>
-            <div className="container mt-5">
-            <div className="row">
-                {products.map((product) => (
-                  <div className="col-md-3 col-sm-6 mb-5">
-                    <Link to={`/product/${product.product_id}`}style={{color: 'black', textDecoration: 'none'}}>
-                      <div className="border rounded product">
-                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} />
-                        <div className="p-2">
-                          <h5 className="card-title" style={{fontWeight:'bold'}}>
-                            {product.product_name}
-                          </h5>
-                          <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
-                          <h6 className="text-warning">⭐⭐⭐⭐⭐</h6>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        </main>
-        <Foot />
-      </>
-    )
-  }
-  else {
-    return (
-      <>
-        <NavLogin></NavLogin>
-        <main className='mt-90'>
-          <Carousel />
-          <Category />
+            <div style={{ display: 'flex', justifyContent: 'center', }}>
+              <Link to={`/products`} >
+                <Button variant="danger" style={{ marginTop: 1, borderRadius: 10 }}>
+                  Load more
+                </Button>
+              </Link>
 
-          <section className="container" style={{ marginTop: 50 }}>
-            <h2 className="ml-3">New</h2>
-            <p className="ml-3">You've never seen before!</p>
-            <div className="container mt-5">
-              <div className="row">
-                {products.map((product) => (
-                  <div className="col-md-3 col-sm-6 mb-5">
-                    <Link to={`/product/${product.product_id}`}style={{color: 'black', textDecoration: 'none'}}>
-                      <div className="border rounded product">
-                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} />
-                        <div className="p-2">
-                          <h5 className="card-title" style={{fontWeight:'bold'}}>
-                            {product.product_name}
-                          </h5>
-                          <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
-                          <h6 className="text-warning">⭐⭐⭐⭐⭐</h6>
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
             </div>
-          </section>
-          <section className="container" style={{ marginTop: 50 }}>
-            <h2 className="ml-3">Popular</h2>
-            <p className="ml-3">Find clothes that are trending recently</p>
-            <div className="container mt-5">
+          </div>
+        </section> */}
+        <section className="container" style={{ marginTop: 50 }}>
+          <h2 className="ml-3">Popular</h2>
+          <p className="ml-3">Find clothes that are trending recently</p>
+          <div className="container mt-5">
             <div className="row">
-                {products.map((product) => (
-                  <div className="col-md-3 col-sm-6 mb-5">
-                    <Link to={`/product/${product.product_id}`}style={{color: 'black', textDecoration: 'none'}}>
-                      <div className="border rounded product">
-                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} />
-                        <div className="p-2">
-                          <h5 className="card-title" style={{fontWeight:'bold'}}>
-                            {product.product_name}
-                          </h5>
-                          <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
-                          <h6 className="text-warning">⭐⭐⭐⭐⭐</h6>
-                        </div>
+              {products.slice(0, 4).map((product) => ( // Menambahkan slice(0, 4) untuk membatasi hanya 4 produk
+                <div className="col-md-3 col-sm-6 mb-5" key={product.product_id}>
+                  <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }}>
+                    <div className="border rounded product">
+                      <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} alt={product.product_name} />
+                      <div className="p-2">
+                        <h5 className="card-title" style={{ fontWeight: 'bold' }}>
+                          {product.product_name}
+                        </h5>
+                        <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
+                        <h6 className="text-warning">⭐⭐⭐⭐⭐</h6>
                       </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
             </div>
-          </section>
-        </main>
-        <Foot />
-      </>
-    )
-  }
+            <div style={{ display: 'flex', justifyContent: 'center', }}>
+              <Link to={`/products`} >
+                <Button variant="danger" style={{ marginTop: 1, borderRadius: 10 }}>
+                  Load more
+                </Button>
+              </Link>
+
+            </div>
+          </div>
+        </section>
+      </main>
+      <Foot />
+    </>
+  )
 }
 
 export default Home

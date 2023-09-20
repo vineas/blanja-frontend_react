@@ -80,22 +80,22 @@ const Category = () => {
             {/* ${categoryItem.category_id} */}
 
 
-            <SwiperSlide><Link to={`/catepage/`}><img src={img1} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img2} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img3} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img4} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img5} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img6} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img7} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img8} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img9} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img10} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img11} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img12} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img13} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img14} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img15} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/`}><img src={img16} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/1`}><img src={img1} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/2`}><img src={img2} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/3`}><img src={img3} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/4`}><img src={img4} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/5`}><img src={img5} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/6`}><img src={img6} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/7`}><img src={img7} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/8`}><img src={img8} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/9`}><img src={img9} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/10`}><img src={img10} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/11`}><img src={img11} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/12`}><img src={img12} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/13`}><img src={img13} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/14`}><img src={img14} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/15`}><img src={img15} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/catepage/16`}><img src={img16} alt="" /></Link></SwiperSlide>
 
           </Swiper>
         </div>

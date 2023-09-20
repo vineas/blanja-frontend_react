@@ -1,17 +1,77 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import NavLogin from './NavLogin'
 import Foot from './Foot'
 import ModalNewAdd from '../components/ModalNewAdd'
 import axios from 'axios'
 const profileImage = require('../img/profileFoto.png')
+const defaultProfile = require('../img/defaultProfile.jpg')
+
 
 const ProfileCustomer = () => {
-
+  const [customer, setCustomer] = useState([]);
   const [address, setAddress] = useState([]);
   const [order, setOrder] = useState([]);
 
-
   const user_customer = localStorage.getItem("customer_id");
+
+  const [image, setImage] = useState(null);
+
+  const handleChange = (e) => {
+    setCustomer({
+      ...customer,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const fileInputRef = useRef(null);
+  const handleFileInputChange = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileUpload = (e) => {
+    setImage(e.target.files[0]);
+  };
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_API_KEY}/customer/profile/${user_customer}`)
+      .then((response) => {
+        setCustomer(response.data.data[0]);
+        console.log(response.data.data[0]);
+      })
+      .catch((error) => {
+        console.error('Error fetching categories:', error);
+      });
+  }, [])
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // ${process.env.REACT_APP_API_KEY}
+    const formData = new FormData();
+    formData.append("customer_name", customer.customer_name);
+    formData.append("customer_email", customer.customer_email);
+    formData.append("customer_phone", customer.customer_phone);
+    formData.append("customer_gender", customer.customer_gender);
+    formData.append("customer_birth", customer.customer_birth);
+    formData.append("customer_image", image);
+    axios
+      .put(
+        `${process.env.REACT_APP_API_KEY}/customer/profile/${user_customer}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then(() => {
+        alert("Profile Updated");
+        window.location.reload();
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
+
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API_KEY}/address/profile/${user_customer}`)
       .then((response) => {
@@ -47,12 +107,12 @@ const ProfileCustomer = () => {
               <div className="col-md-10">
                 <div className="col-md-12" style={{ display: "flex" }}>
                   <img
-                    src={profileImage}
-                    style={{ width: 80, height: 80 }}
+                    src={customer.customer_image || defaultProfile}
+                    style={{ width: 80, borderRadius: '110%', height: 80 }}
                     alt="description of image"
                   />
                   <div className="col-md-12">
-                    <h5 className="card-title">Johanes Mikael</h5>
+                    <h5 className="card-title">{customer.customer_name}</h5>
                     {/* <a href="#">
                       <p style={{color:'grey'}}>Ubah Profil</p>
                     </a> */}
@@ -66,7 +126,7 @@ const ProfileCustomer = () => {
                     aria-orientation="vertical"
                   >
                     <a
-                      style={{color:'grey'}}
+                      style={{ color: 'grey' }}
                       className="nav-link active"
                       id="v-pills-home-tab"
                       data-toggle="pill"
@@ -79,7 +139,7 @@ const ProfileCustomer = () => {
                       My Account
                     </a>
                     <a
-                    style={{color:'grey'}}
+                      style={{ color: 'grey' }}
                       className="nav-link"
                       id="v-pills-profile-tab"
                       data-toggle="pill"
@@ -92,7 +152,7 @@ const ProfileCustomer = () => {
                       Shipping Address
                     </a>
                     <a
-                    style={{color:'grey'}}
+                      style={{ color: 'grey' }}
                       className="nav-link"
                       id="v-pills-messages-tab"
                       data-toggle="pill"
@@ -131,7 +191,7 @@ const ProfileCustomer = () => {
                   <hr />
                   <div className="row">
                     <div className="col-md-7">
-                      <form>
+                      <form onSubmit={handleSubmit}>
                         <div className="form-group row">
                           <label
                             htmlFor="inputName"
@@ -145,6 +205,9 @@ const ProfileCustomer = () => {
                               className="form-control"
                               id="inputPassword"
                               placeholder="Name"
+                              name="customer_name"
+                              value={customer.customer_name}
+                              onChange={handleChange}
                               style={{ marginLeft: 50 }}
                             />
                           </div>
@@ -162,6 +225,9 @@ const ProfileCustomer = () => {
                               className="form-control"
                               id="inputPassword"
                               placeholder="Email"
+                              name="customer_email"
+                              value={customer.customer_email}
+                              onChange={handleChange}
                               style={{ marginLeft: 50 }}
                             />
                           </div>
@@ -179,30 +245,28 @@ const ProfileCustomer = () => {
                               className="form-control"
                               id="inputPassword"
                               placeholder="Phone number"
+                              name="customer_phone"
+                              value={customer.customer_phone}
+                              onChange={handleChange}
                               style={{ marginLeft: 50 }}
                             />
                           </div>
                         </div>
                         <div className="form-group row">
-                          <label
-                            htmlFor="inputPassword"
-                            className="col-sm-2 col-form-label"
-                          >
+                          <label htmlFor="inputPassword" className="col-sm-2 col-form-label">
                             Gender
                           </label>
                           <div className="form-check" style={{ marginLeft: 60 }}>
                             <input
                               className="form-check-input"
                               type="radio"
-                              name="exampleRadios"
+                              name="customer_gender"
                               id="exampleRadios1"
-                              defaultValue="option1"
-                              defaultChecked=""
+                              value="Laki-laki"
+                              checked={customer.customer_gender === "Laki-laki"}
+                              onChange={handleChange}
                             />
-                            <label
-                              className="form-check-label"
-                              htmlFor="exampleRadios1"
-                            >
+                            <label className="form-check-label" htmlFor="exampleRadios1">
                               Laki-laki
                             </label>
                           </div>
@@ -210,14 +274,13 @@ const ProfileCustomer = () => {
                             <input
                               className="form-check-input"
                               type="radio"
-                              name="exampleRadios"
+                              name="customer_gender"
                               id="exampleRadios2"
-                              defaultValue="option2"
+                              value="Perempuan"
+                              checked={customer.customer_gender === "Perempuan"}
+                              onChange={handleChange}
                             />
-                            <label
-                              className="form-check-label"
-                              htmlFor="exampleRadios2"
-                            >
+                            <label className="form-check-label" htmlFor="exampleRadios2">
                               Perempuan
                             </label>
                           </div>
@@ -234,13 +297,16 @@ const ProfileCustomer = () => {
                               type="date"
                               className="form-control"
                               id="inputPassword"
-                              placeholder="Phone number"
+                              placeholder="Birth"
+                              name="customer_birth"
+                              value={customer.customer_birth}
+                              onChange={handleChange}
                               style={{ marginLeft: 50 }}
                             />
                           </div>
                         </div>
                         <button
-                          type="button"
+                          type="submit"
                           className="btn btn-danger"
                           style={{
                             marginTop: 20,
@@ -253,22 +319,29 @@ const ProfileCustomer = () => {
                         </button>
                       </form>
                     </div>
-                    <div
-                      className="col-md-3"
-                      style={{ justifyContent: "center", marginLeft: 50 }}
-                    >
+                    <div className='col-md-2' ></div>
+
+                    <div className="col-md-3">
                       <img
-                        src="../assets/img/profileFoto.png"
+                        src={customer.customer_image || defaultProfile}
                         alt=""
-                        style={{ marginLeft: 64 }}
+                        style={{ width: '60%', borderRadius: '110%', marginLeft: 13 }}
                       />
                       <button
                         type="button"
                         className="btn btn-danger"
-                        style={{ marginTop: 20, borderRadius: 25, marginLeft: 64 }}
+                        style={{ marginTop: 20, borderRadius: 25 }}
+                        onClick={handleFileInputChange}
                       >
-                        Select image
+                        Change Image
                       </button>
+                      <input
+                        type="file"
+                        name="seller_image"
+                        style={{ display: 'none' }}
+                        ref={fileInputRef}
+                        onChange={handleFileUpload}
+                      />
                     </div>
                   </div>
                 </div>
@@ -413,10 +486,10 @@ const ProfileCustomer = () => {
                             }}
                           >
                             <div className="card-body" style={{ display: "flex" }}>
-                              <img src={orderItem.product_image} style={{width:'13%'}}/>
+                              <img src={orderItem.product_image} style={{ width: '13%' }} />
                               <div style={{ marginLeft: 14 }}>
                                 <h5 className="card-title" style={{ fontWeight: "bold" }}>
-                                {orderItem.product_name}
+                                  {orderItem.product_name}
                                 </h5>
                                 {/* <p className="card-text">Zalora Cloth</p> */}
                               </div>

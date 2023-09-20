@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // import Login from './Login'
 import { Link } from 'react-router-dom'
 import ModalFilter from '../components/ModalFilter'
+import axios from 'axios'
 const blanjaIicon = require('../img/blanja.png')
 const searchIcon = require('../img/search.png')
 // const filterIcon = require('../img/filter.png')
@@ -9,7 +10,19 @@ const cart = require('../img/cart.png')
 
 const Nav = () => {
 
-  
+  let [products, setProduct] = useState([])
+  useEffect(() => {
+    // dispatch()
+    axios.get(`${process.env.REACT_APP_API_KEY}/products`)
+      .then((res) => {
+        setProduct(res.data.data);
+        console.log(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, [])
+
   return (
     <>
       <header>
@@ -17,7 +30,7 @@ const Nav = () => {
           id="home-nav "
           className="navbar fixed-top navbar-expand-lg navbar-light bg-light"
         >
-          <div className="blanja-icon" style={{marginLeft: 100}}>
+          <div className="blanja-icon" style={{ marginLeft: 100 }}>
             <Link to="/home">
               <a className="logo-blanja mr-5" href="/index.html">
                 <img
@@ -44,20 +57,30 @@ const Nav = () => {
           <div className="collapse navbar-collapse" id="navbarTogglerDemo02" sty>
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
               <li className="nav-item ml-2 form-inline row justify-content-center">
-                <input
-                  id="searchbox"
-                  className="form-control mr-sm-2"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
+                <div className='main'>
+                  <input
+                    id="searchbox"
+                    className="form-control mr-sm-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                    list='data'
+                  />
+                  <datalist id='data' style={{ width: '507px', height: '40px' }}>
+                    {/* <option>One</option>
+                    <option>Two</option>
+                    <option>Three</option>
+                    <option>Four</option> */}
+                    {products.map((item) => <Link to={`/product/${item.product_id}`}><option style={{ width: '507px', height: '40px' }}>{item.product_name}</option></Link>)}
+                  </datalist>
+                </div>
                 <img
                   className="searchLogo"
                   src={searchIcon}
                   alt=""
                   style={{ position: "absolute", marginLeft: 370 }}
                 />
-                <ModalFilter/>
+                <ModalFilter />
                 {/* <img
                   id="homeFilter"
                   className="mr-4"
@@ -74,7 +97,7 @@ const Nav = () => {
                   <img className="mr-4" src={cart} alt="cart" />
                 </Link> */}
                 <div className="btn-login-index">
-                <Link to="/login">
+                  <Link to="/login">
                     <button
                       className="btn btn-danger rounded-pill mr-2"
                       style={{ width: 100, height: 36 }}
@@ -82,8 +105,8 @@ const Nav = () => {
                     >
                       Login
                     </button>
-                </Link>
-                <Link to="/register">
+                  </Link>
+                  <Link to="/register">
                     <button
                       className="btn border rounded-pill"
                       style={{ width: 100, height: 36 }}
@@ -91,9 +114,9 @@ const Nav = () => {
                     >
                       Signup
                     </button>
-                </Link>
-              </div>
-                
+                  </Link>
+                </div>
+
               </div>
             </form>
 

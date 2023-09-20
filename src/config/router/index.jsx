@@ -14,6 +14,7 @@ import ForgotPassword from '../../pages/ForgotPassword'
 import ProfileCustomer from '../../pages/ProfileCustomer'
 import CategoryPage from '../../pages/CategoryPage'
 import Profile from '../../pages/Profile'
+import MoreProducts from '../../pages/MoreProducts'
 
 const index = () => {
     return (
@@ -23,6 +24,7 @@ const index = () => {
                 <Route path='/' element={<Navigate to='/home' replace='true' />} />
                 {/* <Route path='/home' element={<Home />} /> */}
                 <Route path="/home" element={<Auth><Home/></Auth>} />
+                <Route path='/products' element={<MoreProducts/>}/>
                 <Route path='/profile' element={<Profile/>}/>
                 <Route path='/catepage/:id' element={<CategoryPage/>}/>
                 <Route path='/profilecust' element={<ProfileCustomer/>}/>
