@@ -67,22 +67,40 @@ const MoreProducts = () => {
                     ) : (
                         <div className="row">
                             {records.map((product) => (
-                                <div className="col-md-3 col-sm-6 mb-5">
-                                    <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }}>
-                                        <div className="border rounded product">
-                                            <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} />
-                                            <div className="p-2">
-                                                <h5 className="card-title" style={{ fontWeight: 'bold' }}>
-                                                    {product.product_name}
-                                                </h5>
-                                                <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
-                                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                                    <img src={starss} crossOrigin="anonymous" style={{ width: "50%" }} />
-                                                    <p style={{ marginTop: 17, marginLeft: 10, color: 'grey', flex: 1 }}>(5)</p>
+                                <div className="col-md-3 col-sm-6 mb-5" key={product.product_id}>
+                                    {localStorage.getItem('customer_id') || localStorage.getItem('seller_id') ? (
+                                        <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }}>
+                                            <div className="border rounded product">
+                                                <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} alt={product.product_name} />
+                                                <div className="p-2">
+                                                    <h5 className="card-title" style={{ fontWeight: 'bold' }}>
+                                                        {product.product_name}
+                                                    </h5>
+                                                    <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
+                                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                        <img src={starss} crossOrigin="anonymous" style={{ width: "50%" }} />
+                                                        <p style={{ marginTop: 17, marginLeft: 10, color: 'grey', flex: 1 }}>(5)</p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </Link>
+                                        </Link>
+                                    ) : (
+                                        <Link to="/login" style={{ color: 'black', textDecoration: 'none' }}>
+                                            <div className="border rounded product">
+                                                <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} alt={product.product_name} />
+                                                <div className="p-2">
+                                                    <h5 className="card-title" style={{ fontWeight: 'bold' }}>
+                                                        {product.product_name}
+                                                    </h5>
+                                                    <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
+                                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                        <img src={starss} crossOrigin="anonymous" style={{ width: "50%" }} />
+                                                        <p style={{ marginTop: 17, marginLeft: 10, color: 'grey', flex: 1 }}>(5)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    )}
                                 </div>
                             ))}
                         </div>
