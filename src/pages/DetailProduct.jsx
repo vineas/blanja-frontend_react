@@ -253,9 +253,12 @@ const DetailProduct = () => {
                                             borderRadius: 25,
                                             width: 213,
                                             height: 48,
-                                            backgroundColor: "#DB3022",
-                                            color: "#ffffff"
+                                            backgroundColor: localStorage.getItem('customer_id') ? "#DB3022" : "#ccc",
+                                            color: "#ffffff",
+                                            marginTop:15
                                         }}
+
+                                        disabled={!localStorage.getItem('customer_id')}
                                     >
                                         Buy now
                                     </button>
@@ -339,7 +342,7 @@ const DetailProduct = () => {
                                             <div className="col-md-3 col-sm-6 mb-5" key={product.product_id}>
                                                 <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }} >
                                                     <div className="border rounded product">
-                                                    <Skeleton variant="rounded" width={'100%'} height={136} />
+                                                        <Skeleton variant="rounded" width={'100%'} height={136} />
                                                         <div className="p-2">
                                                             <Skeleton width={184} height={48} />
                                                             <Skeleton width={100} height={20} />
