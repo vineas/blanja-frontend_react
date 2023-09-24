@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Skeleton } from '@mui/material';
+
 
 // Import Swiper styles
 import 'swiper/css';
@@ -30,11 +32,13 @@ const img15 = require('../img/category/tie.png')
 const img16 = require('../img/category/watch.png')
 const Category = () => {
   let [category, setCategory] = useState([])
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     // dispatch()
     axios.get(`${process.env.REACT_APP_API_KEY}/category`)
       .then((res) => {
         setCategory(res.data.data);
+        setIsLoading(false);
         console.log(res.data.data);
       })
       .catch((err) => {
@@ -44,7 +48,19 @@ const Category = () => {
 
   return (
     <>
-      {/* {category.map((categoryItem) => ( */}
+      {isLoading ? (
+        <div className='container'>
+        <div className="row" style={{display: 'flex', justifyContent: 'center' }}>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <div className='col-md-2' style={{ marginTop: 50, display: 'flex', justifyContent: 'center' }}>
+              <div  style={{ width: 220, height: 206, display: 'flex', alignSelf: 'center' }}>
+                <Skeleton height={'130%'} width={'230%'} />
+              </div>
+            </div>
+          ))}
+        </div>
+        </div>
+      ) : (
         <div className="container" style={{ marginTop: 80 }}>
           <Swiper
             // slidesPerView={5}
@@ -80,26 +96,26 @@ const Category = () => {
             {/* ${categoryItem.category_id} */}
 
 
-            <SwiperSlide><Link to={`/catepage/1`}><img src={img1} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/2`}><img src={img2} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/3`}><img src={img3} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/4`}><img src={img4} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/5`}><img src={img5} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/6`}><img src={img6} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/7`}><img src={img7} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/8`}><img src={img8} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/9`}><img src={img9} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/10`}><img src={img10} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/11`}><img src={img11} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/12`}><img src={img12} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/13`}><img src={img13} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/14`}><img src={img14} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/15`}><img src={img15} alt="" /></Link></SwiperSlide>
-            <SwiperSlide><Link to={`/catepage/16`}><img src={img16} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/1`}><img src={img1} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/2`}><img src={img2} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/3`}><img src={img3} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/4`}><img src={img4} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/5`}><img src={img5} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/6`}><img src={img6} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/7`}><img src={img7} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/8`}><img src={img8} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/9`}><img src={img9} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/10`}><img src={img10} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/11`}><img src={img11} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/12`}><img src={img12} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/13`}><img src={img13} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/14`}><img src={img14} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/15`}><img src={img15} alt="" /></Link></SwiperSlide>
+            <SwiperSlide><Link to={`/category/16`}><img src={img16} alt="" /></Link></SwiperSlide>
 
           </Swiper>
         </div>
-      {/* // ))} */}
+      )}
     </>
   );
 }

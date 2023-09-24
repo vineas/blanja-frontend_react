@@ -26,7 +26,7 @@ const index = () => {
                 <Route path="/home" element={<Auth><Home/></Auth>} />
                 <Route path='/products' element={<MoreProducts/>}/>
                 <Route path='/profile' element={<Profile/>}/>
-                <Route path='/catepage/:id' element={<CategoryPage/>}/>
+                <Route path='/category/:id' element={<CategoryPage/>}/>
                 <Route path='/profilecust' element={<ProfileCustomer/>}/>
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/register' element={<Register/>}/>

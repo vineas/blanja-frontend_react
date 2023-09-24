@@ -1,15 +1,24 @@
 import React from 'react'
-const card1 = require ('../img/card1.png');
-const card2 = require ('../img/card2.png');
+const card1 = require('../img/card1.png');
+const card2 = require('../img/card2.png');
 
 const Carousel = () => {
     return (
         <>
-            <section className="container" style={{ marginTop: 110}}>
+            Copy code
+            <style>
+                @media (max-width: 768px) {"{"}
+                .carousel-item img {"{"}
+                max-width: 91%; height: auto; margin: 0 auto;
+                {"}"}
+                {"}"}
+            </style>
+            <section className="container" style={{ marginTop: 110 }}>
                 <div
                     id="carouselExampleInterval"
                     className="carousel slide"
                     data-ride="carousel"
+                    style={{ maxWidth: '1000px', margin: '0 auto' }}
                 >
                     <div className="carousel-inner">
                         <div className="carousel-item active" data-interval={10000}>

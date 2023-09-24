@@ -2,13 +2,18 @@ import React, { useEffect, useState } from 'react'
 import NavLogin from './NavLogin'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
+import { Skeleton } from '@mui/material';
 import { useDispatch } from 'react-redux'
 import Foot from './Foot'
 import Nav from './Nav'
-const jas = require('../img/jas.png')
+const starss = require('../img/bintang.png')
+
+
+
 const MoreProducts = () => {
 
     let [products, setProduct] = useState([])
+    const [isLoading, setIsLoading] = useState(true);
     const dispatch = useDispatch()
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 8;
@@ -24,6 +29,7 @@ const MoreProducts = () => {
         axios.get(`${process.env.REACT_APP_API_KEY}/products`)
             .then((res) => {
                 setProduct(res.data.data);
+                setIsLoading(false);
                 console.log(res.data.data);
             })
             .catch((err) => {
@@ -34,45 +40,69 @@ const MoreProducts = () => {
     const loginTrue = localStorage.getItem("token");
     return (
         <>
-            {!loginTrue ? <Nav/> : <NavLogin />}
+            {!loginTrue ? <Nav /> : <NavLogin />}
             <section className="container" style={{ marginTop: 90 }}>
                 <h2 className="ml-3">Popular</h2>
                 <p className="ml-3">Find clothes that are trending recently</p>
                 <div className="container mt-5">
-                    <div className="row">
-                        {records.map((product) => (
-                            <div className="col-md-3 col-sm-6 mb-5">
-                                <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }}>
-                                    <div className="border rounded product">
-                                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} />
+                    {isLoading ? (
+                        <div className="row">
+                            {Array.from({ length: 8 }).map((_, index) => (
+                                <div
+                                    className="col-lg-3 col-md-4 col-sm-6 col-6 mb-4"
+                                    key={index}
+                                    style={{ width: 222 }}
+                                >
+                                    <div className="border rounded product" style={{ height: 340 }}>
+                                        <Skeleton height={196} />
                                         <div className="p-2">
-                                            <h5 className="card-title" style={{ fontWeight: 'bold' }}>
-                                                {product.product_name}
-                                            </h5>
-                                            <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
-                                            <h6 className="text-warning">⭐⭐⭐⭐⭐</h6>
+                                            <Skeleton width={184} height={48} />
+                                            <Skeleton width={100} height={20} />
+                                            <Skeleton width={120} height={16} />
                                         </div>
                                     </div>
-                                </Link>
-                            </div>
-                        ))}
-                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="row">
+                            {records.map((product) => (
+                                <div className="col-md-3 col-sm-6 mb-5">
+                                    <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }}>
+                                        <div className="border rounded product">
+                                            <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} />
+                                            <div className="p-2">
+                                                <h5 className="card-title" style={{ fontWeight: 'bold' }}>
+                                                    {product.product_name}
+                                                </h5>
+                                                <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
+                                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                    <img src={starss} crossOrigin="anonymous" style={{ width: "50%" }} />
+                                                    <p style={{ marginTop: 17, marginLeft: 10, color: 'grey', flex: 1 }}>(5)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                     <nav style={{ display: 'flex', justifyContent: 'center' }}>
                         <ul className='pagination'>
                             <li className='page-item'>
-                                <a href="#" className='page-link'
+                                <a href="#" className='page-link' style={{ color: 'red' }}
                                     onClick={prePage}>Prev</a>
                             </li>
                             {
                                 numbers.map((n, i) => (
-                                    <li className={`page-item${currentPage === n ? 'active' : ''}`} key={i}>
-                                        <a href="#" className='page-link'
+                                    <li className={`page-item`} key={i}>
+                                        <a href="#" className='page-link' style={{ color: 'red' }}
                                             onClick={() => changePage(n)} >{n}</a>
                                     </li>
                                 ))
                             }
                             <li className='page-item'>
-                                <a href="#" className='page-link'
+                                <a href="#" className='page-link' style={{ color: 'red' }}
                                     onClick={nextPage}>Next</a>
                             </li>
                         </ul>

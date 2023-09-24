@@ -7,6 +7,9 @@ import Foot from './Foot'
 import NavLogin from './NavLogin'
 import Swal from 'sweetalert2'
 import Nav from './Nav'
+import { Button } from 'react-bootstrap'
+import { Skeleton } from '@mui/material';
+import 'react-loading-skeleton/dist/skeleton.css'
 // import { useDispatch } from 'react-redux'
 // import detailProductAction from '../config/redux/actions/detailProductsAction'
 const jas = require('../img/jas.png')
@@ -20,6 +23,8 @@ const color4 = require('../img/color/red.png')
 const DetailProduct = () => {
     // const dispatch = useDispatch()
     let { id } = useParams()
+    const [isLoading, setIsLoading] = useState(true);
+    const [products, setProducts] = useState([]);
     let [product, setProduct] = useState([])
     const [totalPrice, setTotalPrice] = useState(product.product_price);
     const customerId = localStorage.getItem("customer_id");
@@ -44,31 +49,42 @@ const DetailProduct = () => {
 
     }, [])
 
+    useEffect(() => {
+        axios.get(`${process.env.REACT_APP_API_KEY}/products`)
+            .then((res) => {
+                setProducts(res.data.data);
+                setIsLoading(false);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }, [])
+
     const handleIncrement = () => {
         const newQuantity = quantity + 1;
         if (newQuantity <= product.product_stock) {
-          setQuantity(newQuantity);
-          setData({
-            ...data,
-            order_quantity: newQuantity,
-          });
-          setTotalPrice(newQuantity * product.product_price);
+            setQuantity(newQuantity);
+            setData({
+                ...data,
+                order_quantity: newQuantity,
+            });
+            setTotalPrice(newQuantity * product.product_price);
         } else {
-          console.log("Stok melebihi batas.");
+            console.log("Stok melebihi batas.");
         }
-      };
+    };
 
-      const handleDecrement = () => {
+    const handleDecrement = () => {
         if (quantity > 1) {
-          const newQuantity = quantity - 1;
-          setQuantity(newQuantity);
-          setData({
-            ...data,
-            order_quantity: newQuantity,
-          });
-          setTotalPrice(newQuantity * product.product_price);
+            const newQuantity = quantity - 1;
+            setQuantity(newQuantity);
+            setData({
+                ...data,
+                order_quantity: newQuantity,
+            });
+            setTotalPrice(newQuantity * product.product_price);
         }
-      };
+    };
 
     const handleChange = (e) => {
         setData({
@@ -95,7 +111,7 @@ const DetailProduct = () => {
 
     return (
         <>
-                        {!loginTrue ? <Nav/> : <NavLogin />}
+            {!loginTrue ? <Nav /> : <NavLogin />}
             <div className="container" style={{ marginTop: 90 }}>
                 <div className="keterangan-product">
                     <p>Home &gt; Product &gt; Category</p>
@@ -185,14 +201,14 @@ const DetailProduct = () => {
                                                 style={{
                                                     marginLeft: 21,
                                                     marginTop: 7,
-                                                    width: 50, 
+                                                    width: 50,
                                                     textAlign: "center"
                                                 }}
-                                            //    value={quantity}
+                                                //    value={quantity}
                                                 name="order_quantity"
                                                 value={data.order_quantity}
                                                 // onChange={handleChange}
-                                                min="0" 
+                                                min="0"
                                             />
                                             <button
                                                 style={{
@@ -316,102 +332,55 @@ const DetailProduct = () => {
                         <div className="container mt-5">
                             <h2 className="ml-3">You can also like this</h2>
                             <p className="ml-3">You've never seen before!</p>
-                            <div className="row">
-                                <div className="col-md-3 col-sm-6 mb-5">
-                                    <div>
-                                        <img className="w-100" src={jas} alt="cloth" />
-                                        <div className="p-2">
-                                            <h5 className="card-title">
-                                                Men's formal suit - Black &amp; White
-                                            </h5>
-                                            <h5 className="text-danger">$ 40.0</h5>
-                                            <img src={starss} alt="stars" />
-                                        </div>
+                            <div className="container mt-5">
+                                {isLoading ? (
+                                    <div className="row">
+                                        {products.slice(0, 4).map((product) => (
+                                            <div className="col-md-3 col-sm-6 mb-5" key={product.product_id}>
+                                                <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }} >
+                                                    <div className="border rounded product">
+                                                    <Skeleton variant="rounded" width={'100%'} height={136} />
+                                                        <div className="p-2">
+                                                            <Skeleton width={184} height={48} />
+                                                            <Skeleton width={100} height={20} />
+                                                            <Skeleton width={120} height={16} />
+                                                            <Skeleton width={100} height={16} />
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                        ))}
                                     </div>
-                                </div>
-                                <div className="col-md-3 col-sm-6 mb-5">
-                                    <div>
-                                        <img className="w-100" src={jas} alt="cloth" />
-                                        <div className="p-2">
-                                            <h5 className="card-title">
-                                                Men's formal suit - Black &amp; White
-                                            </h5>
-                                            <h5 className="text-danger">$ 40.0</h5>
-                                            <img src={starss} alt="stars" />
-                                        </div>
+                                ) : (
+                                    <div className="row">
+                                        {products.slice(0, 4).map((product) => (
+                                            <div className="col-md-3 col-sm-6 mb-5" key={product.product_id}>
+                                                <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }} >
+                                                    <div className="border rounded product">
+                                                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} alt={product.product_name} />
+                                                        <div className="p-2">
+                                                            <h5 className="card-title" style={{ fontWeight: 'bold' }}>
+                                                                {product.product_name}
+                                                            </h5>
+                                                            <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
+                                                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                                <img src={starss} crossOrigin="anonymous" style={{ width: "50%" }} />
+                                                                <p style={{ marginTop: 17, marginLeft: 10, color: 'grey', flex: 1 }}>(5)</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                        ))}
                                     </div>
-                                </div>
-                                <div className="col-md-3 col-sm-6 mb-5">
-                                    <div>
-                                        <img className="w-100" src={jas} alt="cloth" />
-                                        <div className="p-2">
-                                            <h5 className="card-title">
-                                                Men's formal suit - Black &amp; White
-                                            </h5>
-                                            <h5 className="text-danger">$ 40.0</h5>
-                                            <img src={starss} alt="stars" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-3 col-sm-6 mb-5">
-                                    <div>
-                                        <img className="w-100" src={jas} alt="cloth" />
-                                        <div className="p-2">
-                                            <h5 className="card-title">
-                                                Men's formal suit - Black &amp; White
-                                            </h5>
-                                            <h5 className="text-danger">$ 40.0</h5>
-                                            <img src={starss} alt="stars" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-3 col-sm-6 mb-5">
-                                    <div>
-                                        <img className="w-100" src={jas} alt="cloth" />
-                                        <div className="p-2">
-                                            <h5 className="card-title">
-                                                Men's formal suit - Black &amp; White
-                                            </h5>
-                                            <h5 className="text-danger">$ 40.0</h5>
-                                            <img src={starss} alt="stars" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-3 col-sm-6 mb-5">
-                                    <div>
-                                        <img className="w-100" src={jas} alt="cloth" />
-                                        <div className="p-2">
-                                            <h5 className="card-title">
-                                                Men's formal suit - Black &amp; White
-                                            </h5>
-                                            <h5 className="text-danger">$ 40.0</h5>
-                                            <img src={starss} alt="stars" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-3 col-sm-6 mb-5">
-                                    <div>
-                                        <img className="w-100" src={jas} alt="cloth" />
-                                        <div className="p-2">
-                                            <h5 className="card-title">
-                                                Men's formal suit - Black &amp; White
-                                            </h5>
-                                            <h5 className="text-danger">$ 40.0</h5>
-                                            <img src={starss} alt="stars" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-3 col-sm-6 mb-5">
-                                    <div>
-                                        <img className="w-100" src={jas} alt="cloth" />
-                                        <div className="p-2">
-                                            <h5 className="card-title">
-                                                Men's formal suit - Black &amp; White
-                                            </h5>
-                                            <h5 className="text-danger">$ 40.0</h5>
-                                            <img src={starss} alt="stars" />
-                                        </div>
-                                    </div>
+                                )}
+                                <div style={{ display: 'flex', justifyContent: 'center', }}>
+                                    <Link to={`/products`} >
+                                        <Button variant="danger" style={{ marginTop: 1, borderRadius: 10 }}>
+                                            Load more
+                                        </Button>
+                                    </Link>
+
                                 </div>
                             </div>
                         </div>

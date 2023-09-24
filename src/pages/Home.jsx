@@ -4,6 +4,7 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import Nav from './Nav'
 import Foot from './Foot'
+import { Skeleton } from '@mui/material';
 import { Link } from 'react-router-dom'
 import NavLogin from './NavLogin'
 import { useDispatch } from 'react-redux'
@@ -14,6 +15,7 @@ const starss = require('../img/bintang.png')
 
 const Home = () => {
   let [products, setProduct] = useState([])
+  const [isLoading, setIsLoading] = useState(true);
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -21,6 +23,7 @@ const Home = () => {
     axios.get(`${process.env.REACT_APP_API_KEY}/products`)
       .then((res) => {
         setProduct(res.data.data);
+        setIsLoading(false);
         console.log(res.data.data);
       })
       .catch((err) => {
@@ -36,67 +39,60 @@ const Home = () => {
         <Carousel />
         <Category />
 
-        {/* <section className="container" style={{ marginTop: 50 }}>
-          <h2 className="ml-3">New</h2>
-          <p className="ml-3">You've never seen before!</p>
-          <div className="container mt-5">
-            <div className="row">
-              {products.slice(0, 4).map((product) => ( // Menambahkan slice(0, 4) untuk membatasi hanya 4 produk
-                <div className="col-md-3 col-sm-6 mb-5" key={product.product_id}>
-                  <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }}>
-                    <div className="border rounded product">
-                      <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} alt={product.product_name} />
-                      <div className="p-2">
-                        <h5 className="card-title" style={{ fontWeight: 'bold' }}>
-                          {product.product_name}
-                        </h5>
-                        <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
-                        <h6 className="text-warning">⭐⭐⭐⭐⭐</h6>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              ))}
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'center', }}>
-              <Link to={`/products`} >
-                <Button variant="danger" style={{ marginTop: 1, borderRadius: 10 }}>
-                  Load more
-                </Button>
-              </Link>
-
-            </div>
-          </div>
-        </section> */}
         <section className="container" style={{ marginTop: 50 }}>
           <h2 className="ml-3">Popular</h2>
           <p className="ml-3">Find clothes that are trending recently</p>
           <div className="container mt-5">
-            <div className="row">
-              {products.slice(0, 4).map((product) => ( // Menambahkan slice(0, 4) untuk membatasi hanya 4 produk
-                <div className="col-md-3 col-sm-6 mb-5" key={product.product_id}>
-                  <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }}>
-                    <div className="border rounded product">
-                      <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} alt={product.product_name} />
-                      <div className="p-2">
-                        <h5 className="card-title" style={{ fontWeight: 'bold' }}>
-                          {product.product_name}
-                        </h5>
-                        <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
-                        <h6 className="text-warning">⭐⭐⭐⭐⭐</h6>
-                      </div>
+            {isLoading ? (
+              <div className="row">
+              {Array.from({ length: 4 }).map((_, index) => (
+                <div
+                  className="col-lg-3 col-md-4 col-sm-6 col-6 mb-4"
+                  key={index}
+                  style={{ width: 222 }}
+                >
+                  <div className="border rounded product"  style={{ height: 340 }}>
+                    <Skeleton height={196}/>
+                    <div className="p-2">
+                      <Skeleton width={184} height={48} />
+                      <Skeleton width={100} height={20} />
+                      <Skeleton width={120} height={16} />
                     </div>
-                  </Link>
+                  </div>
                 </div>
               ))}
             </div>
+            ) : (
+              <div className="row">
+                {products.slice(0, 4).map((product) => (
+                  <div className="col-md-3 col-sm-6 mb-5" key={product.product_id}>
+                    <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }}>
+                      <div className="border rounded product">
+
+                        <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} alt={product.product_name} />
+
+                        <div className="p-2">
+                          <h5 className="card-title" style={{ fontWeight: 'bold' }}>
+                            {product.product_name}
+                          </h5>
+                          <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
+                          <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <img src={starss} crossOrigin="anonymous" style={{ width: "50%" }} />
+                            <p style={{ marginTop: 17, marginLeft: 10, color: 'grey', flex: 1 }}>(5)</p>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            )}
             <div style={{ display: 'flex', justifyContent: 'center', }}>
               <Link to={`/products`} >
                 <Button variant="danger" style={{ marginTop: 1, borderRadius: 10 }}>
                   Load more
                 </Button>
               </Link>
-
             </div>
           </div>
         </section>
