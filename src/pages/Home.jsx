@@ -69,7 +69,7 @@ const Home = () => {
                     {localStorage.getItem('customer_id') || localStorage.getItem('seller_id') ? (
                       <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }}>
                         <div className="border" style={{ boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff", borderRadius: 20 }}>
-                          <img src={product.product_image} crossOrigin="anonymous" style={{ maxWidth: "100%", height: "auto", borderRadius: 20 }} alt={product.product_name} />
+                          <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%", height: "auto", borderRadius: 20 }} alt={product.product_name} />
                           <div className="p-2">
                             <h5 className="card-title" style={{ fontWeight: 'bold' }}>
                               {product.product_name}
@@ -86,7 +86,7 @@ const Home = () => {
                     ) : (
                       <Link to="/login" style={{ color: 'black', textDecoration: 'none' }}>
                         <div className="border" style={{ boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff", borderRadius: 20 }}>
-                        <img src={product.product_image} crossOrigin="anonymous" style={{ maxWidth: "100%",height: "auto",  borderRadius: 20 }} alt={product.product_name} />
+                          <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%", height: "auto", borderRadius: 20 }} alt={product.product_name} />
                           <div className="p-2">
                             <h5 className="card-title" style={{ fontWeight: 'bold' }}>
                               {product.product_name}
