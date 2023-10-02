@@ -26,6 +26,15 @@ const CategoryPage = () => {
     const loginTrue = localStorage.getItem("token");
     return (
         <>
+            <style>
+                <>
+                    @media (max-width: 767px) {"{"}
+                    .col-sm-6 {"{"}
+                    flex: 0 0 50%; max-width: 50%;
+                    {"}"}
+                    {"}"}
+                </>
+            </style>
             {!loginTrue ? <Nav /> : <NavLogin />}
 
             <div className="container">
@@ -67,7 +76,7 @@ const CategoryPage = () => {
                         <div className="row">
                             {category.map((categoryItems) => (
                                 <div className="col-md-3 col-sm-6 mb-5">
-                                    <div className="border" style={{boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff", borderRadius:20}}>
+                                    <div className="border" style={{ boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff", borderRadius: 20 }}>
                                         <img className="w-100" src={categoryItems.product_image} alt="Product" />
                                         <div className="p-2">
                                             <h5 className="card-title">

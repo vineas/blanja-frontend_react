@@ -34,6 +34,15 @@ const Home = () => {
   const loginTrue = localStorage.getItem("token");
   return (
     <>
+      <style>
+        <>
+          @media (max-width: 767px) {"{"}
+          .col-sm-6 {"{"}
+          flex: 0 0 50%; max-width: 50%;
+          {"}"}
+          {"}"}
+        </>
+      </style>
       {!loginTrue ? <Nav /> : <NavLogin />}
       <main className='mt-90'>
         <Carousel />
@@ -81,7 +90,6 @@ const Home = () => {
                             </div>
                           </div>
                         </div>
-
                       </Link>
                     ) : (
                       <Link to="/login" style={{ color: 'black', textDecoration: 'none' }}>
