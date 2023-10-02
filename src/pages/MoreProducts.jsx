@@ -70,8 +70,8 @@ const MoreProducts = () => {
                                 <div className="col-md-3 col-sm-6 mb-5" key={product.product_id}>
                                     {localStorage.getItem('customer_id') || localStorage.getItem('seller_id') ? (
                                         <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }}>
-                                            <div className="border rounded product">
-                                                <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} alt={product.product_name} />
+                                            <div className="border" style={{ boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff", borderRadius: 20 }}>
+                                                <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%", borderRadius: 20 }} alt={product.product_name} />
                                                 <div className="p-2">
                                                     <h5 className="card-title" style={{ fontWeight: 'bold' }}>
                                                         {product.product_name}
@@ -86,8 +86,8 @@ const MoreProducts = () => {
                                         </Link>
                                     ) : (
                                         <Link to="/login" style={{ color: 'black', textDecoration: 'none' }}>
-                                            <div className="border rounded product">
-                                                <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} alt={product.product_name} />
+                                            <div className="border" style={{ boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff", borderRadius: 20 }}>
+                                                <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%", borderRadius: 20 }} alt={product.product_name} />
                                                 <div className="p-2">
                                                     <h5 className="card-title" style={{ fontWeight: 'bold' }}>
                                                         {product.product_name}

@@ -68,24 +68,25 @@ const Home = () => {
                   <div className="col-md-3 col-sm-6 mb-5" key={product.product_id}>
                     {localStorage.getItem('customer_id') || localStorage.getItem('seller_id') ? (
                       <Link to={`/product/${product.product_id}`} style={{ color: 'black', textDecoration: 'none' }}>
-                        <div className="border rounded product">
-                          <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} alt={product.product_name} />
+                        <div className="border" style={{ boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff", borderRadius: 20 }}>
+                          <img src={product.product_image} crossOrigin="anonymous" style={{ maxWidth: "100%", height: "auto", borderRadius: 20 }} alt={product.product_name} />
                           <div className="p-2">
                             <h5 className="card-title" style={{ fontWeight: 'bold' }}>
                               {product.product_name}
                             </h5>
                             <h5 className="text-danger">IDR {product && product.product_price ? product.product_price.toLocaleString() : 'N/A'}</h5>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                              <img src={starss} crossOrigin="anonymous" style={{ width: "50%" }} />
+                              <img src={starss} crossOrigin="anonymous" style={{ width: "50%" }} alt="Stars" />
                               <p style={{ marginTop: 17, marginLeft: 10, color: 'grey', flex: 1 }}>(5)</p>
                             </div>
                           </div>
                         </div>
+
                       </Link>
                     ) : (
                       <Link to="/login" style={{ color: 'black', textDecoration: 'none' }}>
-                        <div className="border rounded product">
-                          <img src={product.product_image} crossOrigin="anonymous" style={{ width: "100%" }} alt={product.product_name} />
+                        <div className="border" style={{ boxShadow: "0px 0px 10px #29292940, 0px 0px 25px #fff", borderRadius: 20 }}>
+                        <img src={product.product_image} crossOrigin="anonymous" style={{ maxWidth: "100%",height: "auto",  borderRadius: 20 }} alt={product.product_name} />
                           <div className="p-2">
                             <h5 className="card-title" style={{ fontWeight: 'bold' }}>
                               {product.product_name}
